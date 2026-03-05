@@ -10,12 +10,19 @@ export default function AdminIssues() {
   }, []);
 
   async function fetchIssues() {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("issues")
-      .select("id, title, description, status, created_at")
+      .select(`
+        *,
+        properties(title)
+      `)
       .order("created_at", { ascending: false });
 
-    setIssues(data || []);
+    if (error) {
+      console.log(error);
+    } else {
+      setIssues(data);
+    }
   }
 
   return (
@@ -30,6 +37,7 @@ export default function AdminIssues() {
             <tr>
               <th>Title</th>
               <th>Description</th>
+              <th>Property</th>
               <th>Status</th>
               <th>Date</th>
             </tr>
@@ -39,6 +47,7 @@ export default function AdminIssues() {
               <tr key={issue.id}>
                 <td>{issue.title}</td>
                 <td>{issue.description}</td>
+                <td>{issue.properties?.title || "N/A"}</td>
                 <td>{issue.status}</td>
                 <td>{new Date(issue.created_at).toLocaleDateString()}</td>
               </tr>

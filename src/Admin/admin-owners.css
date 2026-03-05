@@ -1,0 +1,128 @@
+/* PAGE LAYOUT */
+
+.admin-owners {
+  padding: 40px;
+  max-width: 1100px;
+  margin: auto;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* HEADINGS */
+
+.admin-owners h2 {
+  margin-bottom: 20px;
+  color: #222;
+  font-weight: 600;
+}
+
+/* FORM CONTAINER */
+
+.admin-owners form {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  margin-bottom: 40px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+/* INPUTS */
+
+.admin-owners input,
+.admin-owners select {
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.admin-owners input:focus,
+.admin-owners select:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+/* BUTTON */
+
+.admin-owners form button {
+  grid-column: span 2;
+  padding: 12px;
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.admin-owners form button:hover {
+  background: #1e4fd1;
+}
+
+/* TABLE */
+
+.owner-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+/* TABLE HEADER */
+
+.owner-table thead {
+  background: #2563eb;
+  color: white;
+}
+
+.owner-table th {
+  padding: 14px;
+  text-align: left;
+  font-size: 14px;
+}
+
+/* TABLE BODY */
+
+.owner-table td {
+  padding: 14px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+/* ROW HOVER */
+
+.owner-table tbody tr:hover {
+  background: #f9fbff;
+}
+
+/* DELETE BUTTON */
+
+.delete-btn {
+  padding: 8px 14px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.delete-btn:hover {
+  background: #d93636;
+}
+
+/* OWNER LIST TITLE */
+
+.owner-list-title {
+  margin-bottom: 15px;
+  margin-top: 30px;
+  font-size: 20px;
+  color: #333;
+}

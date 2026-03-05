@@ -1,72 +1,76 @@
-/* Page Background */
-.admin-contacts-page {
+/* Page Layout */
+.admin-contacts {
+  padding: 50px 30px;
+  background: linear-gradient(135deg, #f5f7fb, #eef2f7);
   min-height: 100vh;
-  padding: 60px 20px;
-  background: linear-gradient(135deg, #f4f6f9, #eef2f7);
-  font-family: "Segoe UI", sans-serif;
 }
 
-/* Container */
-.admin-contacts-container {
-  max-width: 1000px;
-  margin: auto;
-}
-
-/* Heading */
-.admin-contacts-container h2 {
+/* Title */
+.admin-contacts h2 {
   font-size: 28px;
+  font-weight: 700;
   margin-bottom: 30px;
-  color: #1e293b;
-  text-align: center;
+  color: #1a1a1a;
 }
 
-/* Empty State */
+/* Empty Message */
 .no-messages {
-  text-align: center;
-  color: #64748b;
   font-size: 16px;
-  margin-top: 40px;
+  color: #777;
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-/* Contact Card */
-.contact-card {
+/* Messages Grid */
+.messages-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+/* Message Card */
+.message-card {
   background: #ffffff;
   padding: 22px;
   border-radius: 12px;
-  margin-bottom: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-left: 5px solid #4a6cf7;
 }
 
-.contact-card:hover {
+/* Hover Effect */
+.message-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.12);
 }
 
 /* Name */
-.contact-card h4 {
-  margin-bottom: 6px;
+.message-card h4 {
   font-size: 18px;
-  color: #0f172a;
+  margin-bottom: 6px;
+  color: #222;
 }
 
 /* Email */
-.contact-email {
+.message-email {
   font-size: 14px;
-  color: #2563eb;
-  margin-bottom: 12px;
+  color: #4a6cf7;
+  margin-bottom: 10px;
 }
 
-/* Message */
-.contact-message {
+/* Message Text */
+.message-text {
   font-size: 15px;
-  color: #334155;
-  line-height: 1.6;
+  line-height: 1.5;
+  color: #444;
   margin-bottom: 12px;
 }
 
 /* Date */
-.contact-date {
+.message-date {
   font-size: 12px;
-  color: #94a3b8;
+  color: #888;
 }

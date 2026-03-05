@@ -1,197 +1,134 @@
-/* ============================= */
-/* TENANT LAYOUT                */
-/* ============================= */
-
-.tenant-layout {
+/* Page layout */
+.tenant-dashboard {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa, #eef1f6);
+  background: #f5f7fb;
   padding: 40px 20px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
-.tenant-container {
+/* Title */
+.dashboard-title {
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 35px;
+  color: #1f2937;
+}
+
+/* Container */
+.property-container {
   width: 100%;
-  max-width: 1100px;
-}
-
-.tenant-title {
-  font-size: 28px;
-  font-weight: 600;
-  color: #b11212;
-  margin-bottom: 30px;
-}
-
-
-/* ============================= */
-/* TENANT CARD GRID             */
-/* ============================= */
-
-.tenant-grid {
+  max-width: 1000px;
   display: flex;
-  justify-content: center;
-  width: 100%;
+  flex-direction: column;
+  gap: 30px;
 }
 
-
-/* ============================= */
-/* TENANT CARD                  */
-/* ============================= */
-
-.tenant-card {
-  width: 500px;
-  background: #ffffff;
-  border-radius: 16px;
+/* Property card */
+.property-card {
+  display: flex;
+  flex-wrap: wrap;
+  background: white;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
-.tenant-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
-}
-
-
-/* ============================= */
-/* IMAGE SECTION                */
-/* ============================= */
-
-.tenant-image-wrapper {
-  position: relative;
+/* Image section */
+.property-image {
+  width: 320px;
   height: 220px;
-  overflow: hidden;
-}
-
-.tenant-image-wrapper img {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
-.tenant-badge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background: #b11212;
-  color: #fff;
-  font-size: 12px;
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-weight: 600;
-}
-
-.tenant-price {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: #111;
-  color: #fff;
-  font-size: 13px;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-weight: 500;
-}
-
-
-/* ============================= */
-/* CONTENT SECTION              */
-/* ============================= */
-
-.tenant-content {
+/* Property details */
+.property-details {
+  flex: 1;
   padding: 20px;
+  min-width: 250px;
 }
 
-.tenant-content h1{
-  margin-bottom: 10px;
-  padding: 20px;
-  color: #b11212;
+.property-details h3 {
+  font-size: 22px;
+  margin-bottom: 8px;
 }
 
-.tenant-content h3 {
+.property-address {
+  color: #6b7280;
   margin-bottom: 6px;
+}
+
+.property-price {
   font-size: 18px;
   font-weight: 600;
-  color: #333;
+  color: #16a34a;
+  margin-bottom: 6px;
 }
 
-.tenant-location {
-  color: #777;
+.property-status {
   font-size: 14px;
-  margin-bottom: 14px;
+  color: #4b5563;
+  margin-bottom: 10px;
 }
 
-.tenant-info {
-  display: flex;
-  gap: 18px;
-  margin-bottom: 16px;
-  font-size: 14px;
-  color: #444;
+.property-description {
+  color: #374151;
+  line-height: 1.5;
 }
 
-.tenant-info span {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.tenant-lease {
-  background: #f8f9fb;
-  padding: 10px 12px;
-  border-radius: 10px;
-  font-size: 13px;
-  margin-bottom: 16px;
-  color: #555;
-}
-
-
-/* ============================= */
-/* REPORT SECTION               */
-/* ============================= */
-
-.tenant-report-section {
-  margin-top: 20px;
-}
-
-.tenant-report-btn {
-  background: #b11212;
-  color: white;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.tenant-report-btn:hover {
-  background: #8f0f0f;
-}
-
-.tenant-report-form {
-  margin-top: 20px;
+/* Issue form */
+.issue-form {
+  width: 100%;
+  border-top: 1px solid #e5e7eb;
+  padding: 20px;
+  background: #fafafa;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.tenant-report-form input,
-.tenant-report-form textarea {
+.issue-form h4 {
+  font-size: 18px;
+}
+
+.issue-form input,
+.issue-form textarea {
   padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
   font-size: 14px;
 }
 
-.tenant-submit-btn {
-  background: #111;
-  color: #fff;
-  border: none;
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
+.issue-form textarea {
+  min-height: 90px;
 }
 
-.tenant-submit-btn:hover {
-  background: #333;
-} 
+.issue-form button {
+  width: 150px;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+.issue-form button:hover {
+  background: #1d4ed8;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+
+  .property-card {
+    flex-direction: column;
+  }
+
+  .property-image {
+    width: 100%;
+    height: 220px;
+  }
+
+}

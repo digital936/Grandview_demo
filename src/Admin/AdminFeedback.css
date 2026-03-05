@@ -7,6 +7,8 @@
 .admin-feedback-container {
   max-width: 1000px;
   margin: auto;
+  
+  color: brown;
 }
 
 .feedback-list {
@@ -15,6 +17,7 @@
 }
 
 .feedback-card {
+  color: black;
   background: white;
   padding: 20px;
   border-radius: 10px;
@@ -28,4 +31,21 @@
 .message {
   margin: 10px 0;
   color: #444;
+}
+
+/* Delete Button Style */
+.delete-btn {
+  margin-top: 12px;
+  padding: 8px 14px;
+  background-color: #e63946;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.delete-btn:hover {
+  background-color: #c1121f;
 }

@@ -1,0 +1,162 @@
+/* admin-tenants.css */
+
+/* Container */
+.admin-tenants {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px 25px;
+  background: #f9fafb;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* Headings */
+.admin-tenants h2 {
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 8px;
+}
+
+/* Form Styles */
+.admin-tenants form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.admin-tenants input,
+.admin-tenants select {
+  flex: 1 1 220px;
+  padding: 12px 15px;
+  font-size: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+  outline-offset: 2px;
+}
+
+.admin-tenants input:focus,
+.admin-tenants select:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 8px #3498dbaa;
+}
+
+/* Button */
+.admin-tenants button {
+  flex: 1 1 120px;
+  background-color: #3498db;
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+  padding: 12px 0;
+  align-self: center;
+}
+
+.admin-tenants button:hover {
+  background-color: #2980b9;
+}
+
+/* Tenant List Table */
+.tenant-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tenant-table thead {
+  background-color: #3498db;
+  color: white;
+  text-align: left;
+}
+
+.tenant-table th,
+.tenant-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid #e1e4e8;
+  font-size: 1rem;
+  vertical-align: middle;
+}
+
+.tenant-table tbody tr:hover {
+  background-color: #f1f9ff;
+  cursor: default;
+}
+
+/* Delete Button */
+.delete-btn {
+  background-color: #e74c3c;
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+
+/* Responsive adjustments */
+@media (max-width: 650px) {
+  .admin-tenants form {
+    flex-direction: column;
+  }
+
+  .admin-tenants button {
+    flex-grow: 1;
+  }
+
+  .tenant-table thead {
+    display: none;
+  }
+
+  .tenant-table, 
+  .tenant-table tbody, 
+  .tenant-table tr, 
+  .tenant-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .tenant-table tr {
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background: white;
+    padding: 15px;
+  }
+
+  .tenant-table td {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+    font-size: 0.95rem;
+  }
+
+  .tenant-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 15px;
+    width: 45%;
+    padding-left: 10px;
+    font-weight: 700;
+    text-align: left;
+    color: #555;
+  }
+}

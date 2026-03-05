@@ -21,32 +21,25 @@ export default function AdminContacts() {
   }
 
   return (
-    <section style={{ padding: "40px" }}>
-      <h2>Customer Messages</h2>
+    <section className="admin-contacts">
+  <h2>Customer Messages</h2>
 
-      {contacts.length === 0 ? (
-        <p>No messages yet.</p>
-      ) : (
-        contacts.map((item) => (
-          <div
-            key={item.id}
-            style={{
-              background: "#fff",
-              padding: "20px",
-              marginBottom: "15px",
-              borderRadius: "8px",
-              boxShadow: "0 4px 10px rgba(0,0,0,0.08)"
-            }}
-          >
-            <h4>{item.name}</h4>
-            <p><strong>Email:</strong> {item.email}</p>
-            <p>{item.message}</p>
-            <small>
-              {new Date(item.created_at).toLocaleString()}
-            </small>
-          </div>
-        ))
-      )}
-    </section>
+  {contacts.length === 0 ? (
+    <p className="no-messages">No messages yet.</p>
+  ) : (
+    <div className="messages-container">
+      {contacts.map((item) => (
+        <div key={item.id} className="message-card">
+          <h4>{item.name}</h4>
+          <p className="message-email">{item.email}</p>
+          <p className="message-text">{item.message}</p>
+          <small className="message-date">
+            {new Date(item.created_at).toLocaleString()}
+          </small>
+        </div>
+      ))}
+    </div>
+  )}
+</section>
   );
 }

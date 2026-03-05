@@ -1,129 +1,99 @@
-/* ===== PAGE WRAPPER ===== */
-.admin-wrapper {
-  padding: 50px 20px;
-  background: #f4f6f9;
-  min-height: 100vh;
+.admin-wrapper{
+padding:40px;
+background:#f5f7fb;
+min-height:100vh;
 }
 
-.admin-container {
-  max-width: 1100px;
-  margin: auto;
+.admin-title{
+font-size:28px;
+font-weight:700;
+margin-bottom:25px;
 }
 
-.admin-title {
-  font-size: 28px;
-  font-weight: 600;
-  margin-bottom: 30px;
-  color: #1a1a1a;
+/* Table */
+
+.tour-table{
+width:100%;
+border-collapse:collapse;
+background:white;
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 6px 20px rgba(0,0,0,0.08);
 }
 
-/* ===== REQUEST CARD ===== */
-.request-card {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 25px;
-  margin-bottom: 20px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
-  transition: 0.3s ease;
+.tour-table th{
+background:#1f2937;
+color:white;
+padding:14px;
+text-align:left;
+font-weight:600;
 }
 
-.request-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+.tour-table td{
+padding:14px;
+border-bottom:1px solid #e5e7eb;
 }
 
-/* ===== CARD HEADER ===== */
-.request-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
+.tour-table tr:hover{
+background:#f9fafb;
 }
 
-.request-name {
-  font-size: 18px;
-  font-weight: 600;
-  color: #222;
+/* Status */
+
+.status-approved{
+background:#dcfce7;
+color:#166534;
+padding:4px 10px;
+border-radius:6px;
+font-size:13px;
 }
 
-/* ===== STATUS BADGE ===== */
-.status-badge {
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 500;
-  text-transform: uppercase;
+.status-pending{
+background:#fef3c7;
+color:#92400e;
+padding:4px 10px;
+border-radius:6px;
+font-size:13px;
 }
 
-.status-pending {
-  background: #fff3cd;
-  color: #856404;
+/* Buttons */
+
+.approve-btn{
+background:#2563eb;
+color:white;
+border:none;
+padding:7px 12px;
+border-radius:6px;
+cursor:pointer;
+margin-right:6px;
 }
 
-.status-approved {
-  background: #d4edda;
-  color: #155724;
+.approve-btn:hover{
+background:#1d4ed8;
 }
 
-/* ===== DETAILS ===== */
-.request-details p {
-  margin: 5px 0;
-  font-size: 14px;
-  color: #0f0f0f;
+.delete-btn{
+background:#ef4444;
+color:white;
+border:none;
+padding:7px 12px;
+border-radius:6px;
+cursor:pointer;
 }
 
-/* ===== APPROVE BUTTON ===== */
-.approve-btn {
-  margin-top: 15px;
-  padding: 10px 18px;
-  background: #c0392b;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: 0.3s ease;
+.delete-btn:hover{
+background:#dc2626;
 }
 
-.approve-btn:hover {
-  background: #a93226;
+.view-license-btn{
+background:#10b981;
+color:white;
+padding:6px 12px;
+border-radius:6px;
+text-decoration:none;
+font-size:14px;
 }
 
-.license-section {
-  margin-top: 15px;
-}
-
-.view-license-btn {
-  display: inline-block;
-  padding: 6px 12px;
-  background: #0f172a;
-  color: white;
-  border-radius: 6px;
-  text-decoration: none;
-  font-size: 13px;
-  margin-bottom: 10px;
-}
-
-.view-license-btn:hover {
-  background: #1e293b;
-}
-
-.license-preview {
-  width: 100%;
-  max-width: 300px;
-  margin-top: 10px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  color: #222;
-}
-
-.license-preview {
-  margin-top: 12px;
-}
-
-.license-image {
-  width: 220px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  margin-top: 6px;
+.view-license-btn:hover{
+background:#059669;
 }

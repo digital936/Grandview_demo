@@ -1,41 +1,3 @@
-
-
-// const HeroSection = () => {
-//   return (
-//     <section className="hero">
-
-//       {/* TOP HERO AREA */}
-//       <div className="overlay">
-//         <h1>Find Your Dream Home with Grandview Realty</h1>
-//         <p>Premium properties. Trusted guidance. Exceptional service.</p>
-
-//         <div className="search-box">
-//           <input type="text" placeholder="Search city or locality" />
-//           <select>
-//             <option>Buy</option>
-//             <option>Rent</option>
-//           </select>
-//           <select>
-//             <option>Town Home</option>
-//             <option>Single Family House</option>
-//           </select>
-//           <button>Search</button>
-//         </div>
-//       </div>
-
-      
-
-//     </section>
-
-    
-//   );
-// };
-
-// export default HeroSection;
-
-
-
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -47,9 +9,13 @@ const HeroSection = () => {
   const [propertyType, setPropertyType] = useState("");
 
   const handleSearch = () => {
-    navigate(
-      `/search?city=${city}&category=${category}&type=${propertyType}`
-    );
+    let url = `/search?city=${city}&category=${category}`;
+
+    if (propertyType && propertyType.trim() !== "") {
+      url += `&type=${propertyType}`;
+    }
+
+    navigate(url);
   };
 
   return (
@@ -78,13 +44,11 @@ const HeroSection = () => {
             value={propertyType}
             onChange={(e) => setPropertyType(e.target.value)}
           >
-            {/* <option value="">All Types</option> */}
+            <option value="">All Types</option>
             <option value="Town Home">Town Home</option>
             <option value="Single Family House">
               Single Family House
             </option>
-            {/* <option value="Apartment">Apartment</option>
-            <option value="Villa">Villa</option> */}
           </select>
 
           <button onClick={handleSearch}>

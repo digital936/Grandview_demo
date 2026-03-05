@@ -19,6 +19,8 @@ import TenantDashboard from "./Tenant/TenantDashboard";
 import OwnerDashboard from "./Owner/OwnerDashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import AdminTenants from "./Admin/AdminTenants";
+import AdminOwners from "./Admin/AdminOwners";
 
 
 
@@ -48,9 +50,11 @@ function App() {
         <Route path="/admin/contacts" element={<AdminContacts />} />
         <Route path="/admin/issues" element={<AdminIssues />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/admin/tenants" element={<AdminTenants />} />
+        <Route path="/admin/owners" element={<AdminOwners />} />
 
         <Route path="/tenant-dashboard" element={<TenantDashboard />} />
-        <Route path="/owner" element={<OwnerDashboard />} />
+        <Route path="/owner-dashboard" element={<OwnerDashboard />} />
         <Route path="/login" element={<Login />} />
 
       </Routes>

@@ -212,3 +212,39 @@
     width: 90%;
   }
 }
+
+/* Time Select Dropdown */
+.tour-box select {
+  width: 100%;
+  padding: 12px 14px;
+  /* margin-top: 10px; */
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid #dcdcdc;
+  font-size: 15px;
+  background-color: #fff;
+  color: #333;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Hover effect */
+.tour-box select:hover {
+  border-color: #999;
+}
+
+/* Focus effect */
+.tour-box select:focus {
+  border-color: #0077ff;
+  box-shadow: 0 0 0 2px rgba(0, 119, 255, 0.15);
+}
+
+/* Dropdown arrow styling */
+.tour-box select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23666' height='20' viewBox='0 0 20 20' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M5 7l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+}
