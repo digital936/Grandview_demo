@@ -30,7 +30,7 @@ import AdminOwners from "./Admin/AdminOwners";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/Grandview_demo">
       <Navbar />
       
       <Routes>
