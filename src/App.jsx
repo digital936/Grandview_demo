@@ -30,7 +30,7 @@ import AdminOwners from "./Admin/AdminOwners";
 
 function App() {
   return (
-    <BrowserRouter basename="/">
+    <BrowserRouter>
       <Navbar />
       
       <Routes>
