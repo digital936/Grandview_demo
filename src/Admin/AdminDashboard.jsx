@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "../Admin/AdminDashboard.css";
+import "../Admin/adminDashboard.css";
 import { supabase } from "../lib/supabase";
 
 const rentProperty = async (propertyId, tenantData) => {
