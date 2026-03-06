@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import AboutUs from "./pages/AboutUs";
@@ -30,7 +30,7 @@ import AdminOwners from "./Admin/AdminOwners";
 
 function App() {
   return (
-    <HashRouter basename="/Grandview_demo">
+    <BrowserRouter basename="/Grandview_demo">
       <Navbar />
       
       <Routes>
@@ -60,7 +60,7 @@ function App() {
       </Routes>
 
       
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
