@@ -6,7 +6,7 @@ import PostPropertySection from "../components/PostPropertySection";
 import TopCities from "../components/TopCities";
 import BenefitsSection from "../components/BenefitsSection";
 import Footer from "../components/Footer";
-import PropertyList from "../components/PropertyList"; // ✅ Imported correctly
+
 
 const Home = () => {
   return (
@@ -16,8 +16,8 @@ const Home = () => {
       <RentAHome />
       <NewlyLaunched />
 
-      {/* ✅ Property data from MySQL will show here */}
-      <PropertyList />
+      
+      
 
       <PostPropertySection />
       <TopCities />
