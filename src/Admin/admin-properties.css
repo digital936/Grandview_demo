@@ -307,9 +307,9 @@
     font-size: 12px;
   }
 }
-  cursor: pointer;
+  /* cursor: pointer;
   transition: 0.3s ease;
-}
+} */
 
 .cancel-btn:hover {
   background-color: #cbd5e1;
