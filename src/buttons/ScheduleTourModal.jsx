@@ -433,6 +433,8 @@ export default function ScheduleTourModal({ propertyId }) {
               <label htmlFor="privacy">
                 I agree to the Privacy Policy and allow my information to be used
                 for scheduling the property tour.
+                <br />
+                <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy & Policy</a>
               </label>
             </div>
 

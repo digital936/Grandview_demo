@@ -21,6 +21,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AdminTenants from "./Admin/AdminTenants";
 import AdminOwners from "./Admin/AdminOwners";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 
 
@@ -56,6 +57,7 @@ function App() {
         <Route path="/tenant-dashboard" element={<TenantDashboard />} />
         <Route path="/owner-dashboard" element={<OwnerDashboard />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
       </Routes>
 
