@@ -11,6 +11,7 @@
   color: #8c8c8c;
   margin-bottom: 10px;
   font-weight: 600;
+  text-transform: uppercase;
 }
 
 .main-title {
@@ -18,6 +19,7 @@
   font-weight: 700;
   color: #1a1a1a;
   margin-bottom: 60px;
+  line-height: 1.3;
 }
 
 /* GRID STRUCTURE */
@@ -64,6 +66,7 @@
   height: 230px;
   object-fit: cover;
   transition: transform 0.5s ease;
+  display: block;
 }
 
 .city-item:hover img {
@@ -92,6 +95,7 @@
 .city-info h3 {
   font-size: 20px;
   margin-bottom: 5px;
+  font-weight: 700;
 }
 
 .city-info p {
@@ -99,13 +103,129 @@
   color: #ddd;
 }
 
-/* Mobile */
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+  .top-cities {
+    padding: 70px 6%;
+  }
+
+  .main-title {
+    font-size: 32px;
+    margin-bottom: 50px;
+  }
+
+  .cities-grid {
+    gap: 25px;
+  }
+
+  .city-item img {
+    height: 200px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .top-cities {
+    padding: 60px 5%;
+  }
+
+  .main-title {
+    font-size: 28px;
+    margin-bottom: 45px;
+  }
+
+  .cities-grid {
+    gap: 20px;
+  }
+
+  .city-item img {
+    height: 180px;
+  }
+
+  .city-info h3 {
+    font-size: 18px;
+  }
+}
+
 @media (max-width: 768px) {
+  .top-cities {
+    padding: 50px 4%;
+  }
+
+  .main-title {
+    font-size: 24px;
+    margin-bottom: 35px;
+  }
+
   .cities-grid {
     grid-template-columns: 1fr;
+    gap: 15px;
   }
 
   .city-item {
     grid-column: auto !important;
+  }
+
+  .city-item img {
+    height: 200px;
+  }
+
+  .city-info {
+    bottom: 15px;
+    left: 15px;
+  }
+
+  .city-info h3 {
+    font-size: 16px;
+  }
+
+  .city-info p {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-cities {
+    padding: 40px 3%;
+  }
+
+  .small-title {
+    font-size: 11px;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  .main-title {
+    font-size: 20px;
+    margin-bottom: 25px;
+  }
+
+  .cities-grid {
+    gap: 12px;
+  }
+
+  .city-item {
+    border-radius: 12px;
+  }
+
+  .city-item img {
+    height: 150px;
+  }
+
+  .city-item::after {
+    height: 50%;
+  }
+
+  .city-info {
+    bottom: 12px;
+    left: 12px;
+  }
+
+  .city-info h3 {
+    font-size: 14px;
+    margin-bottom: 3px;
+  }
+
+  .city-info p {
+    font-size: 11px;
   }
 }

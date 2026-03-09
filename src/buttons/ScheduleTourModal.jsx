@@ -1,10 +1,10 @@
 
-
 // import { useState } from "react";
 // import { supabase } from "../lib/supabase";
 // import "../buttons/ScheduleTour.css";
 
 // export default function ScheduleTourModal({ propertyId }) {
+
 //   const [showForm, setShowForm] = useState(false);
 
 //   const [formData, setFormData] = useState({
@@ -16,30 +16,27 @@
 //     licenseFile: null,
 //   });
 
-//   const formatDate = (dateValue) => {
-//     const date = new Date(dateValue);
-//     return date.toLocaleDateString("en-US"); // MM/DD/YYYY
-//   };
-
-//   const formatTime = (timeValue) => {
-//     const [hour, minute] = timeValue.split(":");
-//     const date = new Date();
-//     date.setHours(hour);
-//     date.setMinutes(minute);
-
-//     return date.toLocaleTimeString("en-US", {
-//       hour: "numeric",
-//       minute: "numeric",
-//       hour12: true,
-//     }); // 12-hour with AM/PM
-//   };
-
 //   const handleSubmit = async () => {
+
 //     if (!formData.licenseFile) {
 //       alert("Please upload driving license photo");
 //       return;
 //     }
 
+//     // 🔹 Step 1: Check if request already exists
+//     const { data: existingRequest } = await supabase
+//       .from("tour_requests")
+//       .select("id")
+//       .eq("property_id", propertyId)
+//       .eq("email", formData.email)
+//       .single();
+
+//     if (existingRequest) {
+//       alert("You have already submitted a tour request for this property.");
+//       return;
+//     }
+
+//     // 🔹 Step 2: Upload license file
 //     const fileName = `${Date.now()}_${formData.licenseFile.name}`;
 
 //     const { error: uploadError } = await supabase.storage
@@ -51,6 +48,7 @@
 //       return;
 //     }
 
+//     // 🔹 Step 3: Insert tour request
 //     const { error } = await supabase
 //       .from("tour_requests")
 //       .insert([
@@ -69,6 +67,15 @@
 //     if (!error) {
 //       alert("Tour request submitted!");
 //       setShowForm(false);
+
+//       setFormData({
+//         name: "",
+//         email: "",
+//         phone: "",
+//         date: "",
+//         time: "",
+//         licenseFile: null,
+//       });
 //     }
 //   };
 
@@ -88,6 +95,7 @@
 //       {showForm && (
 //         <div className="tour-overlay">
 //           <div className="tour-box">
+
 //             <button
 //               className="close-btn"
 //               onClick={() => setShowForm(false)}
@@ -100,6 +108,7 @@
 //             <input
 //               type="text"
 //               placeholder="Full Name"
+//               value={formData.name}
 //               onChange={(e) =>
 //                 setFormData({ ...formData, name: e.target.value })
 //               }
@@ -108,6 +117,7 @@
 //             <input
 //               type="email"
 //               placeholder="Email"
+//               value={formData.email}
 //               onChange={(e) =>
 //                 setFormData({ ...formData, email: e.target.value })
 //               }
@@ -116,41 +126,42 @@
 //             <input
 //               type="text"
 //               placeholder="Phone"
+//               value={formData.phone}
 //               onChange={(e) =>
 //                 setFormData({ ...formData, phone: e.target.value })
 //               }
 //             />
 
-//   <input
-//   type="text"
-//   placeholder="MM-DD-YYYY"
-//   value={formData.date}
-//   onChange={(e) =>
-//     setFormData({ ...formData, date: e.target.value })
-//   }
-// />
+//             <input
+//               type="text"
+//               placeholder="MM-DD-YYYY"
+//               value={formData.date}
+//               onChange={(e) =>
+//                 setFormData({ ...formData, date: e.target.value })
+//               }
+//             />
 
-// <select
-//   value={formData.time}
-//   onChange={(e) =>
-//     setFormData({ ...formData, time: e.target.value })
-//   }
-// >
-//   <option value="">Select Time</option>
-
-//   <option>09:00 AM</option>
-//   <option>10:00 AM</option>
-//   <option>11:00 AM</option>
-//   <option>12:00 PM</option>
-//   <option>01:00 PM</option>
-//   <option>02:00 PM</option>
-//   <option>03:00 PM</option>
-//   <option>04:00 PM</option>
-//   <option>05:00 PM</option>
-//   <option>06:00 PM</option>
-// </select>
+//             <select
+//               value={formData.time}
+//               onChange={(e) =>
+//                 setFormData({ ...formData, time: e.target.value })
+//               }
+//             >
+//               <option value="">Select Time</option>
+//               <option>09:00 AM</option>
+//               <option>10:00 AM</option>
+//               <option>11:00 AM</option>
+//               <option>12:00 PM</option>
+//               <option>01:00 PM</option>
+//               <option>02:00 PM</option>
+//               <option>03:00 PM</option>
+//               <option>04:00 PM</option>
+//               <option>05:00 PM</option>
+//               <option>06:00 PM</option>
+//             </select>
 
 //             <h5>Upload Driving License Photo</h5>
+
 //             <input
 //               type="file"
 //               accept="image/*"
@@ -177,6 +188,7 @@
 //                 Cancel
 //               </button>
 //             </div>
+
 //           </div>
 //         </div>
 //       )}
@@ -201,14 +213,49 @@ export default function ScheduleTourModal({ propertyId }) {
     licenseFile: null,
   });
 
+  // ⭐ NEW: privacy policy state
+  const [acceptedPolicy, setAcceptedPolicy] = useState(false);
+
   const handleSubmit = async () => {
 
+    // ⭐ NEW: Validate required fields
+  if (!formData.name.trim()) {
+    alert("Please enter your full name");
+    return;
+  }
+
+  if (!formData.email.trim()) {
+    alert("Please enter your email");
+    return;
+  }
+
+  if (!formData.phone.trim()) {
+    alert("Please enter your phone number");
+    return;
+  }
+
+  if (!formData.date.trim()) {
+    alert("Please select a date");
+    return;
+  }
+
+  if (!formData.time.trim()) {
+    alert("Please select a time");
+    return;
+  }
+
     if (!formData.licenseFile) {
-      alert("Please upload driving license photo");
+      alert("Please upload or capture driving license photo");
       return;
     }
 
-    // 🔹 Step 1: Check if request already exists
+    // ⭐ NEW: check privacy policy
+    if (!acceptedPolicy) {
+      alert("Please accept the Privacy Policy to continue");
+      return;
+    }
+
+    // Step 1: Check existing request
     const { data: existingRequest } = await supabase
       .from("tour_requests")
       .select("id")
@@ -221,7 +268,7 @@ export default function ScheduleTourModal({ propertyId }) {
       return;
     }
 
-    // 🔹 Step 2: Upload license file
+    // Step 2: Upload license file
     const fileName = `${Date.now()}_${formData.licenseFile.name}`;
 
     const { error: uploadError } = await supabase.storage
@@ -233,7 +280,7 @@ export default function ScheduleTourModal({ propertyId }) {
       return;
     }
 
-    // 🔹 Step 3: Insert tour request
+    // Step 3: Insert request
     const { error } = await supabase
       .from("tour_requests")
       .insert([
@@ -261,6 +308,9 @@ export default function ScheduleTourModal({ propertyId }) {
         time: "",
         licenseFile: null,
       });
+
+      // ⭐ reset policy
+      setAcceptedPolicy(false);
     }
   };
 
@@ -293,6 +343,7 @@ export default function ScheduleTourModal({ propertyId }) {
             <input
               type="text"
               placeholder="Full Name"
+              required
               value={formData.name}
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
@@ -302,6 +353,7 @@ export default function ScheduleTourModal({ propertyId }) {
             <input
               type="email"
               placeholder="Email"
+              required
               value={formData.email}
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
@@ -311,20 +363,30 @@ export default function ScheduleTourModal({ propertyId }) {
             <input
               type="text"
               placeholder="Phone"
+              required
               value={formData.phone}
               onChange={(e) =>
                 setFormData({ ...formData, phone: e.target.value })
               }
             />
 
-            <input
-              type="text"
-              placeholder="MM-DD-YYYY"
+            {/* <input
+              type="date"   // ⭐ UPDATED (better UX than text)
               value={formData.date}
               onChange={(e) =>
                 setFormData({ ...formData, date: e.target.value })
               }
-            />
+            /> */}
+
+            <input
+               type="text"
+               placeholder="MM-DD-YYYY"
+               required
+               value={formData.date}
+               onChange={(e) =>
+                 setFormData({ ...formData, date: e.target.value })
+               }
+             />
 
             <select
               value={formData.time}
@@ -345,11 +407,13 @@ export default function ScheduleTourModal({ propertyId }) {
               <option>06:00 PM</option>
             </select>
 
-            <h5>Upload Driving License Photo</h5>
+            <h5>Upload or Capture Driving License</h5>
 
+            {/* ⭐ UPDATED: allow camera capture */}
             <input
               type="file"
               accept="image/*"
+              capture="environment"
               onChange={(e) =>
                 setFormData({
                   ...formData,
@@ -357,6 +421,20 @@ export default function ScheduleTourModal({ propertyId }) {
                 })
               }
             />
+
+            {/* ⭐ NEW: Privacy Policy Checkbox */}
+            <div className="privacy-check">
+              <input
+                type="checkbox"
+                id="privacy"
+                checked={acceptedPolicy}
+                onChange={(e) => setAcceptedPolicy(e.target.checked)}
+              />
+              <label htmlFor="privacy">
+                I agree to the Privacy Policy and allow my information to be used
+                for scheduling the property tour.
+              </label>
+            </div>
 
             <div className="form-buttons">
               <button

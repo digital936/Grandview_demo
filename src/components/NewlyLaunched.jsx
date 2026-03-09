@@ -71,7 +71,7 @@ const NewlyLaunched = () => {
     <section className="newly-launched-section">
       <div className="nl-container">
         <div className="nl-header">
-          <h2>Newly Launched Properties</h2>
+          <h2>Newly Available Properties</h2>
           <p>Explore Grandview’s latest exclusive offers</p>
         </div>
 

@@ -3,11 +3,14 @@
   margin: auto;
   padding: 60px 20px;
   font-family: Arial, sans-serif;
+  min-height: 100vh;
 }
 
 .admin-page h1 {
   margin-bottom: 30px;
   color: #1e3a8a;
+  font-size: 28px;
+  font-weight: 700;
 }
 
 table {
@@ -24,13 +27,86 @@ th, td {
   border-bottom: 1px solid #eee;
   text-align: left;
   color: black;
+  word-break: break-word;
 }
 
 th {
   background: #f9fafb;
   font-weight: bold;
+  font-size: 14px;
+}
+
+td {
+  font-size: 14px;
 }
 
 tr:hover {
   background: #f3f4f6;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .admin-page {
+    padding: 50px 15px;
+  }
+
+  .admin-page h1 {
+    font-size: 24px;
+  }
+
+  th, td {
+    padding: 12px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-page {
+    padding: 40px 12px;
+  }
+
+  .admin-page h1 {
+    font-size: 22px;
+    margin-bottom: 25px;
+  }
+
+  table {
+    border-radius: 8px;
+  }
+
+  th, td {
+    padding: 11px;
+    font-size: 12px;
+  }
+
+  th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-page {
+    padding: 30px 10px;
+  }
+
+  .admin-page h1 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  table {
+    border-radius: 6px;
+    font-size: 11px;
+  }
+
+  th, td {
+    padding: 8px;
+    font-size: 11px;
+  }
+
+  th {
+    white-space: nowrap;
+  }
 }

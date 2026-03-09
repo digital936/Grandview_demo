@@ -4,7 +4,7 @@
 .admin-tenants {
   max-width: 900px;
   margin: 40px auto;
-  padding: 20px 25px;
+  padding: 25px 20px;
   background: #f9fafb;
   border-radius: 10px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
@@ -39,6 +39,7 @@
   border-radius: 6px;
   transition: border-color 0.3s ease;
   outline-offset: 2px;
+  box-sizing: border-box;
 }
 
 .admin-tenants input:focus,
@@ -46,11 +47,12 @@
   border-color: #3498db;
   outline: none;
   box-shadow: 0 0 8px #3498dbaa;
+  background: #f9f9f9;
 }
 
 /* Button */
 .admin-tenants button {
-  flex: 1 1 120px;
+  flex: 0 1 120px;
   background-color: #3498db;
   color: white;
   font-weight: 600;
@@ -58,13 +60,16 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.25s ease;
-  padding: 12px 0;
+  transition: all 0.25s ease;
+  padding: 12px 20px;
   align-self: center;
+  min-width: 120px;
 }
 
 .admin-tenants button:hover {
   background-color: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
 }
 
 /* Tenant List Table */
@@ -89,6 +94,7 @@
   border-bottom: 1px solid #e1e4e8;
   font-size: 1rem;
   vertical-align: middle;
+  word-break: break-word;
 }
 
 .tenant-table tbody tr:hover {
@@ -105,21 +111,102 @@
   font-size: 0.9rem;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.25s ease;
+  transition: all 0.25s ease;
 }
 
 .delete-btn:hover {
   background-color: #c0392b;
+  transform: translateY(-2px);
 }
 
-/* Responsive adjustments */
-@media (max-width: 650px) {
-  .admin-tenants form {
-    flex-direction: column;
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .admin-tenants {
+    padding: 20px 18px;
+  }
+
+  .admin-tenants h2 {
+    font-size: 1.6rem;
   }
 
   .admin-tenants button {
-    flex-grow: 1;
+    font-size: 1rem;
+    padding: 11px 18px;
+  }
+
+  .tenant-table th,
+  .tenant-table td {
+    padding: 12px 14px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-tenants {
+    margin: 30px 15px;
+    padding: 20px;
+  }
+
+  .admin-tenants h2 {
+    font-size: 1.5rem;
+  }
+
+  .admin-tenants form {
+    gap: 12px;
+  }
+
+  .admin-tenants input,
+  .admin-tenants select {
+    flex: 1 1 100%;
+    font-size: 0.95rem;
+    padding: 11px 13px;
+  }
+
+  .admin-tenants button {
+    flex: 1 1 auto;
+    font-size: 1rem;
+    padding: 11px 16px;
+  }
+
+  .tenant-table th,
+  .tenant-table td {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+
+  .delete-btn {
+    padding: 7px 12px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .admin-tenants {
+    margin: 20px 10px;
+    padding: 18px;
+  }
+
+  .admin-tenants h2 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+  }
+
+  .admin-tenants form {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .admin-tenants input,
+  .admin-tenants select {
+    flex: 1 1 auto;
+    font-size: 0.9rem;
+    padding: 10px 12px;
+  }
+
+  .admin-tenants button {
+    flex: 1 1 auto;
+    font-size: 0.95rem;
+    padding: 10px 14px;
   }
 
   .tenant-table thead {
@@ -146,17 +233,70 @@
     text-align: right;
     padding-left: 50%;
     position: relative;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
+    padding: 10px 12px 10px 50%;
   }
 
   .tenant-table td::before {
     content: attr(data-label);
     position: absolute;
-    left: 15px;
-    width: 45%;
-    padding-left: 10px;
+    left: 12px;
+    width: 40%;
     font-weight: 700;
     text-align: left;
     color: #555;
+  }
+
+  .delete-btn {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-tenants {
+    margin: 15px 0;
+    padding: 15px;
+  }
+
+  .admin-tenants h2 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+  }
+
+  .admin-tenants form {
+    gap: 9px;
+  }
+
+  .admin-tenants input,
+  .admin-tenants select {
+    font-size: 0.85rem;
+    padding: 9px 11px;
+  }
+
+  .admin-tenants button {
+    font-size: 0.9rem;
+    padding: 9px 12px;
+  }
+
+  .tenant-table tr {
+    margin-bottom: 15px;
+    padding: 12px;
+  }
+
+  .tenant-table td {
+    padding: 8px 10px 8px 48%;
+    font-size: 0.8rem;
+  }
+
+  .tenant-table td::before {
+    left: 10px;
+    width: 38%;
+    font-size: 0.75rem;
+  }
+
+  .delete-btn {
+    padding: 5px 10px;
+    font-size: 0.75rem;
   }
 }

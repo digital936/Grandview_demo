@@ -1,7 +1,7 @@
 /* PAGE LAYOUT */
 
 .admin-owners {
-  padding: 40px;
+  padding: 40px 20px;
   max-width: 1100px;
   margin: auto;
   font-family: "Segoe UI", sans-serif;
@@ -13,6 +13,7 @@
   margin-bottom: 20px;
   color: #222;
   font-weight: 600;
+  font-size: 24px;
 }
 
 /* FORM CONTAINER */
@@ -37,12 +38,15 @@
   border: 1px solid #ddd;
   font-size: 14px;
   transition: 0.2s;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .admin-owners input:focus,
 .admin-owners select:focus {
   outline: none;
   border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
 }
 
 /* BUTTON */
@@ -56,11 +60,13 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: 0.2s;
+  transition: 0.3s ease;
 }
 
 .admin-owners form button:hover {
   background: #1e4fd1;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
 }
 
 /* TABLE */
@@ -85,6 +91,7 @@
   padding: 14px;
   text-align: left;
   font-size: 14px;
+  font-weight: 600;
 }
 
 /* TABLE BODY */
@@ -93,11 +100,109 @@
   padding: 14px;
   border-bottom: 1px solid #eee;
   font-size: 14px;
+  word-break: break-word;
 }
 
 /* ROW HOVER */
 
 .owner-table tbody tr:hover {
+  background: #f3f4f6;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .admin-owners {
+    padding: 30px 15px;
+  }
+
+  .admin-owners h2 {
+    font-size: 22px;
+  }
+
+  .admin-owners form {
+    padding: 20px;
+    gap: 12px;
+  }
+
+  .owner-table th,
+  .owner-table td {
+    padding: 12px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-owners {
+    padding: 25px 12px;
+  }
+
+  .admin-owners h2 {
+    font-size: 20px;
+  }
+
+  .admin-owners form {
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+
+  .admin-owners form button {
+    grid-column: span 1;
+  }
+
+  .admin-owners input,
+  .admin-owners select {
+    font-size: 13px;
+    padding: 11px;
+  }
+
+  .owner-table {
+    border-radius: 8px;
+    font-size: 12px;
+  }
+
+  .owner-table th,
+  .owner-table td {
+    padding: 10px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-owners {
+    padding: 20px 10px;
+  }
+
+  .admin-owners h2 {
+    font-size: 18px;
+  }
+
+  .admin-owners form {
+    padding: 16px;
+    gap: 10px;
+  }
+
+  .admin-owners input,
+  .admin-owners select {
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  .admin-owners form button {
+    padding: 11px;
+    font-size: 13px;
+  }
+
+  .owner-table {
+    border-radius: 6px;
+    overflow-x: auto;
+  }
+
+  .owner-table th,
+  .owner-table td {
+    padding: 8px;
+    font-size: 11px;
+  }
+}
   background: #f9fbff;
 }
 

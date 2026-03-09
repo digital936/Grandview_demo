@@ -9,6 +9,7 @@
   align-items: center;
   background: linear-gradient(135deg, #1F2A44, #2E3A59);
   font-family: "Segoe UI", sans-serif;
+  padding: 20px;
 }
 
 /* Login Card */
@@ -29,6 +30,7 @@
   color: #1F2A44;
   margin-bottom: 10px;
   font-weight: 600;
+  font-size: 24px;
 }
 
 /* Inputs */
@@ -60,9 +62,113 @@
 
 .admin-login button:hover {
   background: #A93226;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(192, 57, 43, 0.3);
 }
 
 /* Optional: remove navbar spacing issue */
 body {
   margin: 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+  .admin-login form {
+    width: 360px;
+    padding: 45px 36px;
+  }
+
+  .admin-login h2 {
+    font-size: 22px;
+  }
+
+  .admin-login input {
+    font-size: 13px;
+    padding: 11px 13px;
+  }
+
+  .admin-login button {
+    padding: 11px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .admin-login form {
+    width: 340px;
+    padding: 40px 32px;
+    gap: 18px;
+  }
+
+  .admin-login h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  .admin-login input {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+
+  .admin-login button {
+    padding: 10px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-login {
+    padding: 15px;
+  }
+
+  .admin-login form {
+    width: 100%;
+    max-width: 320px;
+    padding: 35px 28px;
+    gap: 16px;
+  }
+
+  .admin-login h2 {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+
+  .admin-login input {
+    font-size: 12px;
+    padding: 10px 11px;
+  }
+
+  .admin-login button {
+    padding: 10px;
+    font-size: 12px;
+    border-radius: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-login {
+    padding: 10px;
+  }
+
+  .admin-login form {
+    width: 100%;
+    max-width: 100%;
+    padding: 25px 20px;
+    gap: 14px;
+  }
+
+  .admin-login h2 {
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  .admin-login input {
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  .admin-login button {
+    padding: 10px;
+    font-size: 12px;
+  }
 }

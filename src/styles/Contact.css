@@ -6,7 +6,8 @@
 
 /* HERO */
 .contact-hero {
-  height: 350px;
+  min-height: 350px;
+  height: 40vh;
   background: linear-gradient(rgba(31,42,68,0.8), rgba(31,42,68,0.8)),
               url("https://images.unsplash.com/photo-1560518883-ce09059eeffa");
   background-size: cover;
@@ -16,16 +17,19 @@
   justify-content: center;
   text-align: center;
   color: #FFFFFF;
+  padding: 20px;
 }
 
 .contact-hero h1 {
   font-size: 42px;
   margin-bottom: 15px;
+  line-height: 1.3;
 }
 
 .contact-hero p {
   font-size: 18px;
   color: #E5E7EB;
+  line-height: 1.5;
 }
 
 /* MAIN LAYOUT */
@@ -60,15 +64,22 @@
   color: #555;
   line-height: 1.7;
   margin-bottom: 25px;
+  font-size: 15px;
 }
 
 .info-item {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .info-item h4 {
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   color: #1F2A44;
+  font-weight: 600;
+}
+
+.info-item p {
+  font-size: 14px;
+  margin: 0;
 }
 
 /* FORM WRAPPER */
@@ -84,6 +95,7 @@
 .footer-right h3 {
   margin-bottom: 20px;
   color: #1F2A44;
+  font-size: 22px;
 }
 
 .footer-right form {
@@ -100,12 +112,15 @@
   font-size: 14px;
   outline: none;
   transition: 0.3s;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .footer-right input:focus,
 .footer-right textarea:focus {
   border-color: #F4B942;
   box-shadow: 0 0 0 2px rgba(244,185,66,0.2);
+  background: #f9f9f9;
 }
 
 .footer-right button {
@@ -117,17 +132,217 @@
   font-weight: 600;
   cursor: pointer;
   transition: 0.3s;
+  font-size: 15px;
 }
 
 .footer-right button:hover {
   background: #A61E1E;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(198, 40, 40, 0.3);
 }
 
 /* RESPONSIVE */
+@media (max-width: 1200px) {
+  .contact-container {
+    gap: 60px;
+    padding: 80px 8%;
+  }
+
+  .contact-info h2 {
+    font-size: 28px;
+  }
+
+  .contact-form-wrapper {
+    padding: 35px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .contact-container {
+    gap: 50px;
+    padding: 60px 6%;
+  }
+
+  .contact-info h2 {
+    font-size: 26px;
+  }
+
+  .contact-info p {
+    font-size: 14px;
+  }
+
+  .contact-form-wrapper {
+    padding: 30px;
+  }
+
+  .footer-right h3 {
+    font-size: 20px;
+  }
+
+  .footer-right input,
+  .footer-right textarea {
+    padding: 11px 13px;
+    font-size: 13px;
+  }
+}
+
 @media (max-width: 900px) {
   .contact-container {
     flex-direction: column;
-    gap: 50px;
+    gap: 40px;
     padding: 60px 20px;
+  }
+
+  .contact-hero {
+    height: 250px;
+    min-height: 250px;
+  }
+
+  .contact-hero h1 {
+    font-size: 32px;
+  }
+
+  .contact-hero p {
+    font-size: 16px;
+  }
+
+  .contact-info h2 {
+    font-size: 24px;
+  }
+
+  .contact-form-wrapper {
+    padding: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-container {
+    padding: 50px 15px;
+    gap: 30px;
+  }
+
+  .contact-hero {
+    height: auto;
+    min-height: 200px;
+    padding: 30px 15px;
+  }
+
+  .contact-hero h1 {
+    font-size: 26px;
+  }
+
+  .contact-hero p {
+    font-size: 14px;
+  }
+
+  .contact-info h2 {
+    font-size: 22px;
+  }
+
+  .contact-info h2::after {
+    width: 50px;
+  }
+
+  .contact-info p {
+    font-size: 13px;
+  }
+
+  .info-item {
+    margin-bottom: 20px;
+  }
+
+  .info-item h4 {
+    font-size: 14px;
+  }
+
+  .contact-form-wrapper {
+    padding: 20px;
+  }
+
+  .footer-right h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+
+  .footer-right input,
+  .footer-right textarea {
+    padding: 10px 12px;
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+
+  .footer-right button {
+    padding: 12px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-container {
+    padding: 40px 10px;
+    gap: 25px;
+  }
+
+  .contact-hero {
+    padding: 25px 10px;
+    min-height: 180px;
+  }
+
+  .contact-hero h1 {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .contact-hero p {
+    font-size: 13px;
+  }
+
+  .contact-info h2 {
+    font-size: 20px;
+  }
+
+  .contact-info h2::after {
+    width: 40px;
+    height: 3px;
+    margin-top: 8px;
+  }
+
+  .contact-info p {
+    font-size: 12px;
+    margin-bottom: 15px;
+  }
+
+  .info-item {
+    margin-bottom: 18px;
+  }
+
+  .info-item h4 {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .info-item p {
+    font-size: 12px;
+  }
+
+  .contact-form-wrapper {
+    padding: 18px;
+  }
+
+  .footer-right h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  .footer-right input,
+  .footer-right textarea {
+    padding: 9px 11px;
+    font-size: 11px;
+    margin-bottom: 10px;
+  }
+
+  .footer-right button {
+    padding: 10px;
+    font-size: 12px;
   }
 }

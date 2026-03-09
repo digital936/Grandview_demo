@@ -1,14 +1,16 @@
 .login-container {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   background: linear-gradient(135deg, #0f172a, #1e293b);
   font-family: 'Segoe UI', sans-serif;
+  padding: 20px;
 }
 
 .login-card {
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   background: white;
   padding: 40px;
   border-radius: 16px;
@@ -20,6 +22,8 @@
 .login-title {
   margin-bottom: 25px;
   color: #111827;
+  font-size: 28px;
+  font-weight: 700;
 }
 
 .role-toggle {
@@ -38,6 +42,7 @@
   cursor: pointer;
   font-weight: 600;
   transition: 0.3s;
+  font-size: 14px;
 }
 
 .role-toggle button.active {
@@ -57,11 +62,14 @@
   border: 1px solid #d1d5db;
   font-size: 14px;
   transition: 0.3s;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .login-form input:focus {
   border-color: #111827;
   outline: none;
+  background: #f9f9f9;
 }
 
 .login-btn {
@@ -73,11 +81,14 @@
   font-weight: 600;
   cursor: pointer;
   transition: 0.3s;
+  font-size: 15px;
+  margin-top: 10px;
 }
 
 .login-btn:hover {
   background: #1f2937;
   transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .login-footer {
@@ -90,6 +101,11 @@
   color: #111827;
   font-weight: 600;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+.login-footer span:hover {
+  color: #1f2937;
 }
 
 @keyframes fadeIn {
@@ -100,5 +116,92 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .login-container {
+    padding: 15px;
+  }
+
+  .login-card {
+    padding: 30px 25px;
+    max-width: 100%;
+  }
+
+  .login-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .role-toggle {
+    margin-bottom: 20px;
+  }
+
+  .role-toggle button {
+    padding: 9px;
+    font-size: 13px;
+  }
+
+  .login-form input {
+    padding: 11px;
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+
+  .login-btn {
+    padding: 11px;
+    font-size: 14px;
+  }
+
+  .login-footer {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 10px;
+    min-height: auto;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .login-card {
+    padding: 25px 20px;
+    border-radius: 14px;
+  }
+
+  .login-title {
+    font-size: 22px;
+    margin-bottom: 18px;
+  }
+
+  .role-toggle {
+    margin-bottom: 18px;
+  }
+
+  .role-toggle button {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .login-form input {
+    padding: 10px;
+    font-size: 12px;
+    margin-bottom: 11px;
+    border-radius: 6px;
+  }
+
+  .login-btn {
+    padding: 10px;
+    font-size: 13px;
+    margin-top: 8px;
+  }
+
+  .login-footer {
+    font-size: 12px;
+    margin-top: 15px;
   }
 }

@@ -9,6 +9,7 @@ body {
   display: flex;
   min-height: 100vh;
   background: #F4F6F9;
+  flex-wrap: wrap;
 }
 
 /* Sidebar */
@@ -19,6 +20,8 @@ body {
   padding: 30px 25px;
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 100;
 }
 
 /* Sidebar Title */
@@ -44,6 +47,7 @@ body {
 .admin-dashboard aside a:hover {
   background: #C0392B;
   color: white;
+  padding-left: 18px;
 }
 
 /* Active Link (optional later with NavLink) */
@@ -57,6 +61,8 @@ body {
   flex: 1;
   padding: 50px;
   background: #F4F6F9;
+  min-width: 0;
+  overflow-x: hidden;
 }
 
 /* Welcome Title */
@@ -74,4 +80,139 @@ body {
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   margin-bottom: 20px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+  .admin-dashboard aside {
+    width: 240px;
+    padding: 25px 20px;
+  }
+
+  .admin-dashboard aside h2 {
+    font-size: 18px;
+  }
+
+  .admin-dashboard aside a {
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+
+  .admin-content {
+    padding: 40px 35px;
+  }
+
+  .admin-content h1 {
+    font-size: 24px;
+  }
+
+  .dashboard-card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .admin-dashboard aside {
+    width: 220px;
+    padding: 20px 15px;
+  }
+
+  .admin-dashboard aside h2 {
+    margin-bottom: 30px;
+    font-size: 16px;
+  }
+
+  .admin-dashboard aside a {
+    font-size: 12px;
+    margin-bottom: 14px;
+    padding: 8px 10px;
+  }
+
+  .admin-content {
+    padding: 30px;
+  }
+
+  .admin-content h1 {
+    font-size: 22px;
+  }
+
+  .dashboard-card {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-dashboard {
+    flex-direction: column;
+  }
+
+  .admin-dashboard aside {
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 10px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .admin-dashboard aside h2 {
+    margin-bottom: 0;
+    order: 1;
+    width: 100%;
+  }
+
+  .admin-dashboard aside a {
+    margin-bottom: 10px;
+    margin-right: 10px;
+    padding: 8px 10px;
+    font-size: 11px;
+    flex: 0 1 calc(50% - 5px);
+  }
+
+  .admin-content {
+    padding: 25px;
+    flex: 1;
+    width: 100%;
+  }
+
+  .admin-content h1 {
+    font-size: 20px;
+  }
+
+  .dashboard-card {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-dashboard aside {
+    padding: 15px;
+  }
+
+  .admin-dashboard aside h2 {
+    font-size: 16px;
+  }
+
+  .admin-dashboard aside a {
+    margin-bottom: 8px;
+    margin-right: 8px;
+    padding: 7px 9px;
+    font-size: 10px;
+    flex: 0 1 calc(50% - 4px);
+  }
+
+  .admin-content {
+    padding: 15px;
+  }
+
+  .admin-content h1 {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+
+  .dashboard-card {
+    padding: 14px;
+    margin-bottom: 15px;
+  }
 }

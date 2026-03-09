@@ -1,11 +1,15 @@
 .search-page {
   padding: 60px 20px;
   background: #f4f6f9;
+  min-height: 100vh;
 }
 
 .search-page h2 {
   text-align: center;
   margin-bottom: 40px;
+  font-size: 32px;
+  color: #111827;
+  font-weight: 700;
 }
 
 .search-grid {
@@ -27,6 +31,7 @@
 
 .search-card:hover {
   transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.1);
 }
 
 .search-card img {
@@ -42,4 +47,142 @@
 .price {
   color: #c62828;
   font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.search-content h3 {
+  font-size: 16px;
+  color: #111827;
+  margin-bottom: 10px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+.search-content p {
+  color: #666;
+  font-size: 13px;
+  margin: 5px 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+  .search-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+
+  .search-page h2 {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .search-page {
+    padding: 50px 15px;
+  }
+
+  .search-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 18px;
+  }
+
+  .search-page h2 {
+    font-size: 26px;
+    margin-bottom: 30px;
+  }
+
+  .search-card img {
+    height: 180px;
+  }
+
+  .search-content {
+    padding: 18px;
+  }
+
+  .price {
+    font-size: 16px;
+  }
+
+  .search-content h3 {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-page {
+    padding: 40px 12px;
+  }
+
+  .search-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+  }
+
+  .search-page h2 {
+    font-size: 22px;
+    margin-bottom: 25px;
+  }
+
+  .search-card {
+    border-radius: 12px;
+  }
+
+  .search-card img {
+    height: 160px;
+  }
+
+  .search-content {
+    padding: 16px;
+  }
+
+  .price {
+    font-size: 15px;
+  }
+
+  .search-content h3 {
+    font-size: 14px;
+  }
+
+  .search-content p {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-page {
+    padding: 30px 10px;
+  }
+
+  .search-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .search-page h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .search-card img {
+    height: 180px;
+  }
+
+  .search-content {
+    padding: 14px;
+  }
+
+  .price {
+    font-size: 14px;
+  }
+
+  .search-content h3 {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  .search-content p {
+    font-size: 11px;
+    margin: 4px 0;
+  }
 }

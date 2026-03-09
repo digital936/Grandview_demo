@@ -24,7 +24,7 @@ function Navbar() {
 
         <nav className={`nav-menu ${menuOpen ? "active" : ""}`}>
           <a href="/">Home</a>
-          <a href="/buy">Sale</a>
+          {/* <a href="/buy">Sale</a> */}
           <a href="/rent">Rent</a>
           <a href="/contact">Contact Us</a>
           <a href="/about">About Us</a>

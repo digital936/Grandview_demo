@@ -198,6 +198,261 @@
   cursor: not-allowed;
 }
 
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+  .newly-launched-section {
+    padding: 70px 30px;
+  }
+
+  .nl-header h2 {
+    font-size: 30px;
+  }
+
+  .nl-header p {
+    font-size: 15px;
+  }
+
+  .nl-header {
+    margin-bottom: 40px;
+  }
+
+  .nl-card {
+    min-width: 50%;
+  }
+
+  .nl-title {
+    font-size: 16px;
+  }
+
+  .nl-buttons button {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .nl-arrow {
+    padding: 10px 14px;
+    margin: 0 8px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .newly-launched-section {
+    padding: 60px 20px;
+  }
+
+  .nl-container {
+    max-width: 100%;
+  }
+
+  .nl-header h2 {
+    font-size: 28px;
+  }
+
+  .nl-header p {
+    font-size: 14px;
+  }
+
+  .nl-header {
+    margin-bottom: 35px;
+  }
+
+  .nl-card {
+    min-width: 50%;
+  }
+
+  .nl-img {
+    height: 200px;
+  }
+
+  .nl-content {
+    padding: 18px;
+  }
+
+  .nl-title {
+    font-size: 15px;
+    margin-bottom: 5px;
+  }
+
+  .nl-location {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+
+  .nl-specs {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .nl-date {
+    font-size: 12px;
+    margin-bottom: 14px;
+  }
+
+  .nl-buttons {
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .nl-buttons button {
+    padding: 11px;
+    font-size: 13px;
+  }
+
+  .nl-arrow {
+    padding: 10px 12px;
+    margin: 0 6px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .newly-launched-section {
+    padding: 50px 15px;
+  }
+
+  .nl-header h2 {
+    font-size: 24px;
+  }
+
+  .nl-header p {
+    font-size: 13px;
+  }
+
+  .nl-header {
+    margin-bottom: 30px;
+  }
+
+  .nl-carousel-wrapper {
+    flex-direction: column;
+  }
+
+  .nl-card {
+    min-width: 100%;
+    padding: 0;
+    margin-bottom: 20px;
+  }
+
+  .nl-img {
+    height: 180px;
+  }
+
+  .nl-content {
+    padding: 16px;
+  }
+
+  .nl-title {
+    font-size: 14px;
+  }
+
+  .nl-location {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .nl-specs {
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+
+  .nl-date {
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+
+  .nl-buttons {
+    gap: 9px;
+    margin-top: 8px;
+    flex-direction: row;
+  }
+
+  .nl-buttons button {
+    flex: 1;
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .nl-arrow {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .newly-launched-section {
+    padding: 40px 10px;
+  }
+
+  .nl-header h2 {
+    font-size: 20px;
+  }
+
+  .nl-header p {
+    font-size: 12px;
+  }
+
+  .nl-header {
+    margin-bottom: 25px;
+  }
+
+  .nl-card {
+    min-width: 100%;
+    padding: 0;
+    margin-bottom: 15px;
+  }
+
+  .nl-img {
+    height: 160px;
+  }
+
+  .nl-offer-badge {
+    top: 8px;
+    left: 8px;
+    padding: 4px 8px;
+    font-size: 10px;
+  }
+
+  .nl-price-tag {
+    top: 8px;
+    right: 8px;
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+
+  .nl-content {
+    padding: 14px;
+  }
+
+  .nl-title {
+    font-size: 13px;
+  }
+
+  .nl-location {
+    font-size: 11px;
+    margin-bottom: 6px;
+  }
+
+  .nl-specs {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .nl-date {
+    font-size: 10px;
+    margin-bottom: 10px;
+  }
+
+  .nl-buttons {
+    gap: 8px;
+    margin-top: 8px;
+    flex-direction: column;
+  }
+
+  .nl-buttons button {
+    flex: 1;
+    padding: 10px;
+    font-size: 11px;
+  }
+}
+
 .nl-arrow:hover:not(:disabled) {
   background: #333;
 }
@@ -226,4 +481,119 @@
 /* Full width details button */
 .nl-details-btn {
   width: 100%;
+}
+
+
+/* ========================= */
+/* TABLET VIEW               */
+/* ========================= */
+
+@media (max-width: 992px) {
+
+  .newly-launched-section {
+    padding: 60px 25px;
+  }
+
+  .nl-card {
+    min-width: 50%;
+  }
+
+  .nl-img {
+    height: 200px;
+  }
+
+  .nl-header h2 {
+    font-size: 28px;
+  }
+
+}
+
+
+/* ========================= */
+/* MOBILE VIEW               */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+  .newly-launched-section {
+    padding: 45px 16px;
+  }
+
+  .nl-card {
+    min-width: 100%;
+    padding: 0;
+  }
+
+  .nl-img {
+    height: 190px;
+  }
+
+  .nl-content {
+    padding: 18px;
+  }
+
+  .nl-title {
+    font-size: 17px;
+  }
+
+  .nl-location {
+    font-size: 13px;
+  }
+
+  /* Stack specs nicely */
+  .nl-specs {
+    justify-content: space-between;
+    font-size: 15px;
+  }
+
+  .nl-date {
+    font-size: 12px;
+  }
+
+  /* Buttons become cleaner */
+  .nl-buttons {
+    gap: 10px;
+  }
+
+  .nl-buttons .top-row {
+    flex-direction: column;
+  }
+
+  .nl-buttons button {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border-radius: 10px;
+  }
+
+  /* Hide arrows on mobile */
+  .nl-arrow {
+    display: none;
+  }
+
+}
+
+
+/* ========================= */
+/* SMALL MOBILE              */
+/* ========================= */
+
+@media (max-width: 480px) {
+
+  .nl-header h2 {
+    font-size: 22px;
+  }
+
+  .nl-header p {
+    font-size: 13px;
+  }
+
+  .nl-img {
+    height: 170px;
+  }
+
+  .nl-title {
+    font-size: 16px;
+  }
+
 }

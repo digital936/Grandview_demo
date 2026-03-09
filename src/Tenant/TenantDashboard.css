@@ -120,15 +120,277 @@
 }
 
 /* Mobile responsive */
+@media (max-width: 1200px) {
+  .tenant-dashboard {
+    padding: 35px 18px;
+  }
+
+  .dashboard-title {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+
+  .property-container {
+    max-width: 900px;
+    gap: 25px;
+  }
+
+  .property-image {
+    width: 280px;
+    height: 200px;
+  }
+
+  .property-details {
+    padding: 18px;
+  }
+
+  .property-details h3 {
+    font-size: 20px;
+  }
+
+  .issue-form {
+    padding: 18px;
+  }
+
+  .issue-form h4 {
+    font-size: 16px;
+  }
+
+  .issue-form button {
+    width: 140px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .tenant-dashboard {
+    padding: 30px 15px;
+  }
+
+  .dashboard-title {
+    font-size: 26px;
+    margin-bottom: 28px;
+  }
+
+  .property-container {
+    max-width: 800px;
+    gap: 22px;
+  }
+
+  .property-image {
+    width: 260px;
+    height: 180px;
+  }
+
+  .property-details {
+    padding: 16px;
+    min-width: 200px;
+  }
+
+  .property-details h3 {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+
+  .property-address {
+    font-size: 13px;
+  }
+
+  .property-price {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  .property-status {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  .property-description {
+    font-size: 13px;
+  }
+
+  .issue-form {
+    padding: 16px;
+    gap: 10px;
+  }
+
+  .issue-form h4 {
+    font-size: 15px;
+  }
+
+  .issue-form input,
+  .issue-form textarea {
+    padding: 9px;
+    font-size: 13px;
+  }
+
+  .issue-form textarea {
+    min-height: 80px;
+  }
+
+  .issue-form button {
+    width: 130px;
+    padding: 9px;
+    font-size: 13px;
+  }
+}
+
 @media (max-width: 768px) {
+  .tenant-dashboard {
+    padding: 25px 12px;
+  }
+
+  .dashboard-title {
+    font-size: 22px;
+    margin-bottom: 24px;
+  }
+
+  .property-container {
+    max-width: 100%;
+    gap: 20px;
+  }
 
   .property-card {
     flex-direction: column;
+    border-radius: 10px;
   }
 
   .property-image {
     width: 100%;
-    height: 220px;
+    height: 200px;
+    flex-shrink: 0;
   }
 
+  .property-details {
+    padding: 14px;
+  }
+
+  .property-details h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  .property-address {
+    font-size: 12px;
+  }
+
+  .property-price {
+    font-size: 15px;
+  }
+
+  .property-status {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .property-description {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .issue-form {
+    padding: 14px;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .issue-form h4 {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .issue-form input,
+  .issue-form textarea {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .issue-form textarea {
+    min-height: 70px;
+  }
+
+  .issue-form button {
+    width: 100%;
+    max-width: 120px;
+    padding: 8px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tenant-dashboard {
+    padding: 20px 10px;
+    min-height: auto;
+  }
+
+  .dashboard-title {
+    font-size: 19px;
+    margin-bottom: 20px;
+  }
+
+  .property-container {
+    max-width: 100%;
+    gap: 15px;
+  }
+
+  .property-card {
+    flex-direction: column;
+    border-radius: 8px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
+  }
+
+  .property-image {
+    width: 100%;
+    height: 180px;
+  }
+
+  .property-details {
+    padding: 12px;
+  }
+
+  .property-details h3 {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .property-address {
+    font-size: 11px;
+  }
+
+  .property-price {
+    font-size: 13px;
+  }
+
+  .property-status {
+    font-size: 11px;
+    margin-bottom: 5px;
+  }
+
+  .property-description {
+    font-size: 11px;
+  }
+
+  .issue-form {
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .issue-form h4 {
+    font-size: 13px;
+  }
+
+  .issue-form input,
+  .issue-form textarea {
+    padding: 8px;
+    font-size: 11px;
+  }
+
+  .issue-form textarea {
+    min-height: 60px;
+  }
+
+  .issue-form button {
+    width: 100%;
+    padding: 8px;
+    font-size: 11px;
+  }
 }

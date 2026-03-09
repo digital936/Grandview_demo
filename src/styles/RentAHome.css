@@ -21,6 +21,7 @@
   font-weight: 700;
   color: #111827;
   margin-bottom: 10px;
+  line-height: 1.3;
 }
 
 .rent-subtitle {
@@ -34,6 +35,7 @@
   font-size: 16px;
   color: #6b7280;
   margin-bottom: 20px;
+  line-height: 1.6;
 }
 
 .rent-button {
@@ -46,8 +48,131 @@
   font-weight: 600;
   cursor: pointer;
   transition: 0.3s ease;
+  display: inline-block;
 }
 
 .rent-button:hover {
   background-color: #991b1b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(185, 28, 28, 0.3);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+  .rent-a-home-section {
+    padding: 70px 0;
+  }
+
+  .rent-container {
+    padding: 0 20px;
+  }
+
+  .rent-title {
+    font-size: 28px;
+  }
+
+  .rent-subtitle {
+    font-size: 16px;
+  }
+
+  .rent-description {
+    font-size: 15px;
+  }
+
+  .rent-button {
+    padding: 11px 24px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .rent-a-home-section {
+    padding: 60px 0;
+  }
+
+  .rent-container {
+    max-width: 800px;
+    padding: 0 18px;
+  }
+
+  .rent-title {
+    font-size: 26px;
+    margin-bottom: 8px;
+  }
+
+  .rent-subtitle {
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+
+  .rent-description {
+    font-size: 14px;
+    margin-bottom: 18px;
+  }
+
+  .rent-button {
+    padding: 10px 22px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .rent-a-home-section {
+    padding: 50px 15px;
+  }
+
+  .rent-container {
+    max-width: 100%;
+    padding: 0 12px;
+  }
+
+  .rent-title {
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+
+  .rent-subtitle {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  .rent-description {
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+
+  .rent-button {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rent-a-home-section {
+    padding: 40px 10px;
+  }
+
+  .rent-container {
+    max-width: 100%;
+    padding: 0 8px;
+  }
+
+  .rent-title {
+    font-size: 19px;
+    margin-bottom: 5px;
+  }
+
+  .rent-subtitle {
+    font-size: 12px;
+  }
+
+  .rent-description {
+    font-size: 12px;
+    margin-bottom: 14px;
+  }
+
+  .rent-button {
+    padding: 10px 18px;
+    font-size: 12px;
+  }
 }

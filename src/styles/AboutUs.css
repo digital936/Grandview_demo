@@ -190,17 +190,381 @@
 }
 
 /* RESPONSIVE */
+@media (max-width: 1200px) {
+  .about-hero {
+    height: 380px;
+  }
+
+  .hero-content h1 {
+    font-size: 40px;
+  }
+
+  .hero-content p {
+    font-size: 16px;
+  }
+
+  .about-text {
+    padding: 70px;
+  }
+
+  .about-text h2 {
+    font-size: 30px;
+  }
+
+  .about-stats {
+    gap: 80px;
+    padding: 70px 20px;
+  }
+
+  .stat h3 {
+    font-size: 38px;
+  }
+
+  .about-features {
+    padding: 70px 20px;
+  }
+
+  .about-features h2 {
+    font-size: 28px;
+    margin-bottom: 40px;
+  }
+
+  .feature-card {
+    width: 250px;
+  }
+
+  .about-team {
+    padding: 80px 6%;
+  }
+
+  .about-team h2 {
+    font-size: 30px;
+  }
+
+  .team-grid {
+    gap: 30px;
+  }
+
+  .about-cta {
+    padding: 70px 20px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .about-hero {
+    height: 350px;
+  }
+
+  .hero-content h1 {
+    font-size: 36px;
+  }
+
+  .hero-content p {
+    font-size: 15px;
+  }
+
+  .about-text {
+    padding: 60px;
+  }
+
+  .about-text h2 {
+    font-size: 28px;
+  }
+
+  .about-text p {
+    font-size: 15px;
+  }
+
+  .about-stats {
+    gap: 60px;
+    padding: 60px 20px;
+  }
+
+  .stat h3 {
+    font-size: 36px;
+  }
+
+  .about-features {
+    padding: 60px 20px;
+  }
+
+  .about-features h2 {
+    font-size: 26px;
+    margin-bottom: 35px;
+  }
+
+  .feature-card {
+    width: 240px;
+    padding: 24px;
+  }
+
+  .about-team {
+    padding: 70px 5%;
+  }
+
+  .about-team h2 {
+    font-size: 28px;
+  }
+
+  .team-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+  }
+
+  .about-cta {
+    padding: 60px 20px;
+  }
+
+  .about-cta button {
+    padding: 12px 30px;
+  }
+}
+
 @media (max-width: 768px) {
+  .about-split {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .about-image {
+    height: 250px;
+  }
+
+  .about-text {
+    padding: 40px;
+  }
+
+  .about-text h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .about-text p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .about-stats {
+    flex-direction: row;
+    gap: 40px;
+    padding: 50px 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .stat h3 {
+    font-size: 32px;
+  }
+
+  .about-features {
+    padding: 50px 15px;
+  }
+
+  .about-features h2 {
+    font-size: 22px;
+    margin-bottom: 30px;
+  }
+
+  .feature-grid {
+    gap: 25px;
+  }
+
+  .feature-card {
+    width: 100%;
+    max-width: 280px;
+    padding: 20px;
+  }
+
+  .feature-card h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .about-team {
+    padding: 50px 4%;
+  }
+
+  .about-team h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .team-subtitle {
+    margin-bottom: 40px;
+    font-size: 14px;
+  }
+
+  .team-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .team-card {
+    padding: 25px;
+  }
+
+  .team-card img {
+    width: 110px;
+    height: 110px;
+  }
+
+  .team-card span {
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+
+  .team-card p {
+    font-size: 13px;
+  }
+
+  .about-cta {
+    padding: 50px 20px;
+  }
+
+  .about-cta h2 {
+    font-size: 22px;
+    margin-bottom: 25px;
+  }
+
+  .about-cta button {
+    padding: 11px 25px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-hero {
+    height: 280px;
+    padding: 20px;
+  }
+
+  .hero-content h1 {
+    font-size: 26px;
+    max-width: 100%;
+  }
+
+  .hero-content p {
+    font-size: 13px;
+  }
+
   .about-split {
     flex-direction: column;
   }
 
+  .about-image {
+    height: 200px;
+  }
+
   .about-text {
-    padding: 50px;
+    padding: 25px;
+    justify-content: flex-start;
+  }
+
+  .about-text h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .about-text p {
+    font-size: 13px;
+    line-height: 1.5;
   }
 
   .about-stats {
     flex-direction: column;
-    gap: 40px;
+    gap: 30px;
+    padding: 40px 15px;
+  }
+
+  .stat {
+    padding: 15px 0;
+  }
+
+  .stat h3 {
+    font-size: 28px;
+    margin-bottom: 5px;
+  }
+
+  .stat p {
+    font-size: 12px;
+  }
+
+  .about-features {
+    padding: 35px 12px;
+  }
+
+  .about-features h2 {
+    font-size: 19px;
+    margin-bottom: 20px;
+  }
+
+  .feature-grid {
+    gap: 15px;
+  }
+
+  .feature-card {
+    width: 100%;
+    max-width: 100%;
+    padding: 16px;
+  }
+
+  .feature-card h3 {
+    font-size: 14px;
+  }
+
+  .feature-card p {
+    font-size: 12px;
+  }
+
+  .about-team {
+    padding: 35px 3%;
+  }
+
+  .about-team h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .team-subtitle {
+    margin-bottom: 30px;
+    font-size: 12px;
+  }
+
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .team-card {
+    padding: 18px;
+  }
+
+  .team-card img {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 12px;
+  }
+
+  .team-card span {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+
+  .team-card p {
+    font-size: 12px;
+  }
+
+  .about-cta {
+    padding: 35px 15px;
+  }
+
+  .about-cta h2 {
+    font-size: 19px;
+    margin-bottom: 18px;
+  }
+
+  .about-cta button {
+    padding: 10px 20px;
+    font-size: 12px;
   }
 }
