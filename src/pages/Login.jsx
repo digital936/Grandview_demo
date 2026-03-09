@@ -3,6 +3,7 @@ import { useState } from "react";
 import { supabase } from "../lib/supabase";
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
+import Footer from "../components/Footer";
 
 export default function Login() {
   const [role, setRole] = useState("tenant");
@@ -67,6 +68,7 @@ export default function Login() {
   };
 
   return (
+    <>
     <div className="login-container">
       <div className="login-card">
         <h2 className="login-title">Grandview Login</h2>
@@ -113,13 +115,15 @@ export default function Login() {
           </button>
         </form>
 
-        <p className="login-footer">
+        {/* <p className="login-footer">
   Don’t have an account?{" "}
   <span onClick={() => navigate("/register")} className="register-link">
     Register here
   </span>
-</p>
+</p> */}
       </div>
     </div>
+    <Footer />
+    </>
   );
 }
