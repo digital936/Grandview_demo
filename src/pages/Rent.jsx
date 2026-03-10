@@ -208,7 +208,7 @@ import { BiArea } from "react-icons/bi";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
-import "../styles/rent.css";
+import "../styles/Rent.css";
 import ScheduleTourModal from "../buttons/ScheduleTourModal";
 import ZillowButton from "../buttons/ZillowButton";
 import Footer from "../components/Footer";
