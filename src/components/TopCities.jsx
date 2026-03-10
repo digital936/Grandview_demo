@@ -21,7 +21,7 @@ const cities = [
   {
     name: "Twin Groves",
     image:
-      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=80"
+      "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?auto=format&fit=crop&w=1200&q=80"
 
   },
   {
@@ -45,7 +45,7 @@ const TopCities = () => {
       <p className="small-title">TOP CITIES</p>
 
       <h2 className="main-title">
-        Explore Rental Propertiesin Popular Arkansas Cities
+        Explore Rental Properties in Popular Arkansas Cities
       </h2>
 
       <div className="cities-grid">
