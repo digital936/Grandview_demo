@@ -1,12 +1,19 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
 import "./admin-owners.css";
+import { useNavigate } from "react-router-dom";
+
+
 
 export default function AdminOwners() {
 
   const [properties, setProperties] = useState([]);
   const [owners, setOwners] = useState([]);
   const [allProperties, setAllProperties] = useState([]);
+
+  const [editingOwner, setEditingOwner] = useState(null);
+const [selectedProperty, setSelectedProperty] = useState("");
+const navigate = useNavigate();
 
   const [form, setForm] = useState({
     name: "",
@@ -115,32 +122,83 @@ export default function AdminOwners() {
     }
   }
 
+  async function assignProperty() {
+
+  if (!selectedProperty) {
+    alert("Please select property");
+    return;
+  }
+
+  try {
+
+    await supabase
+      .from("properties")
+      .update({
+        owner_id: editingOwner.id
+      })
+      .eq("id", selectedProperty);
+
+    alert("Property assigned successfully");
+
+    setEditingOwner(null);
+    setSelectedProperty("");
+
+    fetchOwners();
+    fetchProperties();
+
+  } catch (err) {
+    alert(err.message);
+  }
+
+}
+
   // Delete owner
   async function deleteOwner(id) {
 
-    if (!window.confirm("Delete this owner?")) return;
+  if (!window.confirm("Delete this owner?")) return;
 
-    try {
+  try {
 
-      // remove owner from properties
-      await supabase
-        .from("properties")
-        .update({ owner_id: null })
-        .eq("owner_id", id);
+    // 1️⃣ Get user_id from owner
+    const { data: ownerData, error: fetchError } = await supabase
+      .from("owners")
+      .select("user_id")
+      .eq("id", id)
+      .single();
 
-      // delete owner
-      await supabase
-        .from("owners")
-        .delete()
-        .eq("id", id);
+    if (fetchError) throw fetchError;
 
-      fetchOwners();
-      fetchProperties();
+    const userId = ownerData.user_id;
 
-    } catch (err) {
-      alert(err.message);
-    }
+    // 2️⃣ Remove owner from properties
+    await supabase
+      .from("properties")
+      .update({ owner_id: null })
+      .eq("owner_id", id);
+
+    // 3️⃣ Delete owner
+    const { error: ownerDeleteError } = await supabase
+      .from("owners")
+      .delete()
+      .eq("id", id);
+
+    if (ownerDeleteError) throw ownerDeleteError;
+
+    // 4️⃣ Delete profile
+    const { error: profileDeleteError } = await supabase
+      .from("profiles")
+      .delete()
+      .eq("id", userId);
+
+    if (profileDeleteError) throw profileDeleteError;
+
+    fetchOwners();
+    fetchProperties();
+
+  } catch (err) {
+    alert("Failed to delete owner: " + err.message);
   }
+}
 
   return (
     <div className="admin-owners">
@@ -228,14 +286,37 @@ export default function AdminOwners() {
                     : "No Properties"}
                 </td>
 
-                <td>
+                {/* <td>
                   <button
                     className="delete-btn"
                     onClick={() => deleteOwner(owner.id)}
                   >
                     Delete
                   </button>
-                </td>
+
+                  <button
+                    className="edit-btn"
+                    onClick={() => editOwner(owner.id)}
+                  >
+                    Edit
+                  </button>
+                </td> */}
+
+                <td>
+  <button
+  className="edit-btn"
+  onClick={() => navigate(`/edit-owner/${owner.id}`)}
+>
+  Edit
+</button>
+
+  <button
+    className="delete-btn"
+    onClick={() => deleteOwner(owner.id)}
+  >
+    Delete
+  </button>
+</td>
 
               </tr>
             );
@@ -244,6 +325,36 @@ export default function AdminOwners() {
         </tbody>
 
       </table>
+
+      {editingOwner && (
+  <div className="edit-owner-box">
+
+    <h3>Edit Owner: {editingOwner.name}</h3>
+
+    <select
+      value={selectedProperty}
+      onChange={(e) => setSelectedProperty(e.target.value)}
+    >
+      <option value="">Select Property</option>
+
+      {properties.map(p => (
+        <option key={p.id} value={p.id}>
+          {p.title}
+        </option>
+      ))}
+
+    </select>
+
+    <button onClick={assignProperty}>
+      Assign Property
+    </button>
+
+    <button onClick={() => setEditingOwner(null)}>
+      Cancel
+    </button>
+
+  </div>
+)}
 
     </div>
   );

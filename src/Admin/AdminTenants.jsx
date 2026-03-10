@@ -21,18 +21,30 @@ export default function AdminTenants() {
     fetchTenants();
   }, []);
 
-  async function fetchProperties() {
-    const { data, error } = await supabase
-      .from("properties")
-      .select("*")
-      .eq("status", "available");
+  // async function fetchProperties() {
+  //   const { data, error } = await supabase
+  //     .from("properties")
+  //     .select("*")
+  //     .eq("status", "available");
 
-    if (error) {
-      alert("Error fetching properties: " + error.message);
-    } else {
-      setProperties(data || []);
-    }
+  //   if (error) {
+  //     alert("Error fetching properties: " + error.message);
+  //   } else {
+  //     setProperties(data || []);
+  //   }
+  // }
+
+  async function fetchProperties() {
+  const { data, error } = await supabase
+    .from("properties")
+    .select("*");
+
+  if (error) {
+    alert("Error fetching properties: " + error.message);
+  } else {
+    setProperties(data || []);
   }
+}
 
   async function fetchTenants() {
     const { data, error } = await supabase
@@ -117,19 +129,42 @@ export default function AdminTenants() {
   if (!window.confirm("Delete this tenant?")) return;
 
   try {
-    // 1️⃣ Set tenant_id = null on properties
+
+    // 1️⃣ Get tenant data to find user_id
+    const { data: tenantData, error: tenantFetchError } = await supabase
+      .from("tenants")
+      .select("user_id")
+      .eq("id", id)
+      .single();
+
+    if (tenantFetchError) throw tenantFetchError;
+
+    const userId = tenantData.user_id;
+
+    // 2️⃣ Remove tenant from property
     await supabase
       .from("properties")
-      .update({ tenant_id: null, status: "available" })
+      .update({
+        tenant_id: null,
+        status: "available"
+      })
       .eq("tenant_id", id);
 
-    // 2️⃣ Delete tenant
-    const { error } = await supabase
+    // 3️⃣ Delete tenant record
+    const { error: tenantDeleteError } = await supabase
       .from("tenants")
       .delete()
       .eq("id", id);
 
-    if (error) throw error;
+    if (tenantDeleteError) throw tenantDeleteError;
+
+    // 4️⃣ Delete profile
+    const { error: profileDeleteError } = await supabase
+      .from("profiles")
+      .delete()
+      .eq("id", userId);
+
+    if (profileDeleteError) throw profileDeleteError;
 
     fetchTenants();
     fetchProperties();

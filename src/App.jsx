@@ -23,6 +23,7 @@ import AdminTenants from "./Admin/AdminTenants";
 import AdminOwners from "./Admin/AdminOwners";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import CityProperties from "./pages/CityProperties";
+import EditOwner from "./Admin/EditOwner";
 
 
 
@@ -59,6 +60,7 @@ function App() {
         <Route path="/owner-dashboard" element={<OwnerDashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/edit-owner/:id" element={<EditOwner />} />
 
       </Routes>
 
