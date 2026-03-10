@@ -151,6 +151,7 @@ import React, { useState } from "react";
 import { supabase } from "../lib/supabase";
 import "../styles/Contact.css";
 import Feedback from "./Feedback";
+import Footer from "../components/Footer";
 
 const Contact = () => {
 
@@ -173,7 +174,7 @@ const handleSubmit = async (e) => {
 e.preventDefault();
 setLoading(true);
 
-```
+
 try {
   const { data, error } = await supabase
     .from("contacts")
@@ -205,13 +206,15 @@ try {
 }
 
 setLoading(false);
-```
+
 
 };
 
-return ( <section className="contact-page">
+return ( 
+  <>
+<section className="contact-page">
 
-```
+
   <div className="contact-hero">
     <div className="hero-content">
       <h1>Let’s Find Your Perfect Property</h1>
@@ -297,6 +300,9 @@ return ( <section className="contact-page">
   <Feedback />
 
 </section>
+<Footer />
+
+</>
 
 );
 };

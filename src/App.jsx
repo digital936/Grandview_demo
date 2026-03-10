@@ -22,6 +22,7 @@ import Register from "./pages/Register";
 import AdminTenants from "./Admin/AdminTenants";
 import AdminOwners from "./Admin/AdminOwners";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import CityProperties from "./pages/CityProperties";
 
 
 
@@ -53,7 +54,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/admin/tenants" element={<AdminTenants />} />
         <Route path="/admin/owners" element={<AdminOwners />} />
-
+        <Route path="/city/:cityName" element={<CityProperties />} />
         <Route path="/tenant-dashboard" element={<TenantDashboard />} />
         <Route path="/owner-dashboard" element={<OwnerDashboard />} />
         <Route path="/login" element={<Login />} />
