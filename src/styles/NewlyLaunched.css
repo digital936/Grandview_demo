@@ -1,3 +1,7 @@
+/* ============================= */
+/* SECTION                       */
+/* ============================= */
+
 .newly-launched-section {
   padding: 80px 40px;
   background: #f8f9fb;
@@ -8,24 +12,31 @@
   margin: auto;
 }
 
+/* ============================= */
+/* HEADER                        */
+/* ============================= */
+
 .nl-header {
   text-align: center;
   margin-bottom: 50px;
-  color: #111;
 }
 
 .nl-header h2 {
   font-size: 34px;
   font-weight: 700;
   margin-bottom: 10px;
+  color: #111;
 }
 
 .nl-header p {
-  color: #777;
   font-size: 16px;
+  color: #777;
 }
 
-/* Carousel */
+/* ============================= */
+/* CAROUSEL                      */
+/* ============================= */
+
 .nl-carousel-wrapper {
   display: flex;
   align-items: center;
@@ -40,65 +51,49 @@
 .nl-grid {
   display: flex;
   transition: transform 0.5s ease;
-  width: 100%;
 }
+
+/* ============================= */
+/* CARD                          */
+/* ============================= */
 
 .nl-card {
-  min-width: 33.33%;
+  flex: 0 0 33.33%;
   padding: 0 15px;
   box-sizing: border-box;
-}
-
-/* Tablet */
-@media (max-width: 1024px) {
-  .nl-card {
-    min-width: 50%;
-  }
-}
-
-/* Mobile */
-@media (max-width: 600px) {
-  .nl-card {
-    min-width: 100%;
-  }
-
-  .newly-launched-section {
-    padding: 60px 20px;
-  }
-
-  .nl-header h2 {
-    font-size: 26px;
-  }
-
-  .nl-img {
-    height: 180px;
-  }
+  transition: all 0.3s ease;
 }
 
 .nl-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px);
 }
 
-/* Image */
+/* ============================= */
+/* IMAGE                         */
+/* ============================= */
+
 .nl-img {
   position: relative;
   height: 220px;
   overflow: hidden;
+  border-radius: 12px 12px 0 0;
 }
 
 .nl-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: 0.4s ease;
+  transition: transform 0.4s ease;
 }
 
 .nl-card:hover .nl-img img {
-  transform: scale(1.08);
+  transform: scale(1.07);
 }
 
-/* Offer Badge */
+/* ============================= */
+/* BADGES                        */
+/* ============================= */
+
 .nl-offer-badge {
   position: absolute;
   top: 12px;
@@ -107,11 +102,10 @@
   color: #fff;
   padding: 6px 12px;
   font-size: 12px;
-  font-weight: bold;
+  font-weight: 600;
   border-radius: 4px;
 }
 
-/* Price Tag */
 .nl-price-tag {
   position: absolute;
   top: 12px;
@@ -124,93 +118,109 @@
   font-weight: 600;
 }
 
-/* Content */
+/* ============================= */
+/* CONTENT                       */
+/* ============================= */
+
 .nl-content {
+  background: #fff;
   padding: 20px;
-  color: #333;
+  border-radius: 0 0 12px 12px;
 }
 
 .nl-title {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 6px;
+  color: #222;
 }
 
 .nl-location {
-  color: #777;
   font-size: 14px;
+  color: #777;
   margin-bottom: 12px;
 }
+
+/* ============================= */
+/* PROPERTY SPECS                */
+/* ============================= */
 
 .nl-specs {
   display: flex;
   justify-content: space-between;
-  font-size: 18px;
-  margin-bottom: 12px;
-  color: #1d1d1d;
+  margin-bottom: 14px;
+  font-size: 15px;
 }
 
-/* .nl-specs span {
-  font-size: 20px;   
+.nl-specs span {
   display: flex;
   align-items: center;
   gap: 6px;
-} */
-
-.nl-date {
-  font-size: 13px;
-  color: #999;
-  margin-bottom: 16px;
+  color: #333;
 }
 
-/* ========================= */
-/* BRAND BUTTON STYLE        */
-/* ========================= */
+/* ============================= */
+/* BUTTONS                       */
+/* ============================= */
 
 .nl-buttons {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin-top: 12px;
+  gap: 12px;
 }
 
 .nl-buttons button {
-  /* background: #7b2828; */
   background: linear-gradient(135deg, #b71c1c, #8e0000);
-  color: #ffffff;
-  padding: 14px;
+  color: #fff;
+  padding: 13px;
   border: none;
-  border-radius: 14px;
+  border-radius: 10px;
+  font-size: 14px;
   font-weight: 600;
-  font-size: 15px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  letter-spacing: 0.4px;
-  /* box-shadow: 0 10px 25px rgba(185, 28, 28, 0.35); */
+  transition: all 0.25s ease;
 }
 
 .nl-buttons button:hover {
   background: #991b1b;
-  transform: translateY(-3px);
-  /* box-shadow: 0 15px 35px rgba(185, 28, 28, 0.55); */
+  transform: translateY(-2px);
 }
 
-.nl-buttons button:active {
-  transform: scale(0.97);
-  /* box-shadow: 0 6px 15px rgba(185, 28, 28, 0.4); */
+/* ============================= */
+/* BUTTON LAYOUT                 */
+/* ============================= */
+
+.nl-buttons .top-row {
+  display: flex;
+  gap: 10px;
 }
 
-/* Arrows */
+.nl-buttons .top-row button {
+  flex: 1;
+}
+
+.nl-details-btn {
+  width: 100%;
+}
+
+/* ============================= */
+/* ARROWS                        */
+/* ============================= */
+
 .nl-arrow {
   background: #111;
   color: #fff;
   border: none;
   padding: 12px 16px;
-  cursor: pointer;
   font-size: 18px;
   border-radius: 50%;
+  cursor: pointer;
   margin: 0 10px;
-  transition: 0.3s ease;
+  transition: 0.25s ease;
+}
+
+.nl-arrow:hover:not(:disabled) {
+  background: #333;
 }
 
 .nl-arrow:disabled {
@@ -218,37 +228,43 @@
   cursor: not-allowed;
 }
 
-.nl-arrow:hover:not(:disabled) {
-  background: #333;
+/* ============================= */
+/* TABLET RESPONSIVE             */
+/* ============================= */
+
+@media (max-width: 1024px) {
+
+  .nl-card {
+    flex: 0 0 50%;
+  }
+
+  .newly-launched-section {
+    padding: 70px 30px;
+  }
+
 }
 
-/* ========================= */
-/* BUTTON LAYOUT STRUCTURE   */
-/* ========================= */
-
-.nl-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  margin-top: 12px;
-}
-
-/* First row */
-.nl-buttons .top-row {
-  display: flex;
-  gap: 12px;
-}
-
-.nl-buttons .top-row button {
-  flex: 1;
-}
-
-/* Full width details button */
-.nl-details-btn {
-  width: 100%;
-}
+/* ============================= */
+/* MOBILE RESPONSIVE             */
+/* ============================= */
 
 @media (max-width: 600px) {
+
+  .nl-card {
+    flex: 0 0 100%;
+  }
+
+  .newly-launched-section {
+    padding: 60px 20px;
+  }
+
+  .nl-header h2 {
+    font-size: 26px;
+  }
+
+  .nl-img {
+    height: 190px;
+  }
 
   .nl-buttons .top-row {
     flex-direction: column;
@@ -259,23 +275,89 @@
     font-size: 14px;
   }
 
-}
-.nl-specs {
-  display: flex;
-  justify-content: space-between;
-  font-size: 16px;
-}
-
-.nl-specs span {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-@media (max-width: 600px) {
-
   .nl-arrow {
     padding: 8px 12px;
     font-size: 16px;
+  }
+
+}
+
+/* ============================= */
+/* EXTRA SMALL MOBILE (320px)    */
+/* ============================= */
+
+@media (max-width: 320px) {
+
+  .newly-launched-section {
+    padding: 40px 10px;
+  }
+
+  .nl-header h2 {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+
+  .nl-header p {
+    font-size: 13px;
+  }
+
+  .nl-card {
+    padding: 0 5px;
+  }
+
+  .nl-img {
+    height: 150px;
+  }
+
+  .nl-content {
+    padding: 14px;
+  }
+
+  .nl-title {
+    font-size: 15px;
+  }
+
+  .nl-location {
+    font-size: 12px;
+  }
+
+  .nl-specs {
+    font-size: 13px;
+    gap: 6px;
+  }
+
+  .nl-specs span {
+    gap: 4px;
+  }
+
+  .nl-buttons {
+    gap: 8px;
+  }
+
+  .nl-buttons button {
+    padding: 10px;
+    font-size: 12px;
+    border-radius: 8px;
+  }
+
+  .nl-buttons .top-row {
+    flex-direction: column;
+  }
+
+  .nl-arrow {
+    padding: 6px 8px;
+    font-size: 14px;
+    margin: 0 4px;
+  }
+
+  .nl-offer-badge {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+
+  .nl-price-tag {
+    font-size: 11px;
+    padding: 4px 8px;
   }
 
 }
