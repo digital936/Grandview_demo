@@ -45,7 +45,7 @@ const TopCities = () => {
       <p className="small-title">TOP CITIES</p>
 
       <h2 className="main-title">
-        Explore Real Estate in Popular Arkansas Cities
+        Explore Rental Propertiesin Popular Arkansas Cities
       </h2>
 
       <div className="cities-grid">

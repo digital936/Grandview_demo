@@ -117,12 +117,12 @@ function AboutUs() {
         </section> */}
 
         {/* CTA */}
-        <section className="about-cta">
+        {/* <section className="about-cta">
           <h2>Ready to Find Your Dream Property?</h2>
           <button onClick={() => navigate("/buy")}>
             Explore Properties
           </button>
-        </section>
+        </section> */}
 
       </div>
 

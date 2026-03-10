@@ -77,7 +77,7 @@ export default function SearchResults() {
                 <h3>{property.title}</h3>
                 <p>{property.city}</p>
                 <p className="price">
-                  ₹{Number(property.price).toLocaleString()}
+                  ${Number(property.price).toLocaleString()}
                 </p>
               </div>
             </div>
