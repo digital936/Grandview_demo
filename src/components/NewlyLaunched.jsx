@@ -1,3 +1,4 @@
+
 import { FaBed, FaBath } from "react-icons/fa";
 import { BiArea } from "react-icons/bi";
 import { useEffect, useState } from "react";
@@ -14,6 +15,10 @@ const NewlyLaunched = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(3);
 
+  /* ⭐ MODAL STATE */
+  const [showTourModal, setShowTourModal] = useState(false);
+  const [selectedPropertyId, setSelectedPropertyId] = useState(null);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,7 +26,6 @@ const NewlyLaunched = () => {
     updateCardsPerView();
 
     window.addEventListener("resize", updateCardsPerView);
-
     return () => window.removeEventListener("resize", updateCardsPerView);
   }, []);
 
@@ -64,97 +68,129 @@ const NewlyLaunched = () => {
     navigate(`/property/${id}`);
   };
 
+  /* ⭐ OPEN MODAL */
+  const openTourModal = (id) => {
+    setSelectedPropertyId(id);
+    setShowTourModal(true);
+  };
+
+  /* ⭐ CLOSE MODAL */
+  const closeTourModal = () => {
+    setShowTourModal(false);
+    setSelectedPropertyId(null);
+  };
+
   if (loading) {
     return <p>Loading...</p>;
   }
 
   return (
-    <section className="newly-launched-section">
-      <div className="nl-container">
+    <>
+      <section className="newly-launched-section">
+        <div className="nl-container">
 
-        <div className="nl-header">
-          <h2>Newly Available Properties</h2>
-          <p>Explore Grandview’s latest exclusive offers</p>
-        </div>
-
-        <div className="nl-carousel-wrapper">
-
-          <button
-            className="nl-arrow left"
-            onClick={prevSlide}
-            disabled={currentIndex === 0}
-          >
-            {"<"}
-          </button>
-
-          <div className="nl-carousel">
-
-            <div
-              className="nl-grid"
-              style={{
-                transform: `translateX(-${currentIndex * (100 / cardsPerView)}%)`
-              }}
-            >
-
-              {properties.map((item) => (
-
-                <div className="nl-card" key={item.id}>
-
-                  <div className="nl-img">
-                    <img src={item.imageUrl} alt={item.title} />
-                    <span className="nl-offer-badge">OFFER</span>
-                    <span className="nl-price-tag">
-                      ${Number(item.price).toLocaleString()}
-                    </span>
-                  </div>
-
-                  <div className="nl-content">
-
-                    <h3 className="nl-title">{item.title}</h3>
-                    <p className="nl-location">{item.city}</p>
-
-                    <div className="nl-specs">
-                      <span><FaBed /> {item.beds}</span>
-                      <span><FaBath /> {item.baths}</span>
-                      <span><BiArea /> {item.sqft} sqft</span>
-                    </div>
-
-                    <div className="nl-buttons">
-
-                      <div className="top-row">
-                        <ZillowButton zillowLink={item.zillow_link} />
-                        <ScheduleTourModal propertyId={item.id} />
-                      </div>
-
-                      <button
-                        className="nl-details-btn"
-                        onClick={() => handleNavigate(item.id)}
-                      >
-                        View Details
-                      </button>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              ))}
-
-            </div>
+          <div className="nl-header">
+            <h2>Newly Available Properties</h2>
+            <p>Explore Grandview’s latest exclusive offers</p>
           </div>
 
-          <button
-            className="nl-arrow right"
-            onClick={nextSlide}
-            disabled={currentIndex >= properties.length - cardsPerView}
-          >
-            {">"}
-          </button>
+          <div className="nl-carousel-wrapper">
 
+            <button
+              className="nl-arrow left"
+              onClick={prevSlide}
+              disabled={currentIndex === 0}
+            >
+              {"<"}
+            </button>
+
+            <div className="nl-carousel">
+
+              <div
+                className="nl-grid"
+                style={{
+                  transform: `translateX(-${currentIndex * (100 / cardsPerView)}%)`
+                }}
+              >
+
+                {properties.map((item) => (
+
+                  <div className="nl-card" key={item.id}>
+
+                    <div className="nl-img">
+                      <img src={item.imageUrl} alt={item.title} />
+                      <span className="nl-offer-badge">OFFER</span>
+                      <span className="nl-price-tag">
+                        ${Number(item.price).toLocaleString()}
+                      </span>
+                    </div>
+
+                    <div className="nl-content">
+
+                      <h3 className="nl-title">{item.title}</h3>
+                      <p className="nl-location">{item.city}</p>
+
+                      <div className="nl-specs">
+                        <span><FaBed /> {item.beds}</span>
+                        <span><FaBath /> {item.baths}</span>
+                        <span><BiArea /> {item.sqft} sqft</span>
+                      </div>
+
+                      <div className="nl-buttons">
+
+                        <div className="top-row">
+
+                          <ZillowButton zillowLink={item.zillow_link} />
+
+                          {/* ⭐ MODAL BUTTON */}
+                          <button
+                            className="schedule-btn"
+                            onClick={() => openTourModal(item.id)}
+                          >
+                            Schedule Tour
+                          </button>
+
+                        </div>
+
+                        <button
+                          className="nl-details-btn"
+                          onClick={() => handleNavigate(item.id)}
+                        >
+                          View Details
+                        </button>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                ))}
+
+              </div>
+
+            </div>
+
+            <button
+              className="nl-arrow right"
+              onClick={nextSlide}
+              disabled={currentIndex >= properties.length - cardsPerView}
+            >
+              {">"}
+            </button>
+
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* ⭐ GLOBAL MODAL OUTSIDE CAROUSEL */}
+      {showTourModal && (
+        <ScheduleTourModal
+          propertyId={selectedPropertyId}
+          closeModal={closeTourModal}
+        />
+      )}
+    </>
   );
 };
 
