@@ -14,7 +14,7 @@ const Home = () => {
       <HeroSection />
       {/* <PromotionSection /> */}
       <RentAHome />
-      <NewlyLaunched />
+      {/* <NewlyLaunched /> */}
 
       
       
