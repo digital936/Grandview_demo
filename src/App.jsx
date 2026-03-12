@@ -24,9 +24,10 @@ import AdminOwners from "./Admin/AdminOwners";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import CityProperties from "./pages/CityProperties";
 import EditOwner from "./Admin/EditOwner";
+import PostProperty from "./pages/PostProperty";
 import PostPropertySection from "./pages/PostPropertySection";
 import AdminPostProperties from "./Admin/adminpostproperty";
-import PostProperty from "./pages/postproperty";
+
 
 
 
