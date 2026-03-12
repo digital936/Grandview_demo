@@ -230,21 +230,18 @@
   }
 
   .tenant-table td {
-    text-align: right;
-    padding-left: 50%;
-    position: relative;
-    font-size: 0.85rem;
-    padding: 10px 12px 10px 50%;
+    text-align: left;
+  padding: 10px 12px;
+  position: relative;
+  font-size: 0.85rem;
   }
 
   .tenant-table td::before {
     content: attr(data-label);
-    position: absolute;
-    left: 12px;
-    width: 40%;
-    font-weight: 700;
-    text-align: left;
-    color: #555;
+  display: block;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: #555;
   }
 
   .delete-btn {
@@ -285,7 +282,7 @@
   }
 
   .tenant-table td {
-    padding: 8px 10px 8px 48%;
+    /* padding: 8px 10px 8px 48%; */
     font-size: 0.8rem;
   }
 
