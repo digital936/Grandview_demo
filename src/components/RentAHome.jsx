@@ -1,16 +1,14 @@
-
 import { Link } from "react-router-dom";
+import "../styles/RentAHome.css";
 
-{/* PROMOTION SECTION BELOW SEARCH */}
 const RentAHome = () => {
   return (
-<section className="promotion-section">
+    <section className="promotion-section">
       <div className="promotion-wrapper">
+
         <div className="promotion-grid">
 
-          
-
-          {/* Left CONTENT */}
+          {/* LEFT CONTENT */}
           <div className="promotion-content">
             <p className="promotion-tag">Rent a Home</p>
 
@@ -22,15 +20,18 @@ const RentAHome = () => {
               Explore from apartments, builder floors, villas and more
             </p>
 
-            <Link to="/rent">
-              <button className="promotion-button">
-                Explore Renting
-              </button>
-            </Link>
+            {/* BUTTON BELOW TEXT */}
+            <div className="promotion-button-wrapper">
+              <Link to="/rent">
+                <button className="promotion-button">
+                  Explore Renting
+                </button>
+              </Link>
+            </div>
 
           </div>
 
-          {/* right IMAGE */}
+          {/* RIGHT IMAGE */}
           <div className="promotion-image-card">
             <img
               src="https://images.unsplash.com/photo-1568605114967-8130f3a36994"
@@ -39,10 +40,10 @@ const RentAHome = () => {
           </div>
 
         </div>
+
       </div>
-      </section>
+    </section>
   );
 };
 
 export default RentAHome;
-
