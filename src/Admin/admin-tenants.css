@@ -297,3 +297,15 @@
     font-size: 0.75rem;
   }
 }
+
+@media (max-width: 650px) {
+
+  .edit-btn,
+  .delete-btn {
+    width: 100%;
+    max-width: none;
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+}
