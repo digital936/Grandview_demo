@@ -24,6 +24,9 @@ import AdminOwners from "./Admin/AdminOwners";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import CityProperties from "./pages/CityProperties";
 import EditOwner from "./Admin/EditOwner";
+import PostPropertySection from "./pages/PostPropertySection";
+import AdminPostProperties from "./Admin/adminpostproperty";
+import PostProperty from "./pages/postproperty";
 
 
 
@@ -61,6 +64,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/edit-owner/:id" element={<EditOwner />} />
+        <Route path="/post-property-section" element={<PostPropertySection />} />
+        <Route path="/admin/post-properties" element={<AdminPostProperties />} />
+        <Route path="/post-property" element={<PostProperty />} />
 
       </Routes>
 

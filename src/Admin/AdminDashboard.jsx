@@ -54,6 +54,13 @@ export default function AdminDashboard() {
         <Link to="/admin/feedback">View Feedback</Link>
         <Link to="/admin/contacts">View ContactUs details</Link>
         <Link to="/admin/issues">View Tenant Issues</Link>
+        
+
+        {/* NEW PAGE */}
+        <Link to="/admin/post-properties">
+          View Post Properties
+        </Link>
+        
       </aside>
 
       <div className="admin-content">

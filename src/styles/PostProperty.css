@@ -1,0 +1,109 @@
+/* Page wrapper */
+.post-property-page {
+  max-width: 700px;
+  margin: 60px auto;
+  padding: 35px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  font-family: Arial, sans-serif;
+}
+
+/* Title */
+.post-property-page h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #1a1a1a;
+  font-size: 26px;
+}
+
+/* Form */
+.post-property-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Inputs */
+.post-property-form input {
+  padding: 12px 14px;
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 100%;
+  transition: border 0.3s;
+}
+
+.post-property-form input:focus {
+  outline: none;
+  border-color: #c62828;
+}
+
+/* Row layout (city/zip, beds/baths/sqft) */
+.form-row {
+  display: flex;
+  gap: 15px;
+}
+
+.form-row input {
+  flex: 1;
+}
+
+/* Price input with $ */
+.input-group {
+  display: flex;
+  align-items: center;
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.input-group span {
+  background: #f3f3f3;
+  padding: 12px 14px;
+  font-weight: 600;
+  color: #555;
+}
+
+.input-group input {
+  border: none;
+  padding: 12px;
+  flex: 1;
+}
+
+/* Submit button */
+.post-property-form button {
+  padding: 13px;
+  background: #c62828;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.post-property-form button:hover {
+  background: #a61f1f;
+}
+
+/* Disabled button */
+.post-property-form button:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+
+  .post-property-page {
+    margin: 30px 20px;
+    padding: 25px;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+
+}

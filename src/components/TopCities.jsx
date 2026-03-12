@@ -19,7 +19,7 @@ const cities = [
       "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1200&q=80"
   },
   {
-    name: "Twin Groves",
+    name: "Prairie Grove",
     image:
       "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?auto=format&fit=crop&w=1200&q=80"
 
