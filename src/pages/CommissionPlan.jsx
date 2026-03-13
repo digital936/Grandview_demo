@@ -1,82 +1,58 @@
-// import { useState } from "react";
-// import "../styles/CommissionPlan.css";
-
-// export default function CommissionPlan() {
-
-//   const [selectedPlan, setSelectedPlan] = useState(null);
-
-//   return (
-//     <div className="commission-page">
-
-//       <h1>Grandview Realty Commission Plans</h1>
-
-//       <div className="plan-section">
-
-//         <div className="plan-card">
-//           <h2>MAX Plan</h2>
-//           <button onClick={() => setSelectedPlan("MAX")}>
-//             Choose Plan
-//           </button>
-//         </div>
-
-//         <div className="plan-card">
-//           <h2>SHARE Plan</h2>
-//           <button onClick={() => setSelectedPlan("SHARE")}>
-//             Choose Plan
-//           </button>
-//         </div>
-
-//         <div className="plan-card">
-//           <h2>ELEVATE Plan</h2>
-//           <button onClick={() => setSelectedPlan("ELEVATE")}>
-//             Choose Plan
-//           </button>
-//         </div>
-
-//       </div>
-
-//       {selectedPlan && (
-//         <div className="form-modal">
-
-//           <div className="form-box">
-
-//             <button
-//               className="close-btn"
-//               onClick={() => setSelectedPlan(null)}
-//             >
-//               ✖
-//             </button>
-
-//             <h2>Apply for {selectedPlan} Plan</h2>
-
-//             <form>
-
-//               <input type="text" placeholder="Full Name" required />
-
-//               <input type="email" placeholder="Email" required />
-
-//               <input type="tel" placeholder="Phone Number" required />
-
-//               <textarea placeholder="Message"></textarea>
-
-//               <button type="submit">Submit</button>
-
-//             </form>
-
-//           </div>
-
-//         </div>
-//       )}
-
-//     </div>
-//   );
-// }
-
 import { useState } from "react";
 import "../styles/CommissionPlan.css";
+import { supabase } from "../lib/supabase";
 
 export default function CommissionPlan() {
+
   const [selectedPlan, setSelectedPlan] = useState(null);
+
+  const [formData, setFormData] = useState({
+    fullname: "",
+    email: "",
+    phone: "",
+    city: "",
+    message: ""
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { error } = await supabase
+      .from("commission_leads")
+      .insert([
+        {
+          fullname: formData.fullname,
+          email: formData.email,
+          phone: formData.phone,
+          city: formData.city,
+          message: formData.message,
+          plan: selectedPlan
+        }
+      ]);
+
+    if (error) {
+      alert("Error submitting form");
+      console.log(error);
+    } else {
+      alert("Application submitted successfully!");
+      setSelectedPlan(null);
+
+      setFormData({
+        fullname: "",
+        email: "",
+        phone: "",
+        city: "",
+        message: ""
+      });
+    }
+  };
 
   return (
     <div className="commission-page">
@@ -86,15 +62,14 @@ export default function CommissionPlan() {
         <h1>Grandview Realty Commission Plans</h1>
         <p>
           Join Grandview Realty and choose the commission structure that helps
-          you maximize your earnings and grow your real estate business.
+          you maximize your earnings.
         </p>
       </section>
 
 
-      {/* COMMISSION PLANS */}
+      {/* PLANS */}
       <section className="plan-section">
 
-        {/* PLAN 1 */}
         <div className="plan-card">
           <h2>MAX Plan</h2>
           <h3>$465 / Sale</h3>
@@ -112,7 +87,6 @@ export default function CommissionPlan() {
         </div>
 
 
-        {/* PLAN 2 */}
         <div className="plan-card highlight">
           <h2>SHARE Plan</h2>
           <h3>12% Split</h3>
@@ -130,7 +104,6 @@ export default function CommissionPlan() {
         </div>
 
 
-        {/* PLAN 3 */}
         <div className="plan-card">
           <h2>ELEVATE Plan</h2>
           <h3>$515 + 20%</h3>
@@ -150,8 +123,7 @@ export default function CommissionPlan() {
       </section>
 
 
-
-      {/* FEATURES SECTION */}
+      {/* FEATURES */}
       <section className="features-section">
 
         <h2>Included Tools & Support</h2>
@@ -161,37 +133,37 @@ export default function CommissionPlan() {
           <div className="feature-box">
             <div className="feature-icon">🏢</div>
             <h3>CRM Platform</h3>
-            <p>Manage leads, clients, and deals with powerful CRM tools.</p>
+            <p>Manage leads and clients easily.</p>
           </div>
 
           <div className="feature-box">
             <div className="feature-icon">📊</div>
             <h3>Transaction Management</h3>
-            <p>Securely manage all transaction documents and processes.</p>
+            <p>Securely manage all documents.</p>
           </div>
 
           <div className="feature-box">
             <div className="feature-icon">📣</div>
             <h3>Marketing Tools</h3>
-            <p>Promote listings using professional marketing tools.</p>
+            <p>Promote listings professionally.</p>
           </div>
 
           <div className="feature-box">
             <div className="feature-icon">💻</div>
             <h3>Personal Website</h3>
-            <p>Create a personal website to showcase your properties.</p>
+            <p>Showcase your listings online.</p>
           </div>
 
           <div className="feature-box">
             <div className="feature-icon">📱</div>
             <h3>Mobile Access</h3>
-            <p>Manage listings and clients anytime from mobile devices.</p>
+            <p>Manage everything on mobile.</p>
           </div>
 
           <div className="feature-box">
             <div className="feature-icon">🤝</div>
             <h3>Agent Support</h3>
-            <p>Dedicated support team to help you grow your business.</p>
+            <p>Dedicated support team.</p>
           </div>
 
         </div>
@@ -199,30 +171,81 @@ export default function CommissionPlan() {
       </section>
 
 
+      {/* FORM MODAL */}
 
-      {/* APPLICATION FORM MODAL */}
-     {selectedPlan && (
-  <div className="plan-form-overlay">
-    <div className="plan-form">
+      {selectedPlan && (
+        <div className="plan-form-overlay">
 
-      <h2>Join Grandview Realty</h2>
+          <div className="plan-form">
 
-      <input type="text" placeholder="Full Name" />
-      <input type="email" placeholder="Email Address" />
-      <input type="tel" placeholder="Phone Number" />
-      <input type="text" placeholder="City" />
+            <h2>Apply for {selectedPlan}</h2>
 
-      <textarea placeholder="Message"></textarea>
+            <form onSubmit={handleSubmit}>
 
-      <div className="form-buttons">
-        <button className="plan-submit">Submit</button>
-        <button className="plan-cancel">Cancel</button>
-      </div>
+              <input
+                type="text"
+                name="fullname"
+                placeholder="Full Name"
+                value={formData.fullname}
+                onChange={handleChange}
+                required
+              />
 
-    </div>
-  </div>
-)}
-     
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Phone Number"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+              />
+
+              <input
+                type="text"
+                name="city"
+                placeholder="City"
+                value={formData.city}
+                onChange={handleChange}
+              />
+
+              <textarea
+                name="message"
+                placeholder="Message"
+                value={formData.message}
+                onChange={handleChange}
+              ></textarea>
+
+              <div className="form-buttons">
+
+                <button type="submit" className="plan-submit">
+                  Submit
+                </button>
+
+                <button
+                  type="button"
+                  className="plan-cancel"
+                  onClick={() => setSelectedPlan(null)}
+                >
+                  Cancel
+                </button>
+
+              </div>
+
+            </form>
+
+          </div>
+
+        </div>
+      )}
 
     </div>
   );
