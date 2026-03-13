@@ -27,6 +27,7 @@ import EditOwner from "./Admin/EditOwner";
 import PostProperty from "./pages/PostProperty";
 import PostPropertySection from "./pages/PostPropertySection";
 import AdminPostProperties from "./Admin/adminpostproperty";
+import CommissionPlan from "./pages/CommissionPlan";
 
 
 
@@ -68,6 +69,7 @@ function App() {
         <Route path="/post-property-section" element={<PostPropertySection />} />
         <Route path="/admin/post-properties" element={<AdminPostProperties />} />
         <Route path="/post-property" element={<PostProperty />} />
+        <Route path="/commission-plan" element={<CommissionPlan />} />
 
       </Routes>
 
