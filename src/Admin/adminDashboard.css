@@ -1,218 +1,253 @@
-/* Remove default spacing */
-body {
+/* ===== GLOBAL RESET ===== */
+
+* {
   margin: 0;
-  font-family: "Segoe UI", sans-serif;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Layout */
-.admin-dashboard {
+body {
+  font-family: "Inter", "Segoe UI", sans-serif;
+  background: #f4f6fb;
+  color: #1f2937;
+}
+
+/* ===== LAYOUT ===== */
+
+.admin-container {
   display: flex;
   min-height: 100vh;
-  background: #F4F6F9;
+  width: 100%;
+}
+
+/* ===== SIDEBAR ===== */
+
+.sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #111827, #1f2937);
+  color: white;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100vh;
+  left: 0;
+  top: 0;
+}
+
+.logo {
+  margin-bottom: 35px;
+}
+
+.logo h2 {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* ===== NAVIGATION ===== */
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #d1d5db;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: 0.25s ease;
+}
+
+.sidebar a:hover {
+  background: #c0392b;
+  color: white;
+  transform: translateX(4px);
+}
+
+/* ===== MAIN CONTENT ===== */
+
+.main-content {
+  flex: 1;
+  margin-left: 260px;
+  padding: 35px 40px;
+  width: 100%;
+  background-color: #eee;
+}
+
+/* ===== TOPBAR ===== */
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
   flex-wrap: wrap;
 }
 
-/* Sidebar */
-.admin-dashboard aside {
-  width: 260px;
-  background: #1F2A44;
-  color: white;
-  padding: 30px 25px;
+.page-title {
   display: flex;
-  flex-direction: column;
-  position: relative;
-  z-index: 100;
+  align-items: center;
+  gap: 10px;
 }
 
-/* Sidebar Title */
-.admin-dashboard aside h2 {
-  margin-bottom: 40px;
-  font-size: 20px;
+.page-title h1 {
+  font-size: 24px;
   font-weight: 600;
-  letter-spacing: 0.5px;
 }
 
-/* Sidebar Links */
-.admin-dashboard aside a {
-  color: #D1D5DB;
-  text-decoration: none;
-  margin-bottom: 18px;
-  font-size: 14px;
-  padding: 10px 12px;
-  border-radius: 8px;
-  transition: all 0.2s ease;
+/* ===== ADMIN PROFILE ===== */
+
+.admin-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-/* Hover Effect */
-.admin-dashboard aside a:hover {
-  background: #C0392B;
+.avatar {
+  width: 36px;
+  height: 36px;
+  background: #c0392b;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: white;
-  padding-left: 18px;
-}
-
-/* Active Link (optional later with NavLink) */
-.admin-dashboard aside a.active {
-  background: #C0392B;
-  color: white;
-}
-
-/* Content Area */
-.admin-content {
-  flex: 1;
-  padding: 50px;
-  background: #F4F6F9;
-  min-width: 0;
-  overflow-x: hidden;
-}
-
-/* Welcome Title */
-.admin-content h1 {
-  font-size: 28px;
-  color: #1F2A44;
   font-weight: 600;
-  margin-bottom: 20px;
 }
 
-/* Cards (for future stats) */
-.dashboard-card {
+/* ===== STATS GRID ===== */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* ===== STAT CARDS ===== */
+
+.stat-card {
   background: white;
   padding: 25px;
   border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-  margin-bottom: 20px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+  transition: 0.25s ease;
 }
 
-/* RESPONSIVE */
+.stat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.08);
+}
+
+.stat-card h3 {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.stat-card p {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+/* ===== LARGE SCREENS ===== */
+
 @media (max-width: 1200px) {
-  .admin-dashboard aside {
-    width: 240px;
-    padding: 25px 20px;
+
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 
-  .admin-dashboard aside h2 {
-    font-size: 18px;
-  }
-
-  .admin-dashboard aside a {
-    font-size: 13px;
-    margin-bottom: 16px;
-  }
-
-  .admin-content {
-    padding: 40px 35px;
-  }
-
-  .admin-content h1 {
-    font-size: 24px;
-  }
-
-  .dashboard-card {
-    padding: 20px;
-  }
 }
 
-@media (max-width: 1024px) {
-  .admin-dashboard aside {
+/* ===== TABLETS ===== */
+
+@media (max-width: 992px) {
+
+  .sidebar {
     width: 220px;
-    padding: 20px 15px;
   }
 
-  .admin-dashboard aside h2 {
-    margin-bottom: 30px;
-    font-size: 16px;
-  }
-
-  .admin-dashboard aside a {
-    font-size: 12px;
-    margin-bottom: 14px;
-    padding: 8px 10px;
-  }
-
-  .admin-content {
+  .main-content {
+    margin-left: 220px;
     padding: 30px;
   }
 
-  .admin-content h1 {
-    font-size: 22px;
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .dashboard-card {
-    padding: 18px;
-  }
 }
 
+/* ===== SMALL TABLETS ===== */
+
 @media (max-width: 768px) {
-  .admin-dashboard {
+
+  .admin-container {
     flex-direction: column;
   }
 
-  .admin-dashboard aside {
+  .sidebar {
+    position: relative;
     width: 100%;
-    padding: 20px;
-    margin-bottom: 10px;
+    height: auto;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
   }
 
-  .admin-dashboard aside h2 {
-    margin-bottom: 0;
-    order: 1;
-    width: 100%;
+  .sidebar nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
-  .admin-dashboard aside a {
-    margin-bottom: 10px;
-    margin-right: 10px;
-    padding: 8px 10px;
-    font-size: 11px;
-    flex: 0 1 calc(50% - 5px);
+  .sidebar a {
+    font-size: 13px;
+    padding: 10px;
   }
 
-  .admin-content {
+  .main-content {
+    margin-left: 0;
     padding: 25px;
-    flex: 1;
-    width: 100%;
   }
 
-  .admin-content h1 {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+/* ===== MOBILE ===== */
+
+@media (max-width: 480px) {
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .page-title h1 {
     font-size: 20px;
   }
 
-  .dashboard-card {
-    padding: 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  .admin-dashboard aside {
-    padding: 15px;
+  .stats-grid {
+    grid-template-columns: 1fr;
   }
 
-  .admin-dashboard aside h2 {
-    font-size: 16px;
+  .stat-card {
+    padding: 20px;
   }
 
-  .admin-dashboard aside a {
-    margin-bottom: 8px;
-    margin-right: 8px;
-    padding: 7px 9px;
-    font-size: 10px;
-    flex: 0 1 calc(50% - 4px);
+  .stat-card p {
+    font-size: 24px;
   }
 
-  .admin-content {
-    padding: 15px;
-  }
-
-  .admin-content h1 {
-    font-size: 18px;
-    margin-bottom: 15px;
-  }
-
-  .dashboard-card {
-    padding: 14px;
-    margin-bottom: 15px;
-  }
 }

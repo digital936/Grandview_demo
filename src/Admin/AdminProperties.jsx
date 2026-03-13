@@ -451,14 +451,14 @@ export default function AdminProperties() {
             <div className="actions">
 
               <button
-                className="edit-btn"
+                // className="edit-btn"
                 onClick={() => handleEdit(property)}
               >
                 Edit
               </button>
 
               <button
-                className="delete-btn"
+                // className="delete-btn"
                 onClick={() => handleDelete(property.id)}
               >
                 Delete

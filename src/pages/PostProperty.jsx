@@ -1,6 +1,11 @@
+
+
+
 import React, { useState } from "react";
 import { supabase } from "../lib/supabase";
 import "../styles/PostProperty.css";
+import Footer from "../components/Footer";
+
 
 const PostProperty = () => {
 
@@ -18,6 +23,7 @@ const PostProperty = () => {
   });
 
   const [loading, setLoading] = useState(false);
+  const [type, setType] = useState("sale"); // sale or rent
 
   const handleChange = (e) => {
     setForm({
@@ -33,7 +39,7 @@ const PostProperty = () => {
 
     const { error } = await supabase
       .from("post_properties")
-      .insert([form]);
+      .insert([{ ...form, property_type: type }]);
 
     if (error) {
       console.error(error);
@@ -61,9 +67,29 @@ const PostProperty = () => {
   };
 
   return (
+    <>
     <div className="post-property-page">
 
       <h2>Post Your Property</h2>
+
+      {/* Sell or Rent Selection */}
+      <div className="property-type-buttons">
+
+        <button
+          type="button"
+          onClick={() => setType("sale")}
+        >
+          Sell Property
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setType("rent")}
+        >
+          Rent Property
+        </button>
+
+      </div>
 
       <form
         className="post-property-form"
@@ -143,7 +169,7 @@ const PostProperty = () => {
           <input
             type="number"
             name="price"
-            placeholder="Sale Price"
+            placeholder={type === "sale" ? "Sale Price" : "Rent Price (per month)"}
             value={form.price}
             onChange={handleChange}
           />
@@ -189,7 +215,10 @@ const PostProperty = () => {
       </form>
 
     </div>
+    <Footer />
+    </>
   );
+  
 };
 
 export default PostProperty;

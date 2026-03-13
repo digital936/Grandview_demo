@@ -24,7 +24,7 @@ const HeroSection = () => {
         <h1>Find Your Dream Home with Grandview Realty</h1>
         <p>Premium properties. Trusted guidance. Exceptional service.</p>
 
-        <div className="search-box">
+        {/* <div className="search-box">
           <input
             type="text"
             placeholder="Search city or locality"
@@ -54,7 +54,7 @@ const HeroSection = () => {
           <button onClick={handleSearch}>
             Search
           </button>
-        </div>
+        </div> */}
       </div>
     </section>
   );

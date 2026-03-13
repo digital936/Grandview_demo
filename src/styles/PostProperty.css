@@ -17,6 +17,39 @@
   font-size: 26px;
 }
 
+/* Sell / Rent buttons */
+.property-type-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+/* Button style */
+.property-type-buttons button {
+  padding: 10px 25px;
+  border: 2px solid #c62828;
+  background: white;
+  color: #c62828;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Active button */
+.property-type-buttons button.active {
+  background: #c62828;
+  color: white;
+}
+
+/* Hover */
+.property-type-buttons button:hover {
+  background: #c62828;
+  color: white;
+}
+
 /* Form */
 .post-property-form {
   display: flex;
@@ -39,7 +72,7 @@
   border-color: #c62828;
 }
 
-/* Row layout (city/zip, beds/baths/sqft) */
+/* Row layout */
 .form-row {
   display: flex;
   gap: 15px;
