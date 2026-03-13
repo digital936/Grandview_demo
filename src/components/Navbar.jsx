@@ -1,6 +1,7 @@
 import { useState } from "react";
 // import "./Navbar.css";
 import logo from "../assets/logo.png";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -9,8 +10,10 @@ function Navbar() {
     <header className="navbar">
       <div className="nav-container">
         <div className="logo">
-          <img src={logo} alt="Grandview Realty" />
-          <span>Grandview Realty</span>
+          <Link to="/">
+            <img src={logo} alt="Grandview Realty" />
+            <span>Grandview Realty</span>
+          </Link>
         </div>
 
         <div
