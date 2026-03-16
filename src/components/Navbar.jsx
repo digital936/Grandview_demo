@@ -29,8 +29,9 @@ function Navbar() {
           <a href="/">Home</a>
           {/* <a href="/buy">Sale</a> */}
           <a href="/rent">Rent</a>
-          <a href="/contact">Contact Us</a>
+          <a href="/agents">Agents</a>
           <a href="/about">About Us</a>
+          <a href="/contact">Contact Us</a>
           {/* <a href="/admin">Admin</a> */}
           <a href="/Login">Login</a>
           

@@ -240,7 +240,7 @@ return (
 
       <div className="info-item">
         <h4>📞 Phone</h4>
-        <p>+1(479) 995-9165</p>
+        <p>+1 (800) 993-2262</p>
       </div>
 
       <div className="info-item">

@@ -1,0 +1,165 @@
+/* PAGE WRAPPER */
+
+.agent-profile{
+min-height:100vh;
+padding:70px 20px;
+background:linear-gradient(135deg,#f7f8fb,#eef1f5);
+display:flex;
+justify-content:center;
+align-items:flex-start;
+font-family:'Segoe UI',sans-serif;
+}
+
+/* MAIN PROFILE CARD */
+
+.profile-container{
+max-width:1100px;
+width:100%;
+background:white;
+border-radius:16px;
+padding:40px;
+display:flex;
+gap:40px;
+box-shadow:0 15px 40px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.profile-container:hover{
+transform:translateY(-3px);
+box-shadow:0 20px 50px rgba(0,0,0,0.12);
+}
+
+/* AGENT IMAGE */
+
+.profile-image{
+width:320px;
+height:380px;
+object-fit:cover;
+border-radius:14px;
+box-shadow:0 12px 25px rgba(0,0,0,0.15);
+}
+
+/* INFO SECTION */
+
+.profile-info{
+flex:1;
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+/* NAME */
+
+.profile-info h1{
+font-size:34px;
+font-weight:600;
+margin-bottom:6px;
+color:#222;
+}
+
+/* CITY */
+
+.profile-city{
+font-size:15px;
+color:#777;
+margin-bottom:18px;
+}
+
+/* BIO */
+
+.profile-bio{
+font-size:15px;
+line-height:1.7;
+color:#444;
+margin-bottom:30px;
+max-width:600px;
+}
+
+/* STATS */
+
+.profile-stats{
+display:flex;
+gap:30px;
+margin-bottom:30px;
+}
+
+.profile-stats div{
+background:#f5f7fa;
+padding:16px 22px;
+border-radius:10px;
+text-align:center;
+min-width:120px;
+}
+
+.profile-stats h3{
+font-size:24px;
+color:#111;
+margin-bottom:4px;
+}
+
+.profile-stats p{
+font-size:13px;
+color:#666;
+}
+
+/* CONTACT SECTION */
+
+.profile-contact{
+background:#fafafa;
+padding:20px;
+border-radius:12px;
+border:1px solid #eee;
+}
+
+.profile-contact p{
+font-size:15px;
+margin-bottom:8px;
+color:#333;
+}
+
+/* BUTTON */
+
+.contact-btn{
+margin: 15px;
+padding:12px 26px;
+border:none;
+border-radius:8px;
+background:#8b1e1e;
+color:white;
+font-size:15px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.contact-btn:hover{
+background:#2b2b2b;
+transform:translateY(-1px);
+}
+
+/* MOBILE RESPONSIVE */
+
+@media(max-width:900px){
+
+.profile-container{
+flex-direction:column;
+align-items:center;
+text-align:center;
+}
+
+.profile-image{
+width:260px;
+height:300px;
+}
+
+.profile-info{
+align-items:center;
+}
+
+.profile-stats{
+justify-content:center;
+}
+
+.profile-contact{
+width:100%;
+}
+}

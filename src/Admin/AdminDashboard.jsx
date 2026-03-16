@@ -1,79 +1,10 @@
-// import { Link } from "react-router-dom";
-// import "../Admin/adminDashboard.css";
-// import { supabase } from "../lib/supabase";
 
-// const rentProperty = async (propertyId, tenantData) => {
-//   try {
-//     // 1️⃣ Create tenant auth user
-//     const { data, error } = await supabase.auth.admin.createUser({
-//       email: tenantData.email,
-//       password: tenantData.password,
-//       email_confirm: true
-//     });
-
-//     if (error) throw error;
-
-//     const userId = data.user.id;
-
-//     // 2️⃣ Insert into tenants table
-//     const { data: tenantInsert, error: tenantError } =
-//       await supabase.from("tenants").insert({
-//         user_id: userId,
-//         property_id: propertyId,
-//         name: tenantData.name,
-//         email: tenantData.email
-//       }).select().single();
-
-//     if (tenantError) throw tenantError;
-
-//     // 3️⃣ Update property
-//     await supabase.from("properties")
-//       .update({
-//         status: "rented",
-//         tenant_id: tenantInsert.id
-//       })
-//       .eq("id", propertyId);
-
-//     alert("Property rented successfully");
-
-//   } catch (err) {
-//     console.error(err);
-//     alert("Error renting property");
-//   }
-// };
-
-// export default function AdminDashboard() {
-//   return (
-//     <div className="admin-dashboard">
-//       <aside>
-//         <h2>Grandview Admin</h2>
-//         <Link to="/admin/properties">Manage Properties</Link>
-//         <Link to="/admin/tenants">Manage Tenants</Link>
-//         <Link to="/admin/owners">Manage Owners</Link>
-//         <Link to="/admin/inquiries">View Inquiries</Link>
-//         <Link to="/admin/feedback">View Feedback</Link>
-//         <Link to="/admin/contacts">View ContactUs details</Link>
-//         <Link to="/admin/issues">View Tenant Issues</Link>
-        
-
-//         {/* NEW PAGE */}
-//         <Link to="/admin/post-properties">
-//           View Post Properties
-//         </Link>
-        
-//       </aside>
-
-//       <div className="admin-content">
-//         <h1>Welcome Admin</h1>
-//       </div>
-//     </div>
-//   );
-// }
 
 import { Link } from "react-router-dom";
 import "../Admin/adminDashboard.css";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
+import { FaCalendarAlt } from "react-icons/fa";
 
 import {
   FaHome,
@@ -146,7 +77,7 @@ export default function AdminDashboard() {
 
         <div className="logo">
           <h2>Grandview</h2>
-          {/* <span>Admin Panel</span> */}
+          
         </div>
 
         <nav>
@@ -160,6 +91,8 @@ export default function AdminDashboard() {
           <Link to="/admin/contacts"><FaEnvelope /> Contact Messages</Link>
           <Link to="/admin/issues"><FaExclamationCircle /> Tenant Issues</Link>
           <Link to="/admin/post-properties"><FaBuilding /> Post Properties</Link>
+          <Link to="/admin/appointments"><FaCalendarAlt /> Appointments</Link>
+          <Link to="/admin/assign-properties"><FaUserTie /> Assign Properties</Link>
 
         </nav>
 

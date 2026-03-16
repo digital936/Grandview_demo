@@ -28,6 +28,8 @@ import PostProperty from "./pages/PostProperty";
 import PostPropertySection from "./pages/PostPropertySection";
 import AdminPostProperties from "./Admin/adminpostproperty";
 import CommissionPlan from "./pages/CommissionPlan";
+import Agents from "./pages/Agents";
+import AgentProfile from "./pages/AgentProfile";
 
 
 
@@ -70,7 +72,10 @@ function App() {
         <Route path="/admin/post-properties" element={<AdminPostProperties />} />
         <Route path="/post-property" element={<PostProperty />} />
         <Route path="/commission-plan" element={<CommissionPlan />} />
-
+        
+        <Route path="/agents" element={<Agents />} />
+        <Route path="/agents/:id" element={<AgentProfile />} />
+        
       </Routes>
 
       

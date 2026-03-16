@@ -11,7 +11,7 @@ function Footer() {
           <h2>Grandview Realty</h2>
           <p>2711 SE I Street Suite 1</p>
           <p>Bentonville Arkansas 72712</p>
-          <p>📞 +1(479) 995-9165</p>
+          <p>📞 +1 (800) 993-2262</p>
           <p>✉️ pm@grandviewrealty.us</p>
 
           

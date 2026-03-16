@@ -61,3 +61,7 @@
   font-size: 13px;
   opacity: .9;
 }
+
+.city-card{
+cursor: pointer;
+}

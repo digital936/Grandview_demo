@@ -1,0 +1,49 @@
+.schedule-modal{
+background:white;
+padding:30px;
+border-radius:12px;
+width:420px;
+max-width:90%;
+box-shadow:0 20px 40px rgba(0,0,0,0.2);
+}
+
+.schedule-modal h2{
+margin-bottom:20px;
+}
+
+.schedule-modal form{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.schedule-modal input,
+.schedule-modal select{
+padding:12px;
+border-radius:6px;
+border:1px solid #ddd;
+font-size:14px;
+}
+
+.schedule-buttons{
+display:flex;
+justify-content:space-between;
+margin-top:10px;
+}
+
+.book-btn{
+background:black;
+color:white;
+border:none;
+padding:10px 18px;
+border-radius:6px;
+cursor:pointer;
+}
+
+.cancel-btn{
+background:#eee;
+border:none;
+padding:10px 18px;
+border-radius:6px;
+cursor:pointer;
+}
