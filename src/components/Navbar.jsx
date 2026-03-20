@@ -92,7 +92,7 @@ function Navbar() {
         <nav className={`nav-menu ${menuOpen ? "active" : ""}`}>
 
           <Link to="/">Home</Link>
-          <Link to="/rent">Rent</Link>
+          <Link to="/rent">Lease</Link>
           {/* <Link to="/contact">Contact</Link> */}
           <Link to="/about">About</Link>
           <Link to="/agents">Agents</Link>
