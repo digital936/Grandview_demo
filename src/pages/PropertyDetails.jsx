@@ -4,16 +4,23 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import ScheduleTourModal from "../buttons/ScheduleTourModal";
-import "../styles/PropertyDetails.css";
 import ZillowButton from "../buttons/ZillowButton";
+import "../styles/PropertyDetails.css";
 
 export default function PropertyDetails() {
   const { id } = useParams();
   const [property, setProperty] = useState(null);
 
+  /* ⭐ Modal state */
+  const [showTourModal, setShowTourModal] = useState(false);
+
+  const openTourModal = () => setShowTourModal(true);
+  const closeTourModal = () => setShowTourModal(false);
+
   useEffect(() => {
     fetchProperty();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   async function fetchProperty() {
     const { data, error } = await supabase
@@ -36,7 +43,7 @@ export default function PropertyDetails() {
   return (
     <div className="pd-page">
 
-      {/* Property Image */}
+      {/* PROPERTY IMAGE */}
       <div className="pd-gallery">
         <img src={property.imageUrl} alt={property.title} />
       </div>
@@ -45,35 +52,19 @@ export default function PropertyDetails() {
 
         {/* LEFT SIDE */}
         <div className="pd-left">
-
-          {/* Header Row */}
+          {/* HEADER */}
           <div className="pd-header-row">
             <div>
               <h1 className="pd-title">{property.title}</h1>
-              <p className="pd-address">
-                {property.address}, {property.city}
-              </p>
+              <p className="pd-address">{property.address}, {property.city}</p>
             </div>
 
             <div className="pd-price-box">
-              <h2 className="pd-price">
-                ${Number(property.price).toLocaleString()} / month
-              </h2>
-
-              {/* {property.zillow_url?.trim() !== "" && (
-                <a
-                  href={property.zillow_url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="zillow-btn"
-                >
-                  View on Zillow
-                </a>
-              )} */}
+              <h2 className="pd-price">${Number(property.price).toLocaleString()} / month</h2>
             </div>
           </div>
 
-          {/* Highlights */}
+          {/* HIGHLIGHTS */}
           <div className="pd-highlights">
             <div><strong>{property.beds}</strong> Beds</div>
             <div><strong>{property.baths}</strong> Baths</div>
@@ -81,13 +72,13 @@ export default function PropertyDetails() {
             <div><strong>{property.city}</strong></div>
           </div>
 
-          {/* Description */}
+          {/* DESCRIPTION */}
           <div className="pd-section">
             <h3>Description</h3>
             <p>{property.description}</p>
           </div>
 
-          {/* Property Details */}
+          {/* PROPERTY DETAILS GRID */}
           <div className="pd-section">
             <h3>Property Details</h3>
             <div className="pd-details-grid">
@@ -115,14 +106,17 @@ export default function PropertyDetails() {
         {/* RIGHT SIDE */}
         <div className="pd-right">
 
-          {/* Contact Card with Reusable Schedule Button */}
+          {/* CONTACT CARD */}
           <div className="contact-card">
-            <ScheduleTourModal propertyId={property.id} />
+            <button className="schedule-btn" onClick={openTourModal}>
+              Schedule Tour
+            </button>
           </div>
 
+          {/* ZILLOW BUTTON */}
           <ZillowButton zillowLink={property.zillow_url} className="zillow-btn" />
 
-          {/* Map Section */}
+          {/* LOCATION MAP */}
           <div className="pd-section">
             <h3>Location</h3>
             <iframe
@@ -134,9 +128,18 @@ export default function PropertyDetails() {
               src={`https://maps.google.com/maps?q=${property.latitude},${property.longitude}&z=15&output=embed`}
             ></iframe>
           </div>
-
         </div>
+
       </div>
+
+      {/* SCHEDULE TOUR MODAL */}
+      {showTourModal && (
+        <ScheduleTourModal
+          propertyId={property.id}
+          closeModal={closeTourModal}
+        />
+      )}
+
     </div>
   );
 }

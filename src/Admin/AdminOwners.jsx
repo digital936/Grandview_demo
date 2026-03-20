@@ -27,16 +27,29 @@
 // setForm({...form,[e.target.name]:e.target.value})
 // }
 
+
+// /* FETCH ONLY AVAILABLE PROPERTIES */
+
 // async function fetchProperties(){
 
 // const { data } = await supabase
 // .from("properties")
 // .select("*")
+// .not(
+// "id",
+// "in",
+// `(
+// select property_id from owner_properties
+// )`
+// )
 // .order("title")
 
 // if(data) setProperties(data)
 
 // }
+
+
+// /* FETCH OWNERS */
 
 // async function fetchOwners(){
 
@@ -60,6 +73,9 @@
 // setOwners(data || [])
 
 // }
+
+
+// /* CREATE OWNER */
 
 // async function createOwner(e){
 
@@ -104,6 +120,9 @@
 
 // }
 
+
+// /* OPEN PROPERTY PANEL */
+
 // async function openAssignPanel(owner){
 
 // setEditingOwner(owner)
@@ -112,6 +131,7 @@
 // .from("owner_properties")
 // .select(`
 // id,
+// property_id,
 // properties(
 // id,
 // title,
@@ -123,6 +143,9 @@
 // setAssignedProperties(data || [])
 
 // }
+
+
+// /* ASSIGN PROPERTY */
 
 // async function assignProperty(){
 
@@ -136,9 +159,14 @@
 // })
 
 // setSelectedProperty("")
-// openAssignPanel(editingOwner)
+
+// await fetchProperties()
+// await openAssignPanel(editingOwner)
 
 // }
+
+
+// /* REMOVE PROPERTY */
 
 // async function removeProperty(id){
 
@@ -147,9 +175,12 @@
 // .delete()
 // .eq("id",id)
 
+// await fetchProperties()
 // openAssignPanel(editingOwner)
 
 // }
+
+
 
 // return(
 
@@ -261,6 +292,9 @@
 
 // <h3>Manage Properties for {editingOwner.name}</h3>
 
+
+// {/* ASSIGNED PROPERTIES */}
+
 // <div className="assigned-section">
 
 // {assignedProperties.length===0 && (
@@ -293,6 +327,8 @@
 
 // </div>
 
+
+// {/* ASSIGN PROPERTY */}
 
 // <div className="assign-property-section">
 
@@ -344,370 +380,347 @@ import "./admin-owners.css";
 
 export default function AdminOwners(){
 
-const [owners,setOwners] = useState([])
-const [properties,setProperties] = useState([])
-const [editingOwner,setEditingOwner] = useState(null)
-const [assignedProperties,setAssignedProperties] = useState([])
-const [selectedProperty,setSelectedProperty] = useState("")
+  const [owners,setOwners] = useState([])
+  const [properties,setProperties] = useState([])
+  const [editingOwner,setEditingOwner] = useState(null)
+  const [assignedProperties,setAssignedProperties] = useState([])
+  const [selectedProperty,setSelectedProperty] = useState("")
+
+  const [form,setForm] = useState({
+    name:"",
+    email:"",
+    password:""
+  })
+
+  useEffect(()=>{
+    fetchOwners()
+  },[])
+
+  function handleChange(e){
+    setForm({...form,[e.target.name]:e.target.value})
+  }
+
+  /* FETCH OWNERS */
+
+  async function fetchOwners(){
+
+    const { data } = await supabase
+    .from("owners")
+    .select(`
+      id,
+      name,
+      email,
+      owner_properties(
+        id,
+        property_id,
+        properties(
+          id,
+          title,
+          imageUrl
+        )
+      )
+    `)
 
-const [form,setForm] = useState({
-name:"",
-email:"",
-password:""
-})
+    setOwners(data || [])
+  }
 
-useEffect(()=>{
-fetchOwners()
-fetchProperties()
-},[])
+  /* CREATE OWNER */
 
-function handleChange(e){
-setForm({...form,[e.target.name]:e.target.value})
-}
+  async function createOwner(e){
 
+    e.preventDefault()
 
-/* FETCH ONLY AVAILABLE PROPERTIES */
+    try{
 
-async function fetchProperties(){
+      const { data,error } = await supabase.auth.signUp({
+        email:form.email,
+        password:form.password
+      })
 
-const { data } = await supabase
-.from("properties")
-.select("*")
-.not(
-"id",
-"in",
-`(
-select property_id from owner_properties
-)`
-)
-.order("title")
+      if(error) throw error
 
-if(data) setProperties(data)
+      const userId = data.user.id
 
-}
+      await supabase.from("profiles").insert({
+        id:userId,
+        email:form.email,
+        role:"owner"
+      })
 
+      await supabase.from("owners").insert({
+        user_id:userId,
+        name:form.name,
+        email:form.email
+      })
 
-/* FETCH OWNERS */
+      alert("Owner created")
 
-async function fetchOwners(){
+      setForm({
+        name:"",
+        email:"",
+        password:""
+      })
 
-const { data } = await supabase
-.from("owners")
-.select(`
-id,
-name,
-email,
-owner_properties(
-id,
-property_id,
-properties(
-id,
-title,
-imageUrl
-)
-)
-`)
+      fetchOwners()
 
-setOwners(data || [])
+    }catch(err){
+      alert(err.message)
+    }
 
-}
+  }
 
+  /* OPEN PROPERTY PANEL (FIXED LOGIC HERE) */
 
-/* CREATE OWNER */
+  async function openAssignPanel(owner){
 
-async function createOwner(e){
+    setEditingOwner(owner)
 
-e.preventDefault()
+    // 1. Get assigned properties
+    const { data: assigned } = await supabase
+      .from("owner_properties")
+      .select(`
+        id,
+        property_id,
+        properties(
+          id,
+          title,
+          imageUrl
+        )
+      `)
+      .eq("owner_id",owner.id)
 
-try{
+    setAssignedProperties(assigned || [])
 
-const { data,error } = await supabase.auth.signUp({
-email:form.email,
-password:form.password
-})
+    // 2. Extract assigned IDs
+    const assignedIds = (assigned || []).map(p => p.property_id)
 
-if(error) throw error
+    // 3. Fetch available properties (NOT assigned to this owner)
+    let query = supabase
+      .from("properties")
+      .select("*")
+      .order("title")
 
-const userId = data.user.id
+    if (assignedIds.length > 0) {
+      query = query.not("id", "in", `(${assignedIds.join(",")})`)
+    }
 
-await supabase.from("profiles").insert({
-id:userId,
-email:form.email,
-role:"owner"
-})
+    const { data: available } = await query
 
-await supabase.from("owners").insert({
-user_id:userId,
-name:form.name,
-email:form.email
-})
+    setProperties(available || [])
+  }
 
-alert("Owner created")
+  /* ASSIGN PROPERTY */
 
-setForm({
-name:"",
-email:"",
-password:""
-})
+  async function assignProperty(){
 
-fetchOwners()
+    if(!selectedProperty) return
 
-}catch(err){
-alert(err.message)
-}
+    await supabase
+    .from("owner_properties")
+    .insert({
+      owner_id:editingOwner.id,
+      property_id:selectedProperty
+    })
 
-}
+    setSelectedProperty("")
 
+    await openAssignPanel(editingOwner)
+  }
 
-/* OPEN PROPERTY PANEL */
+  /* REMOVE PROPERTY */
 
-async function openAssignPanel(owner){
+  async function removeProperty(id){
 
-setEditingOwner(owner)
+    await supabase
+      .from("owner_properties")
+      .delete()
+      .eq("id",id)
 
-const { data } = await supabase
-.from("owner_properties")
-.select(`
-id,
-property_id,
-properties(
-id,
-title,
-imageUrl
-)
-`)
-.eq("owner_id",owner.id)
+    openAssignPanel(editingOwner)
+  }
 
-setAssignedProperties(data || [])
+  return(
 
-}
+    <div className="admin-owners">
 
+      <h2>Create Owner</h2>
 
-/* ASSIGN PROPERTY */
+      <form onSubmit={createOwner} className="create-owner-form">
 
-async function assignProperty(){
+        <input
+          name="name"
+          placeholder="Owner Name"
+          value={form.name}
+          onChange={handleChange}
+          required
+        />
 
-if(!selectedProperty) return
+        <input
+          name="email"
+          placeholder="Owner Email"
+          value={form.email}
+          onChange={handleChange}
+          required
+        />
 
-await supabase
-.from("owner_properties")
-.insert({
-owner_id:editingOwner.id,
-property_id:selectedProperty
-})
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={form.password}
+          onChange={handleChange}
+          required
+        />
 
-setSelectedProperty("")
+        <button>Create Owner</button>
 
-await fetchProperties()
-await openAssignPanel(editingOwner)
+      </form>
 
-}
+      <h2 className="owner-list-title">Owners</h2>
 
+      <table className="owner-table">
 
-/* REMOVE PROPERTY */
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Properties</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
 
-async function removeProperty(id){
+        <tbody>
 
-await supabase
-.from("owner_properties")
-.delete()
-.eq("id",id)
+          {owners.map(owner=>{
 
-await fetchProperties()
-openAssignPanel(editingOwner)
+            const props = owner.owner_properties || []
 
-}
+            return(
 
+              <tr key={owner.id}>
 
+                <td>{owner.name}</td>
+                <td>{owner.email}</td>
 
-return(
+                <td>
+                  {props.length>0
+                    ? props.map(p=>p.properties.title).join(", ")
+                    :"None"}
+                </td>
 
-<div className="admin-owners">
+                <td>
 
-<h2>Create Owner</h2>
+                  <button
+                    className="manage-btn"
+                    onClick={()=>openAssignPanel(owner)}
+                  >
+                    Manage Properties
+                  </button>
 
-<form onSubmit={createOwner} className="create-owner-form">
+                </td>
 
-<input
-name="name"
-placeholder="Owner Name"
-value={form.name}
-onChange={handleChange}
-required
-/>
+              </tr>
 
-<input
-name="email"
-placeholder="Owner Email"
-value={form.email}
-onChange={handleChange}
-required
-/>
+            )
 
-<input
-type="password"
-name="password"
-placeholder="Password"
-value={form.password}
-onChange={handleChange}
-required
-/>
+          })}
 
-<button>Create Owner</button>
+        </tbody>
 
-</form>
+      </table>
 
+      {/* MODAL */}
 
-<h2 className="owner-list-title">Owners</h2>
+      {editingOwner && (
 
-<table className="owner-table">
+        <div className="assign-modal">
 
-<thead>
-<tr>
-<th>Name</th>
-<th>Email</th>
-<th>Properties</th>
-<th>Actions</th>
-</tr>
-</thead>
+          <div className="assign-box">
 
-<tbody>
+            <button
+              className="modal-close"
+              onClick={()=>setEditingOwner(null)}
+            >
+              ✕
+            </button>
 
-{owners.map(owner=>{
+            <h3>Manage Properties for {editingOwner.name}</h3>
 
-const props = owner.owner_properties || []
+            {/* ASSIGNED PROPERTIES */}
 
-return(
+            <div className="assigned-section">
 
-<tr key={owner.id}>
+              {assignedProperties.length===0 && (
+                <p>No properties assigned</p>
+              )}
 
-<td>{owner.name}</td>
+              {assignedProperties.map(p=>(
 
-<td>{owner.email}</td>
+                <div key={p.id} className="property-card">
 
-<td>
-{props.length>0
-? props.map(p=>p.properties.title).join(", ")
-:"None"}
-</td>
+                  <img
+                    src={p.properties.imageUrl || "/property-placeholder.jpg"}
+                    alt=""
+                  />
 
-<td>
+                  <div className="property-text">
+                    <h5>{p.properties.title}</h5>
+                  </div>
 
-<button
-className="manage-btn"
-onClick={()=>openAssignPanel(owner)}
->
-Manage Properties
-</button>
+                  <button
+                    className="remove-btn"
+                    onClick={()=>removeProperty(p.id)}
+                  >
+                    Remove
+                  </button>
 
-</td>
+                </div>
 
-</tr>
+              ))}
 
-)
+            </div>
 
-})}
+            {/* ASSIGN PROPERTY */}
 
-</tbody>
+            <div className="assign-property-section">
 
-</table>
+              <h4>Assign New Property</h4>
 
+              <div className="assign-controls">
 
-{/* MODAL */}
+                <select
+                  value={selectedProperty}
+                  onChange={(e)=>setSelectedProperty(e.target.value)}
+                >
+                  <option value="">Select Property</option>
 
-{editingOwner && (
+                  {properties.map(p=>(
+                    <option key={p.id} value={p.id}>
+                      {p.title}
+                    </option>
+                  ))}
 
-<div className="assign-modal">
+                </select>
 
-<div className="assign-box">
+                <button
+                  className="assign-btn"
+                  onClick={assignProperty}
+                >
+                  Assign
+                </button>
 
-<button
-className="modal-close"
-onClick={()=>setEditingOwner(null)}
->
-✕
-</button>
+              </div>
 
-<h3>Manage Properties for {editingOwner.name}</h3>
+            </div>
 
+          </div>
 
-{/* ASSIGNED PROPERTIES */}
+        </div>
 
-<div className="assigned-section">
+      )}
 
-{assignedProperties.length===0 && (
-<p>No properties assigned</p>
-)}
+    </div>
 
-{assignedProperties.map(p=>(
-
-<div key={p.id} className="property-card">
-
-<img
-src={p.properties.imageUrl || "/property-placeholder.jpg"}
-alt=""
-/>
-
-<div className="property-text">
-<h5>{p.properties.title}</h5>
-</div>
-
-<button
-className="remove-btn"
-onClick={()=>removeProperty(p.id)}
->
-Remove
-</button>
-
-</div>
-
-))}
-
-</div>
-
-
-{/* ASSIGN PROPERTY */}
-
-<div className="assign-property-section">
-
-<h4>Assign New Property</h4>
-
-<div className="assign-controls">
-
-<select
-value={selectedProperty}
-onChange={(e)=>setSelectedProperty(e.target.value)}
->
-
-<option value="">Select Property</option>
-
-{properties.map(p=>(
-<option key={p.id} value={p.id}>
-{p.title}
-</option>
-))}
-
-</select>
-
-<button
-className="assign-btn"
-onClick={assignProperty}
->
-Assign
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-)}
-
-</div>
-
-)
+  )
 
 }

@@ -92,7 +92,7 @@ export default function AdminDashboard() {
           <Link to="/admin/issues"><FaExclamationCircle /> Tenant Issues</Link>
           <Link to="/admin/post-properties"><FaBuilding /> Post Properties</Link>
           <Link to="/admin/appointments"><FaCalendarAlt /> Appointments</Link>
-          <Link to="/admin/assign-properties"><FaUserTie /> Assign Properties</Link>
+          {/* <Link to="/admin/assign-properties"><FaUserTie /> Assign Properties</Link> */}
 
         </nav>
 
@@ -104,7 +104,7 @@ export default function AdminDashboard() {
         {/* TOPBAR */}
         <header className="topbar">
 
-          <div className="page-title">
+          <div className="admin-title">
             <FaChartLine />
             <h1>Dashboard Overview</h1>
           </div>

@@ -46,31 +46,31 @@ bio:"Beachfront property specialist in Miami and nearby areas.",
 phone:"+1 305 555 9987",
 email:"sophia.williams@grandview.com",
 photo:"https://randomuser.me/api/portraits/women/68.jpg"
-},
-{
-id:5,
-name:"David Miller",
-city:"Dallas",
-experience:9,
-properties:17,
-rating:4.9,
-bio:"Helping buyers find modern homes in Dallas neighborhoods.",
-phone:"+1 214 555 3344",
-email:"david.miller@grandview.com",
-photo:"https://randomuser.me/api/portraits/men/75.jpg"
-},
-{
-id:6,
-name:"Olivia Taylor",
-city:"San Diego",
-experience:5,
-properties:9,
-rating:4.6,
-bio:"Focused on coastal homes and vacation rentals in San Diego.",
-phone:"+1 619 555 6677",
-email:"olivia.taylor@grandview.com",
-photo:"https://randomuser.me/api/portraits/women/50.jpg"
 }
+// {
+// id:5,
+// name:"David Miller",
+// city:"Dallas",
+// experience:9,
+// properties:17,
+// rating:4.9,
+// bio:"Helping buyers find modern homes in Dallas neighborhoods.",
+// phone:"+1 214 555 3344",
+// email:"david.miller@grandview.com",
+// photo:"https://randomuser.me/api/portraits/men/75.jpg"
+// },
+// {
+// id:6,
+// name:"Olivia Taylor",
+// city:"San Diego",
+// experience:5,
+// properties:9,
+// rating:4.6,
+// bio:"Focused on coastal homes and vacation rentals in San Diego.",
+// phone:"+1 619 555 6677",
+// email:"olivia.taylor@grandview.com",
+// photo:"https://randomuser.me/api/portraits/women/50.jpg"
+// }
 ]
 
 export default agentsData

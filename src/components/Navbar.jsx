@@ -93,12 +93,12 @@ function Navbar() {
 
           <Link to="/">Home</Link>
           <Link to="/rent">Rent</Link>
-          <Link to="/contact">Contact</Link>
+          {/* <Link to="/contact">Contact</Link> */}
           <Link to="/about">About</Link>
 
-          <Link to="/login" className="nav-cta">
+          {/* <Link to="/login" className="nav-cta">
             Login
-          </Link>
+          </Link> */}
 
         </nav>
 

@@ -1,91 +1,111 @@
+/* SECTION */
+
 .post-property{
 padding:120px 20px;
 background:#0f0f0f;
 color:white;
 }
 
-.container{
+/* WRAPPER */
+
+.post-wrapper{
 max-width:1200px;
 margin:auto;
+}
 
+/* GLASS CARD */
+
+.post-glass{
+
+padding:50px;
+
+border-radius:20px;
+
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(18px);
+
+border:1px solid rgba(255,255,255,0.08);
+
+box-shadow:0 30px 70px rgba(0,0,0,.5);
+}
+
+/* GRID */
+
+.post-grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:80px;
-
+gap:60px;
 align-items:center;
 }
 
 /* IMAGE */
 
-.image{
+.post-image{
 border-radius:18px;
 overflow:hidden;
 position:relative;
-
-box-shadow:0 30px 70px rgba(0,0,0,.45);
 }
 
-.image img{
+.post-image img{
 width:100%;
 height:100%;
 object-fit:cover;
-
 transition:transform .6s ease;
 }
 
-.image:hover img{
+.post-image:hover img{
 transform:scale(1.07);
 }
 
-/* IMAGE GRADIENT */
-
-.image::after{
+.post-image::after{
 content:"";
 position:absolute;
 inset:0;
-
-background:linear-gradient(
-to top,
-rgba(0,0,0,.45),
-transparent
-);
+background:linear-gradient(to top,rgba(0,0,0,.4),transparent);
 }
 
 /* CONTENT */
 
-.content h2{
-font-size:46px;
-font-weight:600;
-margin-bottom:18px;
-line-height:1.2;
+.post-content h2{
+font-size:42px;
+margin-bottom:15px;
 }
 
-.content p{
-font-size:18px;
+.post-content h2 span{
+color:#8B5E3C;
+}
+
+.post-desc{
 color:#cfcfcf;
-max-width:520px;
-margin-bottom:35px;
+margin-bottom:25px;
+}
+
+/* TAG */
+
+.post-tag{
+color:#8B5E3C;
+font-size:13px;
+letter-spacing:2px;
+margin-bottom:10px;
 }
 
 /* BUTTON */
 
-.primary-btn{
+.post-btn{
 background:#8B5E3C;
 border:none;
 
-padding:15px 34px;
+padding:14px 30px;
 border-radius:8px;
 
-font-size:16px;
 font-weight:600;
 color:white;
 
 cursor:pointer;
-
 transition:.3s;
 }
 
-.primary-btn:hover{
+.post-btn:hover{
 background:#6d472b;
 transform:translateY(-3px);
 }
@@ -94,13 +114,12 @@ transform:translateY(-3px);
 
 @media(max-width:900px){
 
-.container{
+.post-grid{
 grid-template-columns:1fr;
-gap:50px;
 }
 
-.content h2{
-font-size:34px;
+.post-content h2{
+font-size:30px;
 }
 
 }

@@ -1,148 +1,167 @@
 
-
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import "./OwnerDashboard.css";
+import OwnerLayout from "../layouts/OwnerLayout";
+import StatsCard from "../components/StatsCard";
 
 export default function OwnerDashboard() {
 
-const [properties, setProperties] = useState([]);
-const [stats, setStats] = useState({
-total: 0,
-available: 0,
-rented: 0,
-revenue: 0
-});
+  const [properties, setProperties] = useState([]);
+  const [stats, setStats] = useState({
+    totalProperties: 0,
+    totalEarnings: 0,
+    occupancyRate: 0
+  });
 
-useEffect(() => {
-fetchOwnerProperties();
-}, []);
+  const [error, setError] = useState(null);
 
-async function fetchOwnerProperties() {
+  useEffect(() => {
+    fetchOwnerData();
+  }, []);
 
-  const { data: userData } = await supabase.auth.getUser();
-  const userId = userData.user.id;
+  async function fetchOwnerData() {
+    try {
+      setError(null);
 
-  console.log("Auth User:", userId);
+      // 1. Get logged-in user
+      const { data: userData } = await supabase.auth.getUser();
 
-  const { data: owner, error: ownerError } = await supabase
-    .from("owners")
-    .select("*")
-    .eq("user_id", userId)
-    .single();
+      if (!userData?.user) {
+        setError("User not authenticated");
+        return;
+      }
 
-  console.log("Owner record:", owner);
+      const userId = userData.user.id;
 
-  if (!owner) {
-    console.log("Owner not found");
-    return;
+      // 2. Get owner
+      const { data: owner } = await supabase
+        .from("owners")
+        .select("*")
+        .eq("user_id", userId)
+        .single();
+
+      if (!owner) {
+        setError("Owner not found");
+        return;
+      }
+
+      // 3. Get property IDs assigned to owner
+      const { data: ownerProps } = await supabase
+        .from("owner_properties")
+        .select("property_id")
+        .eq("owner_id", owner.id);
+
+      const propertyIds = (ownerProps || []).map(p => p.property_id);
+
+      if (propertyIds.length === 0) {
+        setProperties([]);
+        calculateStats([]);
+        return;
+      }
+
+      // 4. Fetch actual properties
+      const { data: propertiesData } = await supabase
+        .from("properties")
+        .select("*")
+        .in("id", propertyIds);
+
+      setProperties(propertiesData || []);
+
+      calculateStats(propertiesData || []);
+
+    } catch (err) {
+      console.error(err);
+      setError("Failed to load dashboard");
+    }
   }
 
-  const { data, error } = await supabase
-    .from("properties")
-    .select("*")
-    .eq("owner_id", owner.id);
+  function calculateStats(properties) {
+    const totalProperties = properties.length;
 
-  console.log("Properties:", data);
+    const rentedProperties = properties.filter(p => p.status === "rented").length;
 
-  if (error) {
-    console.log(error);
-    return;
+    const occupancyRate =
+      totalProperties > 0
+        ? Math.round((rentedProperties / totalProperties) * 100)
+        : 0;
+
+    const totalEarnings = properties
+      .filter(p => p.status === "rented")
+      .reduce((sum, p) => sum + Number(p.price || 0), 0);
+
+    setStats({
+      totalProperties,
+      totalEarnings,
+      occupancyRate
+    });
   }
 
-  setProperties(data || []);
-  calculateStats(data || []);
-}
+  return (
+    <OwnerLayout>
+      <div className="owner-dashboard">
 
-function calculateStats(data) {
+        {error && <div className="error-message">{error}</div>}
 
-const total = data.length;
+        <div className="dashboard-header">
+          <h1>Owner Dashboard</h1>
+          <p>Performance summary of your properties</p>
+        </div>
 
-const available = data.filter(
-  (p) => p.status === "available"
-).length;
+        {/* KPI CARDS */}
+        <div className="stats-grid">
 
-const rented = data.filter(
-  (p) => p.status === "rented"
-).length;
+          <StatsCard
+            title="Total Properties"
+            value={stats.totalProperties}
+            icon="🏠"
+          />
 
-const revenue = data
-  .filter((p) => p.status === "rented")
-  .reduce((sum, p) => sum + Number(p.price), 0);
+          <StatsCard
+            title="Total Earnings"
+            value={`$${stats.totalEarnings}`}
+            icon="💰"
+          />
 
-setStats({
-  total,
-  available,
-  rented,
-  revenue
-});
+          <StatsCard
+            title="Occupancy Rate"
+            value={`${stats.occupancyRate}%`}
+            icon="📊"
+          />
 
+        </div>
 
-}
+        {/* PROPERTIES */}
+        <div className="owner-properties">
 
-return ( <div className="owner-dashboard">
+          {properties.length === 0 && (
+            <p className="no-properties">No properties assigned yet</p>
+          )}
 
+          {properties.map((property) => (
+            <div className="owner-property-card" key={property.id}>
 
-  <h1>Owner Dashboard</h1>
+              <img
+                src={property.imageUrl || "/property-placeholder.jpg"}
+                alt={property.title}
+              />
 
-  {/* STATS */}
-  <div className="stats-grid">
+              <div className="property-info">
+                <h3>{property.title}</h3>
+                <p>{property.city}</p>
+                <p>Rent: ${property.price}</p>
 
-    <div className="stat-card">
-      <h3>Total Properties</h3>
-      <p>{stats.total}</p>
-    </div>
+                <p className={property.status}>
+                  {property.status}
+                </p>
+              </div>
 
-    <div className="stat-card">
-      <h3>Available</h3>
-      <p>{stats.available}</p>
-    </div>
-
-    <div className="stat-card">
-      <h3>Rented</h3>
-      <p>{stats.rented}</p>
-    </div>
-
-    <div className="stat-card revenue">
-      <h3>Monthly Revenue</h3>
-      <p>${stats.revenue}</p>
-    </div>
-
-  </div>
-
-  {/* PROPERTY LIST */}
-  <div className="owner-properties">
-
-    {properties.map((property) => (
-
-      <div className="owner-property-card" key={property.id}>
-
-        <img
-          src={property.imageUrl}
-          alt={property.title}
-        />
-
-        <div className="property-info">
-
-          <h3>{property.title}</h3>
-
-          <p>{property.city}</p>
-
-          <p>Rent: ${property.price}</p>
-
-          <p className={property.status}>
-            {property.status}
-          </p>
+            </div>
+          ))}
 
         </div>
 
       </div>
-
-    ))}
-
-  </div>
-
-</div>
-
-);
+    </OwnerLayout>
+  );
 }

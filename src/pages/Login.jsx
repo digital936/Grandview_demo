@@ -56,7 +56,7 @@ export default function Login() {
       if (role === "tenant") {
         navigate("/tenant-dashboard");
       } else {
-        navigate("/owner-dashboard");
+        navigate("/owner/dashboard");
       }
 
     } catch (err) {

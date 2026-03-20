@@ -1,142 +1,286 @@
-/* Page wrapper */
-.post-property-page {
-  max-width: 700px;
-  margin: 60px auto;
-  padding: 35px;
-  background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-  font-family: Arial, sans-serif;
+/* PAGE */
+
+.post-property-page{
+font-family:"Poppins",sans-serif;
+
+background:
+radial-gradient(circle at top,#1a1a1a,#0a0a0a);
+
+color:white;
+min-height:100vh;
 }
 
-/* Title */
-.post-property-page h2 {
-  text-align: center;
-  margin-bottom: 25px;
-  color: #1a1a1a;
-  font-size: 26px;
+/* HEADER */
+
+.property-action-header{
+text-align:center;
+padding:100px 20px 30px;
 }
 
-/* Sell / Rent buttons */
-.property-type-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 25px;
+.property-action-header h2{
+font-size:42px;
+font-weight:600;
 }
 
-/* Button style */
-.property-type-buttons button {
-  padding: 10px 25px;
-  border: 2px solid #c62828;
-  background: white;
-  color: #c62828;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.property-action-header p{
+color:#bdbdbd;
 }
 
-/* Active button */
-.property-type-buttons button.active {
-  background: #c62828;
-  color: white;
+/* BUTTON SWITCH */
+
+.top-buttons{
+display:flex;
+justify-content:center;
+gap:15px;
+margin-top:20px;
 }
 
-/* Hover */
-.property-type-buttons button:hover {
-  background: #c62828;
-  color: white;
+.top-buttons button{
+padding:12px 30px;
+border-radius:30px;
+border:1px solid rgba(255,255,255,0.2);
+background:transparent;
+color:white;
+cursor:pointer;
+transition:.3s;
 }
 
-/* Form */
-.post-property-form {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+.top-buttons button.active,
+.top-buttons button:hover{
+background:#8B5E3C;
 }
 
-/* Inputs */
-.post-property-form input {
-  padding: 12px 14px;
-  border: 1px solid #dcdcdc;
-  border-radius: 6px;
-  font-size: 14px;
-  width: 100%;
-  transition: border 0.3s;
+/* SERVICES */
+
+.services{
+text-align:center;
+padding:60px 20px;
 }
 
-.post-property-form input:focus {
-  outline: none;
-  border-color: #c62828;
+.section-desc{
+color:#aaa;
 }
 
-/* Row layout */
-.form-row {
-  display: flex;
-  gap: 15px;
+/* TRUST LINE */
+
+.trust-line{
+text-align:center;
+margin-bottom:20px;
+color:#aaa;
+font-size:14px;
 }
 
-.form-row input {
-  flex: 1;
+/* FORM SECTION */
+.form-section h2{
+  text-align:center;
+}
+.form-section{
+padding:80px 20px;
 }
 
-/* Price input with $ */
-.input-group {
-  display: flex;
-  align-items: center;
-  border: 1px solid #dcdcdc;
-  border-radius: 6px;
-  overflow: hidden;
+/* FORM CARD */
+
+.post-property-form{
+max-width:850px;
+margin:auto;
+
+padding:40px;
+
+display:flex;
+flex-direction:column;
+gap:20px;
+
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(18px);
+
+border-radius:16px;
+
+border:1px solid rgba(255,255,255,0.08);
+
+box-shadow:0 20px 60px rgba(0,0,0,0.6);
 }
 
-.input-group span {
-  background: #f3f3f3;
-  padding: 12px 14px;
-  font-weight: 600;
-  color: #555;
+/* INPUT STYLE */
+
+.post-property-form input,
+.post-property-form textarea{
+
+padding:14px;
+
+border-radius:8px;
+
+border:1px solid rgba(255,255,255,0.1);
+
+background:rgba(255,255,255,0.04);
+
+color:white;
+
+transition:.3s;
 }
 
-.input-group input {
-  border: none;
-  padding: 12px;
-  flex: 1;
+.post-property-form input::placeholder,
+.post-property-form textarea::placeholder{
+color:#888;
 }
 
-/* Submit button */
-.post-property-form button {
-  padding: 13px;
-  background: #c62828;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s;
+/* FOCUS EFFECT */
+
+.post-property-form input:focus,
+.post-property-form textarea:focus{
+
+border-color:#8B5E3C;
+
+box-shadow:0 0 0 2px rgba(139,94,60,0.4);
+
+outline:none;
+
+transform:scale(1.01);
 }
 
-.post-property-form button:hover {
-  background: #a61f1f;
+/* ROW */
+
+.form-row{
+display:flex;
+gap:15px;
 }
 
-/* Disabled button */
-.post-property-form button:disabled {
-  background: #999;
-  cursor: not-allowed;
+.form-row input{
+flex:1;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* PRICE */
 
-  .post-property-page {
-    margin: 30px 20px;
-    padding: 25px;
-  }
+.price-input{
+display:flex;
+align-items:center;
+}
 
-  .form-row {
-    flex-direction: column;
-  }
+.price-input span{
+padding:14px;
+background:rgba(255,255,255,0.08);
+border-radius:8px 0 0 8px;
+}
 
+.price-input input{
+border-radius:0 8px 8px 0;
+}
+
+/* UPLOAD BOX */
+
+.upload-box{
+border:2px dashed rgba(255,255,255,0.2);
+border-radius:12px;
+padding:30px;
+text-align:center;
+cursor:pointer;
+transition:.3s;
+}
+
+.upload-box:hover{
+border-color:#8B5E3C;
+background:rgba(255,255,255,0.05);
+}
+
+.upload-placeholder p{
+font-size:16px;
+margin-bottom:5px;
+}
+
+.upload-placeholder span{
+font-size:13px;
+color:#aaa;
+}
+
+/* IMAGE PREVIEW */
+
+.preview-image{
+width:100%;
+max-height:250px;
+object-fit:cover;
+border-radius:10px;
+}
+
+/* BUTTON */
+
+.post-property-form button{
+margin-top:10px;
+
+padding:16px;
+
+background:linear-gradient(135deg,#8B5E3C,#6e452b);
+
+border:none;
+
+border-radius:10px;
+
+color:white;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:.3s;
+}
+
+.post-property-form button:hover{
+transform:translateY(-3px);
+box-shadow:0 10px 25px rgba(139,94,60,0.5);
+}
+
+.post-property-form button:disabled{
+background:#555;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.form-row{
+flex-direction:column;
+}
+
+.property-action-header h2{
+font-size:28px;
+}
+
+}
+
+/* FORM HEADER */
+
+.form-header{
+text-align:center;
+margin-bottom:30px;
+position:relative;
+}
+
+.form-header h2{
+
+font-size:32px;
+font-weight:600;
+
+background:linear-gradient(90deg,#ffffff,#8B5E3C);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+margin-bottom:8px;
+letter-spacing:.5px;
+}
+
+.form-header p{
+color:#aaa;
+font-size:14px;
+}
+
+/* OPTIONAL LUXURY LINE UNDER TITLE */
+
+.form-header::after{
+content:"";
+display:block;
+width:60px;
+height:3px;
+margin:12px auto 0;
+
+background:linear-gradient(90deg,#8B5E3C,transparent);
+
+border-radius:10px;
 }
