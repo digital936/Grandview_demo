@@ -1,4 +1,4 @@
-/* ===== PAGE ===== */
+/* ===== GLOBAL PAGE ===== */
 .agents-page {
   min-height: 100vh;
   background: #0b0f14;
@@ -29,6 +29,7 @@
   position: relative;
   text-align: center;
   z-index: 2;
+  padding: 0 20px;
 }
 
 .hero-content h1 {
@@ -43,12 +44,12 @@
 .hero-content p {
   margin-top: 10px;
   color: #9ca3af;
+  font-size: 16px;
 }
 
 /* ===== INTRO SECTION ===== */
 .agents-intro {
   padding: 100px 20px;
-  background: #0b0f14;
   display: flex;
   justify-content: center;
 }
@@ -122,14 +123,21 @@
 
 /* ===== GRID ===== */
 .agent-list {
-  padding: 50px;
+  padding: 80px 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
+
+  /* centered layout */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 350px));
+  justify-content: center;
+
+  gap: 40px;
 }
 
 /* ===== CARD ===== */
 .agent-card {
+  width: 100%;
+  max-width: 350px;
+
   background: rgba(255, 255, 255, 0.04);
   backdrop-filter: blur(14px);
 
@@ -140,6 +148,10 @@
 
   transition: all 0.4s ease;
   box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .agent-card:hover {
@@ -150,7 +162,7 @@
 
 /* ===== IMAGE ===== */
 .agent-image {
-  height: 220px;
+  height: 260px;
   overflow: hidden;
 }
 
@@ -158,6 +170,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top;
   transition: 0.5s;
 }
 
@@ -167,64 +180,82 @@
 
 /* ===== INFO ===== */
 .agent-info {
-  padding: 15px;
+  padding: 20px;
   text-align: center;
 }
 
 .agent-info h3 {
-  font-size: 20px;
+  font-size: 22px;
+  margin-bottom: 5px;
 }
 
 .city {
   color: #c89b3c;
   font-weight: 600;
+  margin-bottom: 10px;
 }
 
 .bio {
   font-size: 14px;
   color: #9ca3af;
-}
-
-/* ===== STATS ===== */
-.agent-stats {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  padding-bottom: 10px;
-}
-
-.agent-stats span {
-  background: rgba(200, 155, 60, 0.1);
-  color: #c89b3c;
-
-  padding: 5px 12px;
-  border-radius: 999px;
-  font-size: 12px;
-
-  border: 1px solid rgba(200, 155, 60, 0.3);
+  line-height: 1.6;
 }
 
 /* ===== BUTTON ===== */
 .agent-contact {
   text-align: center;
-  padding-bottom: 20px;
+  padding: 20px;
 }
 
 .agent-contact button {
-  padding: 10px 18px;
+  padding: 12px 22px;
 
-  border-radius: 10px;
+  border-radius: 12px;
   border: none;
 
   background: linear-gradient(135deg, #c89b3c, #a57c2b);
   color: #fff;
   font-weight: 600;
+  letter-spacing: 0.5px;
 
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 
 .agent-contact button:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 20px rgba(200, 155, 60, 0.6);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(200, 155, 60, 0.4);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 32px;
+  }
+
+  .hero-content p {
+    font-size: 14px;
+  }
+
+  .intro-card {
+    padding: 30px 20px;
+  }
+
+  .agent-list {
+    padding: 40px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 26px;
+  }
+
+  .intro-card h2 {
+    font-size: 26px;
+  }
+
+  .intro-text {
+    font-size: 14px;
+  }
 }

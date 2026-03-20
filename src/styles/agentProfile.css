@@ -154,3 +154,25 @@
     justify-content: center;
   }
 }
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #333;
+  transition: 0.3s;
+}
+
+.close-btn:hover {
+  color: #000;
+  transform: scale(1.2);
+}
+
+/* make parent relative */
+.profile-container {
+  position: relative;
+}

@@ -95,7 +95,7 @@ function Navbar() {
           <Link to="/rent">Rent</Link>
           {/* <Link to="/contact">Contact</Link> */}
           <Link to="/about">About</Link>
-          {/* <Link to="/agents">Agents</Link> */}
+          <Link to="/agents">Agents</Link>
 
           {/* <Link to="/login" className="nav-cta">
             Login

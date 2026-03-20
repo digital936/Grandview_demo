@@ -85,10 +85,10 @@ export default function Agents() {
               <p className="bio">{agent.bio}</p>
             </div>
 
-            <div className="agent-stats">
+            {/* <div className="agent-stats">
               <span>{agent.experience} yrs</span>
               <span>{agent.properties} listings</span>
-            </div>
+            </div> */}
 
             <div className="agent-contact">
               <Link to={`/agents/${agent.id}`}>
