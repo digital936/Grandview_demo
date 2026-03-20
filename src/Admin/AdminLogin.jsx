@@ -73,22 +73,40 @@ export default function AdminLogin() {
   checkSession();
 }, [navigate]);
 
-    localStorage.setItem("admin", JSON.stringify(user));
+    // localStorage.setItem("admin", JSON.stringify(user));
+
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+
+  //   const { error } = await supabase.auth.signInWithPassword({
+  //     email,
+  //     password,
+  //   });
+
+  //   if (!error) {
+  //     navigate("/admin/dashboard");
+  //   } else {
+  //     alert("Invalid login credentials");
+  //   }
+  // };
 
   const handleLogin = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
 
-    if (!error) {
-      navigate("/admin/dashboard");
-    } else {
-      alert("Invalid login credentials");
-    }
-  };
+  if (!error) {
+    // ✅ store session user
+    localStorage.setItem("admin", JSON.stringify(data.user));
+
+    navigate("/admin/dashboard");
+  } else {
+    alert("Invalid login credentials");
+  }
+};
 
   return (
     <div className="admin-login">

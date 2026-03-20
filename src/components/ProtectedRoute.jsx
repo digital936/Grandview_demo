@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 
-export default function ProtectedRoute({ children }) {
+export default function ProtectedRoute({ children, reverse = false }) {
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState(null);
 
@@ -14,22 +14,18 @@ export default function ProtectedRoute({ children }) {
     };
 
     checkSession();
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setSession(session);
-        setLoading(false);
-      }
-    );
-
-    return () => subscription.unsubscribe();
   }, []);
 
-  if (loading) return <div>Checking access...</div>;
+  if (loading) return null;
 
-  // ❌ Not logged in → go to login
-  if (!session) {
+  // 🔐 Normal protection
+  if (!reverse && !session) {
     return <Navigate to="/admin/login" replace />;
+  }
+
+  // 🔁 Reverse protection (login page)
+  if (reverse && session) {
+    return <Navigate to="/admin/dashboard" replace />;
   }
 
   return children;
