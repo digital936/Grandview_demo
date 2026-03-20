@@ -29,33 +29,3 @@ const Home = () => {
 
 export default Home;
 
-// import HeroSection from "../components/HeroSection";
-// import NewlyLaunched from "../components/NewlyLaunched";
-// import RentAHome from "../components/RentAHome";
-// import PromotionSection from "../components/PromotionSection";
-// import PostPropertySection from "../components/PostPropertySection";
-// import TopCities from "../components/TopCities";
-// import BenefitsSection from "../components/BenefitsSection";
-// import Footer from "../components/Footer";
-
-
-// const Home = () => {
-//   return (
-//     <>
-//       <HeroSection />
-//       <PromotionSection />
-//       <RentAHome />
-//       <NewlyLaunched />
-
-//       {/* ✅ Property data from MySQL will show here */}
-     
-
-//       <PostPropertySection />
-//       <TopCities />
-//       <BenefitsSection />
-//       <Footer />
-//     </>
-//   );
-// };
-
-// export default Home;
