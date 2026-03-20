@@ -84,8 +84,8 @@ export default function AdminDashboard() {
 
           <Link to="/admin/dashboard"><FaHome /> Dashboard</Link>
           <Link to="/admin/properties"><FaBuilding /> Manage Properties</Link>
-          <Link to="/admin/tenants"><FaUsers /> Manage Tenants</Link>
-          <Link to="/admin/owners"><FaUserTie /> Manage Owners</Link>
+          {/* <Link to="/admin/tenants"><FaUsers /> Manage Tenants</Link>
+          <Link to="/admin/owners"><FaUserTie /> Manage Owners</Link> */}
           <Link to="/admin/inquiries"><FaClipboardList /> Inquiries</Link>
           <Link to="/admin/feedback"><FaCommentDots /> Feedback</Link>
           <Link to="/admin/contacts"><FaEnvelope /> Contact Messages</Link>
