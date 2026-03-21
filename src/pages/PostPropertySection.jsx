@@ -31,7 +31,7 @@ const PostPropertySection = () => {
               <p className="post-tag">For Property Owners</p>
 
               <h2>
-                Sell or Rent Your Property <span>Faster</span>
+                Sell or Lease Your Property <span>Faster</span>
               </h2>
 
               <p className="post-desc">
