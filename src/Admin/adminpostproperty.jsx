@@ -50,6 +50,7 @@ export default function AdminPostProperties() {
               <th>Beds</th>
               <th>Baths</th>
               <th>Sqft</th>
+              <th>Time</th>
             </tr>
           </thead>
 
@@ -71,6 +72,12 @@ export default function AdminPostProperties() {
                   <td>{property.beds}</td>
                   <td>{property.baths}</td>
                   <td>{property.sqft}</td>
+                  {/* <td>{new Date(property.created_at).toLocaleString()}</td> */}
+                  <td>
+  {new Date(property.created_at).toLocaleString("en-US", {
+    timeZone: "America/Chicago",
+  })}
+</td>
                 </tr>
               ))
             )}

@@ -199,3 +199,22 @@
     font-size: 10px;
   }
 }
+
+.message-card {
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  cursor: pointer;
+  color: #888;
+}
+
+.close-btn:hover {
+  color: red;
+}
