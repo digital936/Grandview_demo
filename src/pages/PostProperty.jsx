@@ -45,13 +45,13 @@ const PostProperty = () => {
         const fileName = `${Date.now()}-${image.name}`;
 
         const { error: uploadError } = await supabase.storage
-          .from("PostPropertImage")
+          .from("property-images")
           .upload(fileName, image);
 
         if (uploadError) throw uploadError;
 
         const { data } = supabase.storage
-          .from("PostPropertImage")
+          .from("property-images")
           .getPublicUrl(fileName);
 
         imageUrl = data.publicUrl;
