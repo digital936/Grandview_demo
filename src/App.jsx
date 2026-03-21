@@ -35,6 +35,7 @@ import CommissionPlan from "./pages/CommissionPlan";
 import Agents from "./pages/Agents";
 import AgentProfile from "./pages/AgentProfile";
 import ProtectedRoute from "./components/ProtectedRoute";
+import FilteredProperties from "./pages/FilteredProperties";
 
 /* 👇 Wrapper to hide navbar on admin pages */
 function Layout() {
@@ -64,6 +65,7 @@ function Layout() {
         <Route path="/commission-plan" element={<CommissionPlan />} />
         <Route path="/agents" element={<Agents />} />
         <Route path="/agents/:id" element={<AgentProfile />} />
+        <Route path="admin/properties/:type" element={<FilteredProperties />} />
 
         {/* ===== ADMIN ROUTES ===== */}
 

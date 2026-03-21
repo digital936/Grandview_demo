@@ -1,6 +1,4 @@
 
-
-
 import { Link, useNavigate } from "react-router-dom";
 import "../Admin/adminDashboard.css";
 import { useEffect, useState } from "react";
@@ -24,7 +22,9 @@ export default function AdminDashboard() {
   const [stats, setStats] = useState({
     properties: 0,
     tenants: 0,
-    owners: 0
+    owners: 0,
+    available: 0,
+    rented: 0
   });
 
   const [adminEmail, setAdminEmail] = useState("");
@@ -34,15 +34,11 @@ export default function AdminDashboard() {
     getAdminUser();
   }, []);
 
-  // 🔐 Get logged-in admin
   const getAdminUser = async () => {
     const { data: { user } } = await supabase.auth.getUser();
-    if (user) {
-      setAdminEmail(user.email);
-    }
+    if (user) setAdminEmail(user.email);
   };
 
-  // 📊 Fetch stats
   const fetchDashboardData = async () => {
     try {
 
@@ -58,18 +54,30 @@ export default function AdminDashboard() {
         .from("owners")
         .select("*", { count: "exact", head: true });
 
+      // ✅ NEW FILTERED COUNTS
+      const { count: availableCount } = await supabase
+        .from("properties")
+        .select("*", { count: "exact", head: true })
+        .eq("status", "available");
+
+      const { count: rentedCount } = await supabase
+        .from("properties")
+        .select("*", { count: "exact", head: true })
+        .eq("status", "rented");
+
       setStats({
         properties: propertyCount || 0,
         tenants: tenantCount || 0,
-        owners: ownerCount || 0
+        owners: ownerCount || 0,
+        available: availableCount || 0,
+        rented: rentedCount || 0
       });
 
     } catch (error) {
-      console.error("Error fetching dashboard data:", error);
+      console.error(error);
     }
   };
 
-  // 🚪 Logout
   const handleLogout = async () => {
     await supabase.auth.signOut();
     navigate("/admin/login");
@@ -78,10 +86,8 @@ export default function AdminDashboard() {
   return (
     <div className="admin-container">
 
-      {/* SIDEBAR */}
       <aside className="sidebar">
-
-        <div className="logo">
+        <div className="sidebar-logo">
           <h2>Grandview</h2>
         </div>
 
@@ -91,19 +97,15 @@ export default function AdminDashboard() {
           <Link to="/admin/inquiries"><FaClipboardList /> Inquiries</Link>
           <Link to="/admin/feedback"><FaCommentDots /> Feedback</Link>
           <Link to="/admin/contacts"><FaEnvelope /> Contact Messages</Link>
-          <Link to="/admin/issues"><FaExclamationCircle /> Tenant Issues</Link>
+          {/* <Link to="/admin/issues"><FaExclamationCircle /> Tenant Issues</Link> */}
           <Link to="/admin/post-properties"><FaBuilding /> Post Properties</Link>
-          <Link to="/admin/appointments"><FaCalendarAlt /> Appointments</Link>
+          {/* <Link to="/admin/appointments"><FaCalendarAlt /> Appointments</Link> */}
         </nav>
-
       </aside>
 
-      {/* MAIN CONTENT */}
       <main className="main-content">
 
-        {/* TOPBAR */}
         <header className="topbar">
-
           <div className="admin-title">
             <FaChartLine />
             <h1>Dashboard Overview</h1>
@@ -113,17 +115,15 @@ export default function AdminDashboard() {
             <div className="avatar">
               {adminEmail ? adminEmail.charAt(0).toUpperCase() : "A"}
             </div>
-
             <span>{adminEmail || "Admin"}</span>
 
             <button onClick={handleLogout} className="logout-btn">
               Logout
             </button>
           </div>
-
         </header>
 
-        {/* STATS */}
+        {/* ✅ UPDATED STATS */}
         <section className="stats-grid">
 
           <div className="stat-card">
@@ -131,7 +131,7 @@ export default function AdminDashboard() {
             <p>{stats.properties}</p>
           </div>
 
-          <div className="stat-card">
+          {/* <div className="stat-card">
             <h3>Total Tenants</h3>
             <p>{stats.tenants}</p>
           </div>
@@ -139,12 +139,29 @@ export default function AdminDashboard() {
           <div className="stat-card">
             <h3>Total Property Owners</h3>
             <p>{stats.owners}</p>
+          </div> */}
+
+          {/* ✅ NEW: AVAILABLE */}
+          <div
+            className="stat-card clickable"
+            onClick={() => navigate("/admin/properties/available")}
+          >
+            <h3>Available Properties</h3>
+            <p>{stats.available}</p>
+          </div>
+
+          {/* ✅ NEW: RENTED */}
+          <div
+            className="stat-card clickable"
+            onClick={() => navigate("/admin/properties/rented")}
+          >
+            <h3>Rented Properties</h3>
+            <p>{stats.rented}</p>
           </div>
 
         </section>
 
       </main>
-
     </div>
   );
 }

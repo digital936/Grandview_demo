@@ -457,12 +457,12 @@ export default function AdminProperties() {
                 Edit
               </button>
 
-              <button
+              {/* <button
                 // className="delete-btn"
                 onClick={() => handleDelete(property.id)}
               >
                 Delete
-              </button>
+              </button> */}
 
             </div>
 

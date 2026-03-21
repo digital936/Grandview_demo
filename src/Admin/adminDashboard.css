@@ -35,8 +35,9 @@ body {
   top: 0;
 }
 
-.logo {
+.sidebar-logo {
   margin-bottom: 35px;
+  margin-top: 35px;
 }
 
 .logo h2 {
@@ -267,4 +268,13 @@ body {
 
 .logout-btn:hover {
   background: #dc2626;
+}
+
+.stat-card.clickable {
+  cursor: pointer;
+}
+
+.stat-card.clickable:hover {
+  border: 2px solid #8a4842;
+  box-shadow: 0 10px 25px rgba(200, 155, 60, 0.4);
 }

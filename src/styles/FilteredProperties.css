@@ -1,0 +1,86 @@
+/* ===== PAGE CONTAINER ===== */
+.filtered-container {
+  padding: 30px;
+  background: #f4f6fb;
+  min-height: 100vh;
+}
+
+/* ===== HEADER ===== */
+.filtered-header {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #1f2937;
+  text-transform: capitalize;
+}
+
+/* ===== TABLE WRAPPER ===== */
+.table-wrapper {
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+/* ===== TABLE ===== */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+/* ===== HEADER ROW ===== */
+.styled-table thead {
+  background: linear-gradient(135deg, #1f2937, #374151);
+  color: white;
+}
+
+.styled-table th {
+  padding: 14px;
+  text-align: left;
+  font-weight: 500;
+}
+
+/* ===== BODY ROWS ===== */
+.styled-table td {
+  padding: 14px;
+  color: #374151;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #f1f1f1;
+  transition: 0.2s ease;
+}
+
+/* ✨ Hover effect */
+.styled-table tbody tr:hover {
+  background: #f9fafb;
+  transform: scale(1.01);
+}
+
+/* ===== STATUS BADGES ===== */
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.status.available {
+  background: #d1fae5;
+  color: #059669;
+}
+
+.status.rented {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* ===== EMPTY STATE ===== */
+.no-data {
+  text-align: center;
+  padding: 40px;
+  color: #6b7280;
+  font-size: 15px;
+}
