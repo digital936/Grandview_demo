@@ -117,7 +117,7 @@ export default function PropertyDetails() {
           <ZillowButton zillowLink={property.zillow_url} className="zillow-btn" />
 
           {/* LOCATION MAP */}
-          <div className="pd-section">
+          {/* <div className="pd-section">
             <h3>Location</h3>
             <iframe
               title="map"
@@ -127,7 +127,7 @@ export default function PropertyDetails() {
               loading="lazy"
               src={`https://maps.google.com/maps?q=${property.latitude},${property.longitude}&z=15&output=embed`}
             ></iframe>
-          </div>
+          </div> */}
         </div>
 
       </div>
