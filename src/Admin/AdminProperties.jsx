@@ -94,35 +94,33 @@ export default function AdminProperties() {
     fetchProperties();
   }
 
-//   async function handleImageUpload(files) {
-//   if (!files) return;
-
-//   const selectedFiles = Array.from(files).slice(0, 4); // max 4
+// async function handleImageUpload(files) {
+//   const selectedFiles = Array.from(files).slice(0, 4);
 //   const uploadedUrls = [];
 
 //   for (let file of selectedFiles) {
 //     const fileName = `${Date.now()}-${file.name}`;
 
-//     const { data, error } = await supabase.storage
-//       .from("property-gallery") // ✅ NEW BUCKET
+//     const { error } = await supabase.storage
+//       .from("property-gallery")
 //       .upload(fileName, file);
 
 //     if (error) {
-//       console.error("Upload error:", error);
+//       console.log(error);
 //       continue;
 //     }
 
-//     const { data: publicUrlData } = supabase.storage
+//     const { data } = supabase.storage
 //       .from("property-gallery")
 //       .getPublicUrl(fileName);
 
-//     uploadedUrls.push(publicUrlData.publicUrl);
+//     uploadedUrls.push(data.publicUrl);
 //   }
 
 //   setForm((prev) => ({
 //     ...prev,
-//     imageUrl: uploadedUrls[0] || "", // ✅ keep old column working
-//     images: uploadedUrls, // ✅ all images
+//     imageUrl: uploadedUrls[0],   // ✅ main image
+//     images: uploadedUrls,        // ✅ MULTIPLE IMAGES
 //   }));
 // }
 
@@ -151,8 +149,11 @@ async function handleImageUpload(files) {
 
   setForm((prev) => ({
     ...prev,
-    imageUrl: uploadedUrls[0],   // ✅ main image
-    images: uploadedUrls,        // ✅ MULTIPLE IMAGES
+    // ❌ DON'T touch imageUrl
+    // imageUrl: uploadedUrls[0],
+
+    // ✅ Only update gallery images
+    images: [...(prev.images || []), ...uploadedUrls],
   }));
 }
 
