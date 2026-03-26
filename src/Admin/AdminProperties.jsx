@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import "../Admin/admin-properties.css";
@@ -23,7 +22,7 @@ export default function AdminProperties() {
     zillow_url: "",
     description: "",
     featured: false,
-    status: "available",   // ✅ ADDED
+    status: "available",
   };
 
   const [form, setForm] = useState(initialFormState);
@@ -36,7 +35,6 @@ export default function AdminProperties() {
     const { data, error } = await supabase
       .from("properties")
       .select("*")
-      
       .order("created_at", { ascending: false });
 
     if (!error) setProperties(data);
@@ -57,75 +55,86 @@ export default function AdminProperties() {
     setShowForm(true);
   }
 
-  function handleEdit(property) {
-    setForm(property);
-    setEditingId(property.id);
-    setShowForm(true);
+function handleEdit(property) {
+  let images = [];
 
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  if (Array.isArray(property.images)) {
+    images = property.images;
+  } else if (typeof property.images === "string") {
+    try {
+      images = JSON.parse(property.images);
+    } catch {
+      images = [];
+    }
   }
+
+  setForm({
+    title: property.title || "",
+    price: property.price || "",
+    beds: property.beds || "",
+    baths: property.baths || "",
+    sqft: property.sqft || "",
+    address: property.address || "",
+    zipcode: property.zipcode || "",
+    city: property.city || "",
+    imageUrl: property.imageUrl || "",
+    zillow_url: property.zillow_url || "",
+    description: property.description || "",
+    category: property.category || "rent",
+    status: property.status || "available",
+    featured: property.featured || false,
+    images: images, // ✅ FIXED
+  });
+
+  setEditingId(property.id);
+  setShowForm(true);
+}
 
   async function handleSubmit(e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (editingId) {
-      await supabase
-        .from("properties")
-        .update(form)
-        .eq("id", editingId);
-    } else {
-      await supabase
-        .from("properties")
-        .insert([form]);
-    }
+  // ✅ CLEAN IMAGES
+  const cleanImages = (form.images || []).filter(
+    (img) => img && img !== "null"
+  );
 
-    setShowForm(false);
-    setEditingId(null);
-    setForm(initialFormState);
-    fetchProperties();
+  // ✅ FIX BIGINT FIELDS
+  const payload = {
+    ...form,
+
+    price: form.price ? Number(form.price) : null,
+    beds: form.beds ? Number(form.beds) : null,
+    baths: form.baths ? Number(form.baths) : null,
+    sqft: form.sqft ? Number(form.sqft) : null,
+    zipcode: form.zipcode ? Number(form.zipcode) : null,
+
+    images: JSON.stringify(cleanImages),
+  };
+
+  const { error } = editingId
+    ? await supabase
+        .from("properties")
+        .update(payload)
+        .eq("id", editingId)
+    : await supabase
+        .from("properties")
+        .insert([payload]);
+
+  if (error) {
+    console.log("SUPABASE ERROR:", error);
+    alert("Error saving property");
+    return;
   }
 
-  async function handleDelete(id) {
-    await supabase
-      .from("properties")
-      .delete()
-      .eq("id", id);
+  setShowForm(false);
+  setEditingId(null);
+  setForm(initialFormState);
+  fetchProperties();
+}
+  
 
-    fetchProperties();
-  }
-
-// async function handleImageUpload(files) {
-//   const selectedFiles = Array.from(files).slice(0, 4);
-//   const uploadedUrls = [];
-
-//   for (let file of selectedFiles) {
-//     const fileName = `${Date.now()}-${file.name}`;
-
-//     const { error } = await supabase.storage
-//       .from("property-gallery")
-//       .upload(fileName, file);
-
-//     if (error) {
-//       console.log(error);
-//       continue;
-//     }
-
-//     const { data } = supabase.storage
-//       .from("property-gallery")
-//       .getPublicUrl(fileName);
-
-//     uploadedUrls.push(data.publicUrl);
-//   }
-
-//   setForm((prev) => ({
-//     ...prev,
-//     imageUrl: uploadedUrls[0],   // ✅ main image
-//     images: uploadedUrls,        // ✅ MULTIPLE IMAGES
-//   }));
-// }
-
-async function handleImageUpload(files) {
-  const selectedFiles = Array.from(files).slice(0, 4);
+  async function handleImageUpload(files) {
+  const selectedFiles = Array.from(files); // ✅ NO LIMIT
   const uploadedUrls = [];
 
   for (let file of selectedFiles) {
@@ -136,7 +145,7 @@ async function handleImageUpload(files) {
       .upload(fileName, file);
 
     if (error) {
-      console.log(error);
+      console.log("Upload error:", error);
       continue;
     }
 
@@ -147,12 +156,9 @@ async function handleImageUpload(files) {
     uploadedUrls.push(data.publicUrl);
   }
 
+  // ✅ IMPORTANT: KEEP OLD + ADD NEW
   setForm((prev) => ({
     ...prev,
-    // ❌ DON'T touch imageUrl
-    // imageUrl: uploadedUrls[0],
-
-    // ✅ Only update gallery images
     images: [...(prev.images || []), ...uploadedUrls],
   }));
 }
@@ -162,7 +168,6 @@ async function handleImageUpload(files) {
 
       <div className="admin-header">
         <h2>Manage Properties</h2>
-
         <button className="add-btn" onClick={openAddForm}>
           + Add Property
         </button>
@@ -177,67 +182,19 @@ async function handleImageUpload(files) {
 
             <form className="admin-form" onSubmit={handleSubmit}>
 
-              <input
-                name="title"
-                placeholder="Title"
-                value={form.title}
-                onChange={handleChange}
-                required
-              />
+              <input name="title" placeholder="Title" value={form.title} onChange={handleChange} required />
+              <input name="price" placeholder="Price" value={form.price} onChange={handleChange} required />
+              <input name="beds" placeholder="Beds" value={form.beds} onChange={handleChange} />
+              <input name="baths" placeholder="Baths" value={form.baths} onChange={handleChange} />
+              <input name="sqft" placeholder="Sqft" value={form.sqft} onChange={handleChange} />
+              <input name="address" placeholder="Address" value={form.address} onChange={handleChange} />
+              <input name="zipcode" placeholder="Zip Code" value={form.zipcode} onChange={handleChange} />
+              <input name="city" placeholder="City" value={form.city} onChange={handleChange} />
 
-              <input
-                name="price"
-                placeholder="Price"
-                value={form.price}
-                onChange={handleChange}
-                required
-              />
-
-              <input
-                name="beds"
-                placeholder="Beds"
-                value={form.beds}
-                onChange={handleChange}
-              />
-
-              <input
-                name="baths"
-                placeholder="Baths"
-                value={form.baths}
-                onChange={handleChange}
-              />
-
-              <input
-                name="sqft"
-                placeholder="Sqft"
-                value={form.sqft}
-                onChange={handleChange}
-              />
-
-              <input
-                name="address"
-                placeholder="Address"
-                value={form.address}
-                onChange={handleChange}
-              />
-
-              <input
-                name="zipcode"
-                placeholder="zip code"
-                value={form.zipcode}
-                onChange={handleChange}
-              />
-
-              <input
-                name="city"
-                placeholder="City"
-                value={form.city}
-                onChange={handleChange}
-              />
-
+              {/* MAIN IMAGE */}
               <input
                 name="imageUrl"
-                placeholder="Image URL"
+                placeholder="Main Image URL"
                 value={form.imageUrl}
                 onChange={handleChange}
               />
@@ -249,22 +206,12 @@ async function handleImageUpload(files) {
                 onChange={handleChange}
               />
 
-              {/* CATEGORY */}
-              <select
-                name="category"
-                value={form.category}
-                onChange={handleChange}
-              >
+              <select name="category" value={form.category} onChange={handleChange}>
                 <option value="rent">Rent</option>
                 <option value="sale">Sale</option>
               </select>
 
-              {/* ✅ STATUS DROPDOWN */}
-              <select
-                name="status"
-                value={form.status}
-                onChange={handleChange}
-              >
+              <select name="status" value={form.status} onChange={handleChange}>
                 <option value="available">Available</option>
                 <option value="rented">Rented</option>
               </select>
@@ -277,8 +224,7 @@ async function handleImageUpload(files) {
                 className="description-box"
               />
 
-              
-
+              {/* IMAGE UPLOAD */}
               <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
                 <input
                   type="file"
@@ -286,11 +232,27 @@ async function handleImageUpload(files) {
                   accept="image/*"
                   onChange={(e) => handleImageUpload(e.target.files)}
                 />
-
                 <p style={{ fontSize: "12px", color: "gray", margin: 0 }}>
-                  Upload up to 4 images
+                  Upload multiple images
                 </p>
               </div>
+
+              {/* ✅ PREVIEW IMAGES */}
+              {/* <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+                {form.images?.map((img, i) => (
+                  <img
+                    key={i}
+                    src={img}
+                    alt="preview"
+                    style={{
+                      width: "80px",
+                      height: "60px",
+                      objectFit: "cover",
+                      borderRadius: "6px",
+                    }}
+                  />
+                ))}
+              </div> */}
 
               <label className="checkbox">
                 <input
@@ -303,7 +265,6 @@ async function handleImageUpload(files) {
               </label>
 
               <div className="form-actions">
-
                 <button type="submit" className="save-btn">
                   {editingId ? "Update" : "Save"}
                 </button>
@@ -315,7 +276,6 @@ async function handleImageUpload(files) {
                 >
                   Cancel
                 </button>
-
               </div>
 
             </form>
@@ -326,43 +286,23 @@ async function handleImageUpload(files) {
 
       {/* PROPERTY GRID */}
       <div className="admin-property-grid">
-
         {properties.map((property) => (
           <div className="admin-property-card" key={property.id}>
-
             <img src={property.imageUrl} alt={property.title} />
 
             <div className="property-details">
               <h3>{property.title}</h3>
-
               <p className="price">${property.price}</p>
-
               <p>{property.city}</p>
-
-              <p>Status: <b>{property.status}</b></p> {/* optional */}
+              <p>Status: <b>{property.status}</b></p>
             </div>
 
             <div className="actions">
-
-              <button
-                // className="edit-btn"
-                onClick={() => handleEdit(property)}
-              >
-                Edit
-              </button>
-
-              <button
-                // className="delete-btn"
-                onClick={() => handleDelete(property.id)}
-              >
-                Delete
-              </button>
-
+              <button onClick={() => handleEdit(property)}>Edit</button>
+              <button onClick={() => handleDelete(property.id)}>Delete</button>
             </div>
-
           </div>
         ))}
-
       </div>
 
     </div>

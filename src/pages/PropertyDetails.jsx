@@ -37,25 +37,24 @@ export default function PropertyDetails() {
     }
   }
 
-  // SAFE IMAGE HANDLER
-  function getGalleryImages(property) {
-    if (!property) return [];
+function getGalleryImages(property) {
+  if (!property) return [];
 
-    if (Array.isArray(property.images)) {
-      return property.images;
+  // ✅ case 1: already array
+  if (Array.isArray(property.images)) return property.images;
+
+  // ✅ case 2: string JSON
+  if (typeof property.images === "string") {
+    try {
+      const parsed = JSON.parse(property.images);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
     }
-
-    if (typeof property.images === "string") {
-      try {
-        const parsed = JSON.parse(property.images);
-        if (Array.isArray(parsed)) return parsed;
-      } catch (err) {
-        console.log("JSON parse failed:", err);
-      }
-    }
-
-    return [];
   }
+
+  return [];
+}
 
   // 🔥 POPUP FUNCTIONS
   const openImagePopup = (index) => {
@@ -167,13 +166,29 @@ export default function PropertyDetails() {
             {galleryImages.length === 0 ? (
               <p>No gallery images available</p>
             ) : (
-              <div className="side-images">
+              <div
+                className="side-images"
+                style={{
+                  display: "flex",
+                  overflowX: "auto",
+                  gap: "10px",
+                  paddingBottom: "10px"
+                }}
+              >
                 {galleryImages.map((img, i) => (
                   <img
                     key={i}
                     src={img}
                     alt="property"
+                    loading="lazy"
                     onClick={() => openImagePopup(i)}
+                    style={{
+                      width: "120px",
+                      height: "80px",
+                      objectFit: "cover",
+                      borderRadius: "8px",
+                      cursor: "pointer"
+                    }}
                   />
                 ))}
               </div>
@@ -185,12 +200,50 @@ export default function PropertyDetails() {
 
       {/* 🔥 IMAGE POPUP */}
       {showImagePopup && (
-        <div className="image-popup">
-          <button className="close-popup" onClick={closeImagePopup}>✕</button>
+        <div
+          className="image-popup"
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            background: "rgba(0,0,0,0.9)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 9999,
+          }}
+        >
+          <button
+            className="close-popup"
+            onClick={closeImagePopup}
+            style={{
+              position: "absolute",
+              top: "20px",
+              right: "30px",
+              fontSize: "30px",
+              color: "#fff",
+              background: "none",
+              border: "none",
+              cursor: "pointer"
+            }}
+          >
+            ✕
+          </button>
 
           <button
             className="nav-btn left"
             onClick={() => prevImage(galleryImages)}
+            style={{
+              position: "absolute",
+              left: "20px",
+              fontSize: "40px",
+              color: "#fff",
+              background: "none",
+              border: "none",
+              cursor: "pointer"
+            }}
           >
             ‹
           </button>
@@ -199,11 +252,25 @@ export default function PropertyDetails() {
             src={galleryImages[currentIndex]}
             alt="preview"
             className="popup-image"
+            style={{
+              maxWidth: "90%",
+              maxHeight: "90%",
+              borderRadius: "10px"
+            }}
           />
 
           <button
             className="nav-btn right"
             onClick={() => nextImage(galleryImages)}
+            style={{
+              position: "absolute",
+              right: "20px",
+              fontSize: "40px",
+              color: "#fff",
+              background: "none",
+              border: "none",
+              cursor: "pointer"
+            }}
           >
             ›
           </button>
