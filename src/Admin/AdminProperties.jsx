@@ -276,16 +276,20 @@ async function handleImageUpload(files) {
                 className="description-box"
               />
 
-              <input
-  type="file"
-  multiple
-  accept="image/*"
-  onChange={(e) => handleImageUpload(e.target.files)}
-/>
+              
 
-<p style={{ fontSize: "12px", color: "gray" }}>
-  Upload up to 4 images
-</p>
+              <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={(e) => handleImageUpload(e.target.files)}
+                />
+
+                <p style={{ fontSize: "12px", color: "gray", margin: 0 }}>
+                  Upload up to 4 images
+                </p>
+              </div>
 
               <label className="checkbox">
                 <input
