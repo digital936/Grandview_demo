@@ -1,5 +1,4 @@
 
-
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
@@ -9,8 +8,13 @@ import "../styles/PropertyDetails.css";
 
 export default function PropertyDetails() {
   const { id } = useParams();
+
   const [property, setProperty] = useState(null);
   const [showTourModal, setShowTourModal] = useState(false);
+
+  // 🔥 IMAGE POPUP STATE
+  const [showImagePopup, setShowImagePopup] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const openTourModal = () => setShowTourModal(true);
   const closeTourModal = () => setShowTourModal(false);
@@ -29,12 +33,11 @@ export default function PropertyDetails() {
     if (error) {
       console.log("Error fetching property:", error);
     } else {
-      console.log("PROPERTY DATA:", data);
       setProperty(data);
     }
   }
 
-  // 🧠 SAFE IMAGE HANDLER
+  // SAFE IMAGE HANDLER
   function getGalleryImages(property) {
     if (!property) return [];
 
@@ -54,6 +57,28 @@ export default function PropertyDetails() {
     return [];
   }
 
+  // 🔥 POPUP FUNCTIONS
+  const openImagePopup = (index) => {
+    setCurrentIndex(index);
+    setShowImagePopup(true);
+  };
+
+  const closeImagePopup = () => {
+    setShowImagePopup(false);
+  };
+
+  const nextImage = (galleryImages) => {
+    setCurrentIndex((prev) =>
+      prev === galleryImages.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const prevImage = (galleryImages) => {
+    setCurrentIndex((prev) =>
+      prev === 0 ? galleryImages.length - 1 : prev - 1
+    );
+  };
+
   if (!property) {
     return <div className="loading">Loading...</div>;
   }
@@ -63,7 +88,7 @@ export default function PropertyDetails() {
   return (
     <div className="pd-page">
 
-      {/* 🔥 FIXED TOP IMAGE */}
+      {/* TOP IMAGE */}
       <div className="pd-gallery">
         {property.imageUrl ? (
           <img
@@ -78,9 +103,8 @@ export default function PropertyDetails() {
 
       <div className="pd-container">
 
-        {/* LEFT SIDE */}
+        {/* LEFT */}
         <div className="pd-left">
-
           <div className="pd-header-row">
             <div>
               <h1 className="pd-title">{property.title}</h1>
@@ -111,31 +135,18 @@ export default function PropertyDetails() {
           <div className="pd-section">
             <h3>Property Details</h3>
             <div className="pd-details-grid">
-              <div>Category</div>
-              <div>{property.category}</div>
-
-              <div>Address</div>
-              <div>{property.address}</div>
-
-              <div>City</div>
-              <div>{property.city}</div>
-
-              <div>Zipcode</div>
-              <div>{property.zipcode}</div>
-
-              <div>Bedrooms</div>
-              <div>{property.beds}</div>
-
-              <div>Bathrooms</div>
-              <div>{property.baths}</div>
-
-              <div>Area</div>
-              <div>{property.sqft} Sq Ft</div>
+              <div>Category</div><div>{property.category}</div>
+              <div>Address</div><div>{property.address}</div>
+              <div>City</div><div>{property.city}</div>
+              <div>Zipcode</div><div>{property.zipcode}</div>
+              <div>Bedrooms</div><div>{property.beds}</div>
+              <div>Bathrooms</div><div>{property.baths}</div>
+              <div>Area</div><div>{property.sqft} Sq Ft</div>
             </div>
           </div>
         </div>
 
-        {/* RIGHT SIDE */}
+        {/* RIGHT */}
         <div className="pd-right">
 
           <div className="contact-card">
@@ -149,7 +160,7 @@ export default function PropertyDetails() {
             className="zillow-btn"
           />
 
-          {/* 🖼️ GALLERY → OPEN IN NEW TAB */}
+          {/* GALLERY */}
           <div className="pd-section">
             <h3>Property Images</h3>
 
@@ -162,8 +173,7 @@ export default function PropertyDetails() {
                     key={i}
                     src={img}
                     alt="property"
-                    onClick={() => window.open(img, "_blank")} // 🔥 OPEN IN NEW TAB
-                    style={{ cursor: "pointer" }}
+                    onClick={() => openImagePopup(i)}
                   />
                 ))}
               </div>
@@ -171,10 +181,36 @@ export default function PropertyDetails() {
           </div>
 
         </div>
-
       </div>
 
-      {/* MODAL */}
+      {/* 🔥 IMAGE POPUP */}
+      {showImagePopup && (
+        <div className="image-popup">
+          <button className="close-popup" onClick={closeImagePopup}>✕</button>
+
+          <button
+            className="nav-btn left"
+            onClick={() => prevImage(galleryImages)}
+          >
+            ‹
+          </button>
+
+          <img
+            src={galleryImages[currentIndex]}
+            alt="preview"
+            className="popup-image"
+          />
+
+          <button
+            className="nav-btn right"
+            onClick={() => nextImage(galleryImages)}
+          >
+            ›
+          </button>
+        </div>
+      )}
+
+      {/* TOUR MODAL */}
       {showTourModal && (
         <ScheduleTourModal
           propertyId={property.id}
