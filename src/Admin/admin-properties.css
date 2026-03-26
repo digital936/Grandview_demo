@@ -1,318 +1,264 @@
-/* PAGE WRAPPER */
-
-.admin-properties-page{
-  padding:40px 60px;
-  min-height:100vh;
-  font-family:"Inter",sans-serif;
-
-  background:linear-gradient(135deg,#f8fafc,#e2e8f0);
+/* ===== PAGE WRAPPER ===== */
+.admin-properties-page {
+  padding: 40px 60px;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
 }
 
-
-/* HEADER */
-
-.admin-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:30px;
+/* ===== HEADER ===== */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
 }
 
-.admin-header h2{
-  font-size:28px;
-  font-weight:600;
-  color:#1e293b;
+.admin-header h2 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1e293b;
 }
 
-
-/* ADD BUTTON */
-
-.add-btn{
-  background:#7a1f2a;
-  color:white;
-  border:none;
-  padding:12px 22px;
-  border-radius:10px;
-  font-size:14px;
-  font-weight:600;
-  cursor:pointer;
-  transition:0.3s;
+/* ===== ADD BUTTON ===== */
+.add-btn {
+  background: #7a1f2a;
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.add-btn:hover{
-  background:#5c1820;
-  transform:translateY(-2px);
+.add-btn:hover {
+  background: #5c1820;
+  transform: translateY(-2px);
 }
 
-
-/* MODAL BACKDROP */
-
-.form-modal{
-  position:fixed;
-  inset:0;
-
-  background:rgba(15,23,42,0.6);
-
-  display:flex;
-  justify-content:center;
-  align-items:center;
-
-  z-index:1000;
+/* ===== MODAL ===== */
+.form-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
+/* ===== GLASS FORM ===== */
+.form-container {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 
-/* GLASS FORM CONTAINER */
+  width: 600px;
+  max-width: 95%;
+  max-height: 90vh;
+  overflow-y: auto;
 
-.form-container{
+  padding: 30px;
+  border-radius: 16px;
 
-  background:rgba(255,255,255,0.6);
-
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
-
-  width:600px;
-  max-width:95%;
-
-  padding:30px;
-
-  border-radius:16px;
-
-  border:1px solid rgba(255,255,255,0.3);
-
-  box-shadow:0 20px 40px rgba(0,0,0,0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
-.form-container h3{
-  margin-bottom:20px;
-  font-size:22px;
-  color:#1e293b;
+.form-container h3 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  color: #1e293b;
 }
 
-
-/* FORM */
-
-.admin-form{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:15px;
+/* ===== FORM ===== */
+.admin-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
 }
 
 .admin-form input,
-.admin-form select{
-  padding:10px 12px;
-  border:1px solid #d1d5db;
-  border-radius:8px;
-  font-size:14px;
-  outline:none;
-  background:white;
+.admin-form select {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  background: white;
+  outline: none;
 }
 
 .admin-form input:focus,
-.admin-form select:focus{
-  border-color:#7a1f2a;
-  box-shadow:0 0 0 2px rgba(122,31,42,0.15);
+.admin-form select:focus {
+  border-color: #7a1f2a;
+  box-shadow: 0 0 0 2px rgba(122, 31, 42, 0.15);
 }
 
-
-/* FULL WIDTH */
-
-.admin-form textarea,
-.checkbox{
-  grid-column:span 2;
+/* ===== TEXTAREA ===== */
+.description-box {
+  grid-column: span 2;
+  min-height: 100px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  resize: vertical;
 }
 
-.description-box{
-  width:100%;
-  min-height:90px;
-  padding:12px;
-  border:1px solid #ddd;
-  border-radius:8px;
-  resize:vertical;
-  font-size:14px;
+/* ===== FILE UPLOAD ===== */
+.admin-form div {
+  grid-column: span 2;
 }
 
-.description-box:focus{
-  border-color:#7a1f2a;
+/* ===== IMAGE PREVIEW ===== */
+.image-preview {
+  grid-column: span 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-
-/* CHECKBOX */
-
-.checkbox{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-size:14px;
-  color:#334155;
+.image-box {
+  position: relative;
 }
 
-
-/* FORM ACTIONS */
-
-.form-actions{
-  grid-column:span 2;
-  display:flex;
-  justify-content:flex-end;
-  gap:12px;
+.image-box img {
+  width: 90px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ddd;
 }
 
-.save-btn{
-  background:#7a1f2a;
-  color:white;
-  border:none;
-  padding:10px 18px;
-  border-radius:8px;
-  cursor:pointer;
+/* ❌ REMOVE BUTTON */
+.remove-img {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 12px;
+  cursor: pointer;
 }
 
-.save-btn:hover{
-  background:#5c1820;
+/* ===== CHECKBOX ===== */
+.checkbox {
+  grid-column: span 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.cancel-btn{
-  background:#e2e8f0;
-  border:none;
-  padding:10px 18px;
-  border-radius:8px;
-  cursor:pointer;
+/* ===== FORM BUTTONS ===== */
+.form-actions {
+  grid-column: span 2;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
 }
 
-.cancel-btn:hover{
-  background:#cbd5e1;
+.save-btn {
+  background: #7a1f2a;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-
-/* PROPERTY GRID */
-
-.admin-property-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-  gap:25px;
+.save-btn:hover {
+  background: #5c1820;
 }
 
-
-/* GLASS PROPERTY CARD */
-
-.admin-property-card{
-
-  background:rgba(255,255,255,0.55);
-
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
-
-  border-radius:16px;
-
-  border:1px solid rgba(255,255,255,0.3);
-
-  overflow:hidden;
-
-  box-shadow:0 8px 30px rgba(0,0,0,0.08);
-
-  transition:0.35s;
+.cancel-btn {
+  background: #e2e8f0;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-.admin-property-card:hover{
-
-  transform:translateY(-8px);
-
-  box-shadow:0 18px 40px rgba(0,0,0,0.12);
+.cancel-btn:hover {
+  background: #cbd5e1;
 }
 
-
-/* PROPERTY IMAGE */
-
-.admin-property-card img{
-  width:100%;
-  height:180px;
-  object-fit:cover;
+/* ===== PROPERTY GRID ===== */
+.admin-property-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
 }
 
+/* ===== PROPERTY CARD (OLD STYLE RESTORED + IMPROVED) ===== */
+.admin-property-card {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 
-/* DETAILS */
+  border-radius: 16px;
+  overflow: hidden;
 
-.property-details{
-  padding:15px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  transition: 0.35s;
 }
 
-.property-details h3{
-  font-size:16px;
-  margin-bottom:6px;
-  color:#1e293b;
+.admin-property-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
 }
 
-.property-details .price{
-  color:#7a1f2a;
-  font-weight:700;
+/* ===== IMAGE ===== */
+.admin-property-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
 }
 
-
-/* RENT / SOLD BUTTONS */
-
-.assign-buttons{
-  display:flex;
-  gap:10px;
-  margin:10px 0;
+/* ===== DETAILS ===== */
+.property-details {
+  padding: 15px;
 }
 
-.rent-btn,
-.sold-btn{
-
-  flex:1;
-
-  background:#7a1f2a;
-  color:white;
-
-  border:none;
-
-  padding:10px;
-
-  border-radius:8px;
-
-  cursor:pointer;
+.property-details h3 {
+  font-size: 16px;
+  margin-bottom: 6px;
+  color: #1e293b;
 }
 
-.rent-btn:hover,
-.sold-btn:hover{
-  background:#5c1820;
+.property-details .price {
+  color: #7a1f2a;
+  font-weight: 700;
 }
 
-
-/* ACTION BUTTONS */
-
-.actions{
-  display:flex;
-  gap:12px;
-  padding:15px;
+/* ===== ACTION BUTTONS ===== */
+.actions {
+  display: flex;
+  gap: 12px;
+  padding: 15px;
 }
 
-.actions button{
+.actions button {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
 
-  flex:1;
+  background: rgba(122, 31, 42, 0.85);
+  color: white;
+  font-weight: 600;
 
-  padding:10px 14px;
-
-  border-radius:10px;
-
-  border:1px solid rgba(255,255,255,0.3);
-
-  background:rgba(122,31,42,0.85);
-
-  color:white;
-
-  font-weight:600;
-
-  cursor:pointer;
-
-  backdrop-filter:blur(8px);
-
-  transition:0.3s;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.actions button:hover{
-
-  background:#7a1f2a;
-
-  transform:translateY(-2px);
-
-  box-shadow:0 6px 14px rgba(0,0,0,0.15);
+.actions button:hover {
+  background: #7a1f2a;
+  transform: translateY(-2px);
 }

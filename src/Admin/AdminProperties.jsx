@@ -254,6 +254,26 @@ function handleEdit(property) {
                 ))}
               </div> */}
 
+              <div className="image-preview">
+  {form.images?.map((img, i) => (
+    <div className="image-box" key={i}>
+      <img src={img} alt="preview" />
+
+      {/* ❌ REMOVE BUTTON */}
+      <button
+  type="button"   // ✅ PREVENT FORM SUBMIT
+  className="remove-img"
+  onClick={() => {
+    const updated = form.images.filter((_, index) => index !== i);
+    setForm({ ...form, images: updated });
+  }}
+>
+  ✕
+</button>
+    </div>
+  ))}
+</div>
+
               <label className="checkbox">
                 <input
                   type="checkbox"
