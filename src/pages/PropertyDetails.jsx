@@ -10,8 +10,6 @@ import "../styles/PropertyDetails.css";
 export default function PropertyDetails() {
   const { id } = useParams();
   const [property, setProperty] = useState(null);
-
-  /* ⭐ Modal state */
   const [showTourModal, setShowTourModal] = useState(false);
 
   const openTourModal = () => setShowTourModal(true);
@@ -19,7 +17,6 @@ export default function PropertyDetails() {
 
   useEffect(() => {
     fetchProperty();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   async function fetchProperty() {
@@ -32,39 +29,73 @@ export default function PropertyDetails() {
     if (error) {
       console.log("Error fetching property:", error);
     } else {
+      console.log("PROPERTY DATA:", data);
       setProperty(data);
     }
+  }
+
+  // 🧠 SAFE IMAGE HANDLER
+  function getGalleryImages(property) {
+    if (!property) return [];
+
+    if (Array.isArray(property.images)) {
+      return property.images;
+    }
+
+    if (typeof property.images === "string") {
+      try {
+        const parsed = JSON.parse(property.images);
+        if (Array.isArray(parsed)) return parsed;
+      } catch (err) {
+        console.log("JSON parse failed:", err);
+      }
+    }
+
+    return [];
   }
 
   if (!property) {
     return <div className="loading">Loading...</div>;
   }
 
+  const galleryImages = getGalleryImages(property);
+
   return (
     <div className="pd-page">
 
-      {/* PROPERTY IMAGE */}
+      {/* 🔥 FIXED TOP IMAGE */}
       <div className="pd-gallery">
-        <img src={property.imageUrl} alt={property.title} />
+        {property.imageUrl ? (
+          <img
+            src={property.imageUrl}
+            alt={property.title}
+            className="main-image"
+          />
+        ) : (
+          <p>No Image Available</p>
+        )}
       </div>
 
       <div className="pd-container">
 
         {/* LEFT SIDE */}
         <div className="pd-left">
-          {/* HEADER */}
+
           <div className="pd-header-row">
             <div>
               <h1 className="pd-title">{property.title}</h1>
-              <p className="pd-address">{property.address}, {property.city}</p>
+              <p className="pd-address">
+                {property.address}, {property.city}, {property.zipcode}
+              </p>
             </div>
 
             <div className="pd-price-box">
-              <h2 className="pd-price">${Number(property.price).toLocaleString()} / month</h2>
+              <h2 className="pd-price">
+                ${Number(property.price).toLocaleString()} / month
+              </h2>
             </div>
           </div>
 
-          {/* HIGHLIGHTS */}
           <div className="pd-highlights">
             <div><strong>{property.beds}</strong> Beds</div>
             <div><strong>{property.baths}</strong> Baths</div>
@@ -72,13 +103,11 @@ export default function PropertyDetails() {
             <div><strong>{property.city}</strong></div>
           </div>
 
-          {/* DESCRIPTION */}
           <div className="pd-section">
             <h3>Description</h3>
             <p>{property.description}</p>
           </div>
 
-          {/* PROPERTY DETAILS GRID */}
           <div className="pd-section">
             <h3>Property Details</h3>
             <div className="pd-details-grid">
@@ -90,6 +119,9 @@ export default function PropertyDetails() {
 
               <div>City</div>
               <div>{property.city}</div>
+
+              <div>Zipcode</div>
+              <div>{property.zipcode}</div>
 
               <div>Bedrooms</div>
               <div>{property.beds}</div>
@@ -106,33 +138,43 @@ export default function PropertyDetails() {
         {/* RIGHT SIDE */}
         <div className="pd-right">
 
-          {/* CONTACT CARD */}
           <div className="contact-card">
             <button className="schedule-btn" onClick={openTourModal}>
               Schedule Tour
             </button>
           </div>
 
-          {/* ZILLOW BUTTON */}
-          <ZillowButton zillowLink={property.zillow_url} className="zillow-btn" />
+          <ZillowButton
+            zillowLink={property.zillow_url}
+            className="zillow-btn"
+          />
 
-          {/* LOCATION MAP */}
-          {/* <div className="pd-section">
-            <h3>Location</h3>
-            <iframe
-              title="map"
-              width="100%"
-              height="300"
-              style={{ border: 0 }}
-              loading="lazy"
-              src={`https://maps.google.com/maps?q=${property.latitude},${property.longitude}&z=15&output=embed`}
-            ></iframe>
-          </div> */}
+          {/* 🖼️ GALLERY → OPEN IN NEW TAB */}
+          <div className="pd-section">
+            <h3>Property Images</h3>
+
+            {galleryImages.length === 0 ? (
+              <p>No gallery images available</p>
+            ) : (
+              <div className="side-images">
+                {galleryImages.map((img, i) => (
+                  <img
+                    key={i}
+                    src={img}
+                    alt="property"
+                    onClick={() => window.open(img, "_blank")} // 🔥 OPEN IN NEW TAB
+                    style={{ cursor: "pointer" }}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+
         </div>
 
       </div>
 
-      {/* SCHEDULE TOUR MODAL */}
+      {/* MODAL */}
       {showTourModal && (
         <ScheduleTourModal
           propertyId={property.id}

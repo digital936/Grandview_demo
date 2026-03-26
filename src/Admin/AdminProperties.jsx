@@ -15,8 +15,10 @@ export default function AdminProperties() {
     baths: "",
     sqft: "",
     address: "",
+    zipcode: "",
     city: "",
     imageUrl: "",
+    images: [],
     category: "rent",
     zillow_url: "",
     description: "",
@@ -92,6 +94,68 @@ export default function AdminProperties() {
     fetchProperties();
   }
 
+//   async function handleImageUpload(files) {
+//   if (!files) return;
+
+//   const selectedFiles = Array.from(files).slice(0, 4); // max 4
+//   const uploadedUrls = [];
+
+//   for (let file of selectedFiles) {
+//     const fileName = `${Date.now()}-${file.name}`;
+
+//     const { data, error } = await supabase.storage
+//       .from("property-gallery") // ✅ NEW BUCKET
+//       .upload(fileName, file);
+
+//     if (error) {
+//       console.error("Upload error:", error);
+//       continue;
+//     }
+
+//     const { data: publicUrlData } = supabase.storage
+//       .from("property-gallery")
+//       .getPublicUrl(fileName);
+
+//     uploadedUrls.push(publicUrlData.publicUrl);
+//   }
+
+//   setForm((prev) => ({
+//     ...prev,
+//     imageUrl: uploadedUrls[0] || "", // ✅ keep old column working
+//     images: uploadedUrls, // ✅ all images
+//   }));
+// }
+
+async function handleImageUpload(files) {
+  const selectedFiles = Array.from(files).slice(0, 4);
+  const uploadedUrls = [];
+
+  for (let file of selectedFiles) {
+    const fileName = `${Date.now()}-${file.name}`;
+
+    const { error } = await supabase.storage
+      .from("property-gallery")
+      .upload(fileName, file);
+
+    if (error) {
+      console.log(error);
+      continue;
+    }
+
+    const { data } = supabase.storage
+      .from("property-gallery")
+      .getPublicUrl(fileName);
+
+    uploadedUrls.push(data.publicUrl);
+  }
+
+  setForm((prev) => ({
+    ...prev,
+    imageUrl: uploadedUrls[0],   // ✅ main image
+    images: uploadedUrls,        // ✅ MULTIPLE IMAGES
+  }));
+}
+
   return (
     <div className="admin-properties-page">
 
@@ -157,6 +221,13 @@ export default function AdminProperties() {
               />
 
               <input
+                name="zipcode"
+                placeholder="zip code"
+                value={form.zipcode}
+                onChange={handleChange}
+              />
+
+              <input
                 name="city"
                 placeholder="City"
                 value={form.city}
@@ -204,6 +275,17 @@ export default function AdminProperties() {
                 onChange={handleChange}
                 className="description-box"
               />
+
+              <input
+  type="file"
+  multiple
+  accept="image/*"
+  onChange={(e) => handleImageUpload(e.target.files)}
+/>
+
+<p style={{ fontSize: "12px", color: "gray" }}>
+  Upload up to 4 images
+</p>
 
               <label className="checkbox">
                 <input
