@@ -183,7 +183,8 @@ export default function Rent() {
 
               <div className="property-content">
 
-                <h3>{property.title}</h3>
+                <h3>{property.title} {property.city}, {property.zipcode}</h3>
+                
 
                 <p className="location">
                   {property.city}

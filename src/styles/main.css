@@ -166,7 +166,7 @@ cursor:pointer;
 .hamburger span{
 width:28px;
 height:3px;
-background:white;
+background:#8B5E3C;
 transition:.3s;
 }
 

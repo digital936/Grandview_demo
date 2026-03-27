@@ -106,7 +106,7 @@ function getGalleryImages(property) {
         <div className="pd-left">
           <div className="pd-header-row">
             <div>
-              <h1 className="pd-title">{property.title}</h1>
+              <h1 className="pd-title">{property.title} {property.city}, {property.zipcode}</h1>
               <p className="pd-address">
                 {property.address}, {property.city}, {property.zipcode}
               </p>

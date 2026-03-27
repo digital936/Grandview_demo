@@ -8,6 +8,7 @@ function Navbar() {
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const closeMenu = () => setMenuOpen(false);
 
   useEffect(() => {
 
@@ -46,19 +47,23 @@ function Navbar() {
           <span></span>
         </div>
 
-        <nav className={`nav-menu ${menuOpen ? "active" : ""}`}>
+        {/* <nav className={`nav-menu ${menuOpen ? "active" : ""}`}>
 
-          <Link to="/">Home</Link>
-          <Link to="/rent">Lease</Link>
-          {/* <Link to="/contact">Contact</Link> */}
-          <Link to="/about">About</Link>
-          <Link to="/agents">Agents</Link>
+  <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
+  <Link to="/rent" onClick={() => setMenuOpen(false)}>Lease</Link>
+  <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
+  <Link to="/agents" onClick={() => setMenuOpen(false)}>Agents</Link>
 
-          {/* <Link to="/login" className="nav-cta">
-            Login
-          </Link> */}
+</nav> */}
 
-        </nav>
+<nav className={`nav-menu ${menuOpen ? "active" : ""}`}>
+
+  <Link to="/" onClick={closeMenu}>Home</Link>
+  <Link to="/rent" onClick={closeMenu}>Lease</Link>
+  <Link to="/about" onClick={closeMenu}>About</Link>
+  <Link to="/agents" onClick={closeMenu}>Agents</Link>
+
+</nav>
 
       </div>
 
