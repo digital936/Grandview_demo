@@ -163,6 +163,24 @@ function handleEdit(property) {
   }));
 }
 
+async function handleDelete(id) {
+  const confirmDelete = window.confirm("Are you sure?");
+  if (!confirmDelete) return;
+
+  const { error } = await supabase
+    .from("properties")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    console.log(error);
+    alert("Delete failed");
+    return;
+  }
+
+  setProperties((prev) => prev.filter((p) => p.id !== id));
+}
+
   return (
     <div className="admin-properties-page">
 
