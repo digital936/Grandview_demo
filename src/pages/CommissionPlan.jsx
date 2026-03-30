@@ -88,6 +88,7 @@ export default function CommissionPlan() {
 
 
         <div className="plan-card highlight">
+          <span className="badge">MOST POPULAR</span>
           <h2>SHARE Plan</h2>
           <h3>12% Split</h3>
 

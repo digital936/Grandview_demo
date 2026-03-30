@@ -9,7 +9,7 @@ const agentsData = [
     bio: "John Teague is a seasoned real estate professional known for delivering exceptional client experiences. He focuses on trust, transparency, and results.",
     photo: JohnImg,
     phone: "479-601-3600",
-    email: "John@GrandviewRealty.US" 
+    email: "john@grandviewrealty.us" 
   }
 ];
 

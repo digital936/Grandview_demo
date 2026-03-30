@@ -143,7 +143,7 @@ export default function ScheduleTourModal({ propertyId, closeModal }) {
           <input type="text" name="name" required placeholder="Full Name" onChange={handleChange} />
           <input type="email" name="email" required placeholder="Email" onChange={handleChange} />
           <input type="tel" name="phone" required placeholder="Phone" onChange={handleChange} />
-          <input type="date" name="date" required onChange={handleChange} />
+          <input type="date" name="date" required placeholder="Select Date" onChange={handleChange} />
 
           <select name="time" required onChange={handleChange}>
             <option value="">Select Time</option>
@@ -154,7 +154,28 @@ export default function ScheduleTourModal({ propertyId, closeModal }) {
             ))}
           </select>
 
-          <input type="file" name="licenseFile" onChange={handleChange} />
+          
+          {/* <div className="file-upload">
+  <label htmlFor="licenseUpload">Upload Driving Licence</label>
+  <input 
+    type="file" 
+    id="licenseUpload"
+    name="licenseFile" 
+    onChange={handleChange} 
+  />
+</div> */}
+
+<div className="file-upload">
+  <label htmlFor="licenseUpload">Upload Driving Licence</label>
+  <input 
+    type="file"
+    id="licenseUpload"
+    name="licenseFile"
+    accept="image/*"
+    capture="environment"
+    onChange={handleChange}
+  />
+</div>
 
           <div className="form-buttons">
             <button type="submit" disabled={loading}>

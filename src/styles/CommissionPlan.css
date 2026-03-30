@@ -36,7 +36,7 @@
 
 /* CARD */
 .plan-card {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(146, 112, 227, 0.22);
   backdrop-filter: blur(14px);
   padding: 35px;
   border-radius: 18px;
@@ -367,3 +367,25 @@
     padding: 20px;
   }
 }
+
+.badge {
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background: linear-gradient(135deg, #f5b971, #ffcc80);
+  color: #000;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  /* box-shadow: 0 5px 15px rgba(245,185,113,0.4); */
+  z-index: 2;
+  animation: floatBadge 3s ease-in-out infinite;
+}
+
+@keyframes floatBadge {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
