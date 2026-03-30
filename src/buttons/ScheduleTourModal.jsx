@@ -172,7 +172,7 @@ export default function ScheduleTourModal({ propertyId, closeModal }) {
     id="licenseUpload"
     name="licenseFile"
     accept="image/*"
-    capture="environment"
+    // capture="environment"
     onChange={handleChange}
   />
 </div>
