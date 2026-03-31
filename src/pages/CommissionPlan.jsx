@@ -1,3 +1,5 @@
+
+
 import { useState } from "react";
 import "../styles/CommissionPlan.css";
 import { supabase } from "../lib/supabase";
@@ -39,11 +41,9 @@ export default function CommissionPlan() {
 
     if (error) {
       alert("Error submitting form");
-      console.log(error);
     } else {
       alert("Application submitted successfully!");
       setSelectedPlan(null);
-
       setFormData({
         fullname: "",
         email: "",
@@ -60,69 +60,127 @@ export default function CommissionPlan() {
       {/* HERO */}
       <section className="commission-hero">
         <h1>Grandview Realty Commission Plans</h1>
-        <p>
-          Join Grandview Realty and choose the commission structure that helps
-          you maximize your earnings.
-        </p>
+        <p>Choose the plan that fits your growth journey.</p>
       </section>
-
 
       {/* PLANS */}
       <section className="plan-section">
 
+        {/* MAX */}
         <div className="plan-card">
           <h2>MAX Plan</h2>
           <h3>$465 / Sale</h3>
 
           <div className="plan-details">
-            <p>Pre-Cap Transaction Fee: $465</p>
-            <p>Annual Cap: $9,000</p>
-            <p>Post-Cap Fee: $165</p>
-            <p>Annual Fee: $700</p>
+            <p>Pre-Cap: $465</p>
+            <p>Cap: $9,000</p>
+            <p>Post-Cap: $165</p>
+            <p>Annual: $700</p>
+          </div>
+
+          <ul className="plan-features">
+            <li>✔ 100% Commission</li>
+            <li>✔ CRM & Marketing</li>
+            <li>✔ Training Included</li>
+            <li>✔ No Hidden Fees</li>
+          </ul>
+
+          <div className="revenue-box">
+            <h4>Revenue Share</h4>
+            <p>Level 1: 10%</p>
+            <p>Level 2: 8%</p>
+            <p>Level 3: 5%</p>
+          </div>
+
+          <div className="extra-details">
+            <p>Residential Lease: $120</p>
+            <p>Commercial Cap: $5,000</p>
           </div>
 
           <button onClick={() => setSelectedPlan("MAX Plan")}>
             Choose Plan
           </button>
+          {/* <button className="secondary-btn">Get More Info</button> */}
         </div>
 
 
+        {/* SHARE */}
         <div className="plan-card highlight">
           <span className="badge">MOST POPULAR</span>
           <h2>SHARE Plan</h2>
           <h3>12% Split</h3>
 
           <div className="plan-details">
-            <p>Pre-Cap Split: 12%</p>
-            <p>Annual Cap: $12,000</p>
-            <p>Post-Cap Fee: $165</p>
-            <p>Annual Fee: $700</p>
+            <p>Pre-Cap: 12%</p>
+            <p>Cap: $12,000</p>
+            <p>Post-Cap: $165</p>
+            <p>Annual: $700</p>
+          </div>
+
+          <ul className="plan-features">
+            <li>✔ Revenue Share Bonus</li>
+            <li>✔ Marketing Tools</li>
+            <li>✔ CRM Included</li>
+            <li>✔ Team Support</li>
+          </ul>
+
+          <div className="revenue-box">
+            <h4>Revenue Share</h4>
+            <p>Level 1: 12%</p>
+            <p>Level 2: 10%</p>
+            <p>Level 3: 7%</p>
+          </div>
+
+          <div className="extra-details">
+            <p>Residential Lease: $120</p>
+            <p>Commercial Cap: $5,000</p>
           </div>
 
           <button onClick={() => setSelectedPlan("SHARE Plan")}>
             Choose Plan
           </button>
+          {/* <button className="secondary-btn">Get More Info</button> */}
         </div>
 
 
+        {/* ELEVATE */}
         <div className="plan-card">
           <h2>ELEVATE Plan</h2>
           <h3>$515 + 20%</h3>
 
           <div className="plan-details">
-            <p>Transaction Fee: $515</p>
-            <p>Annual Cap: $3,000</p>
-            <p>Post-Cap Fee: $165</p>
-            <p>Annual Fee: $700</p>
+            <p>Fee: $515</p>
+            <p>Cap: $3,000</p>
+            <p>Post-Cap: $165</p>
+            <p>Annual: $700</p>
+          </div>
+
+          <ul className="plan-features">
+            <li>✔ Premium Support</li>
+            <li>✔ Advanced Tools</li>
+            <li>✔ High Growth Plan</li>
+            <li>✔ Concierge Level</li>
+          </ul>
+
+          <div className="revenue-box">
+            <h4>Revenue Share</h4>
+            <p>Level 1: 15%</p>
+            <p>Level 2: 12%</p>
+            <p>Level 3: 10%</p>
+          </div>
+
+          <div className="extra-details">
+            <p>Residential Lease: $120</p>
+            <p>Commercial Cap: $5,000</p>
           </div>
 
           <button onClick={() => setSelectedPlan("ELEVATE Plan")}>
             Choose Plan
           </button>
+          {/* <button className="secondary-btn">Get More Info</button> */}
         </div>
 
       </section>
-
 
       {/* FEATURES */}
       <section className="features-section">
@@ -171,83 +229,156 @@ export default function CommissionPlan() {
 
       </section>
 
+      {/* ================= CONTACT FORM SECTION ================= */}
+      <section className="contact-section">
 
-      {/* FORM MODAL */}
+  <div className="contact-card">
 
+    <div className="contact-header">
+      <h2>Get More Info</h2>
+      <p>Fill out the form and our team will get back to you shortly.</p>
+    </div>
+
+    <form className="contact-form-pro" onSubmit={handleSubmit}>
+
+      {/* NAME */}
+      <div className="input-group">
+        <label>Full Name *</label>
+        <input
+          type="text"
+          name="fullname"
+          value={formData.fullname}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      {/* EMAIL + PHONE */}
+      <div className="row">
+        <div className="input-group">
+          <label>Email *</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="input-group">
+          <label>Phone *</label>
+          <input
+            type="text"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            required
+          />
+        </div>
+      </div>
+
+      {/* RADIO */}
+      <div className="input-group">
+        <label>Ready to join Elevate?</label>
+        <div className="radio-group-pro">
+          <label>
+            <input type="radio" name="join" /> Yes, Apply Now
+          </label>
+        </div>
+      </div>
+
+      {/* CHECKBOX */}
+      <div className="input-group">
+        <label>How can we help?</label>
+        <div className="checkbox-group-pro">
+          <label><input type="checkbox" /> Ask a Question</label>
+          <label><input type="checkbox" /> Meet Broker</label>
+          <label><input type="checkbox" /> Join Team</label>
+          <label><input type="checkbox" /> Request eBook</label>
+        </div>
+      </div>
+
+      {/* DROPDOWN */}
+      <div className="input-group">
+        <label>Current Brokerage</label>
+        <select>
+          <option>Select option</option>
+          <option>None</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div className="input-group">
+        <label>State</label>
+        <select>
+          <option>Select State</option>
+          <option>Maharashtra</option>
+          <option>Gujarat</option>
+        </select>
+      </div>
+
+      {/* CITY + ZIP */}
+      <div className="row">
+        <div className="input-group">
+          <label>City</label>
+          <input
+            type="text"
+            name="city"
+            value={formData.city}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="input-group">
+          <label>Zip Code</label>
+          <input type="text" />
+        </div>
+      </div>
+
+      {/* MESSAGE */}
+      <div className="input-group">
+        <label>Message</label>
+        <textarea
+          rows="4"
+          name="message"
+          value={formData.message}
+          onChange={handleChange}
+        />
+      </div>
+
+      {/* BUTTON */}
+      <button type="submit" className="submit-btn-pro">
+        Submit Application
+      </button>
+
+    </form>
+  </div>
+</section>
+
+      {/* FORM MODAL (UNCHANGED) */}
       {selectedPlan && (
         <div className="plan-form-overlay">
-
           <div className="plan-form">
-
             <h2>Apply for {selectedPlan}</h2>
 
             <form onSubmit={handleSubmit}>
-
-              <input
-                type="text"
-                name="fullname"
-                placeholder="Full Name"
-                value={formData.fullname}
-                onChange={handleChange}
-                required
-              />
-
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Phone Number"
-                value={formData.phone}
-                onChange={handleChange}
-                required
-              />
-
-              <input
-                type="text"
-                name="city"
-                placeholder="City"
-                value={formData.city}
-                onChange={handleChange}
-              />
-
-              <textarea
-                name="message"
-                placeholder="Message"
-                value={formData.message}
-                onChange={handleChange}
-              ></textarea>
+              <input name="fullname" placeholder="Full Name" value={formData.fullname} onChange={handleChange} required />
+              <input name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
+              <input name="phone" placeholder="Phone" value={formData.phone} onChange={handleChange} required />
+              <input name="city" placeholder="City" value={formData.city} onChange={handleChange} />
+              <textarea name="message" placeholder="Message" value={formData.message} onChange={handleChange}></textarea>
 
               <div className="form-buttons">
-
-                <button type="submit" className="plan-submit">
-                  Submit
-                </button>
-
-                <button
-                  type="button"
-                  className="plan-cancel"
-                  onClick={() => setSelectedPlan(null)}
-                >
-                  Cancel
-                </button>
-
+                <button type="submit" className="plan-submit">Submit</button>
+                <button type="button" className="plan-cancel" onClick={() => setSelectedPlan(null)}>Cancel</button>
               </div>
-
             </form>
-
           </div>
-
         </div>
       )}
 
+      
     </div>
   );
 }

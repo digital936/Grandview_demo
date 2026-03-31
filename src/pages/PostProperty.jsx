@@ -245,7 +245,7 @@ const PostProperty = () => {
               placeholder={
                 type === "sale"
                   ? "Expected Sale Price"
-                  : "Monthly Rent Price"
+                  : "Expected Rent Price"
               }
               value={form.price}
               onChange={handleChange}

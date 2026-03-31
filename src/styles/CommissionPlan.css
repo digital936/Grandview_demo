@@ -74,7 +74,7 @@
 
 /* BUTTON */
 .plan-card button {
-  margin-top: 20px;
+  margin: 15px;
   padding: 12px;
   border-radius: 30px;
   border: none;
@@ -389,3 +389,173 @@
   50% { transform: translateY(-3px); }
 }
 
+.plan-features {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+}
+
+.plan-features li {
+  font-size: 13px;
+  color: #bbb;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.revenue-box {
+  margin-top: 15px;
+  padding: 15px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.revenue-box h4 {
+  color: #f5b971;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.revenue-box p {
+  font-size: 12px;
+  color: #ccc;
+}
+
+.extra-details {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #aaa;
+}
+
+.secondary-btn {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 30px;
+  border: 1px solid #f5b971;
+  background: transparent;
+  color: #f5b971;
+  cursor: pointer;
+}
+
+
+/* SECTION */
+.contact-section {
+  padding: 100px 20px;
+  display: flex;
+  justify-content: center;
+  background: #0b0f14;
+}
+
+/* CARD */
+.contact-card {
+  width: 100%;
+  max-width: 750px;
+  background: rgba(255,255,255,0.04);
+  padding: 45px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 25px 70px rgba(0,0,0,0.6);
+  backdrop-filter: blur(12px);
+}
+
+/* HEADER */
+.contact-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.contact-header h2 {
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+
+.contact-header p {
+  color: #aaa;
+  font-size: 14px;
+}
+
+/* FORM */
+.contact-form-pro {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ROW */
+.row {
+  display: flex;
+  gap: 15px;
+}
+
+/* INPUT GROUP */
+.input-group {
+  display: grid;
+  flex-direction: column;
+  flex: 1;
+}
+
+.input-group label {
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: #bbb;
+}
+
+/* INPUTS */
+.input-group input,
+.input-group textarea,
+.input-group select {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: #1c222b;
+  color: #fff;
+  font-size: 14px;
+  transition: all 0.25s ease;
+}
+
+.input-group input:focus,
+.input-group textarea:focus,
+.input-group select:focus {
+  outline: none;
+  border-color: #f5b971;
+  box-shadow: 0 0 12px rgba(245,185,113,0.25);
+}
+
+/* RADIO + CHECKBOX */
+.radio-group-pro,
+.checkbox-group-pro {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+/* BUTTON */
+.submit-btn-pro {
+  margin-top: 15px;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #f5b971, #e0a85f);
+  color: #000;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-btn-pro:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(245,185,113,0.3);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .contact-card {
+    padding: 25px;
+  }
+}

@@ -42,7 +42,7 @@ export default function AdminContacts() {
 
   return (
     <section className="admin-contacts">
-      <h2>Customer Messages</h2>
+      <h2>Contact Messages</h2>
 
       {contacts.length === 0 ? (
         <p className="no-messages">No messages yet.</p>

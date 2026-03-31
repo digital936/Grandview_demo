@@ -1,16 +1,46 @@
 
 import "../styles/Footer.css";
 import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import { supabase } from "../lib/supabase";
 
 function Footer() {
 
-  const handleSubmit = (e) => {
-    e.preventDefault(); // 🚫 stop page reload
+  // const handleSubmit = (e) => {
+  //   e.preventDefault(); // 🚫 stop page reload
 
-    alert("Your query submitted successfully!"); // ✅ popup
+  //   alert("Your query submitted successfully!"); // ✅ popup
 
-    e.target.reset(); // 🔄 clear form
-  };
+  //   e.target.reset(); // 🔄 clear form
+  // };
+
+  
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const form = e.target;
+
+  const name = form[0].value;
+  const email = form[1].value;
+  const message = form[2].value;
+
+  // 🔥 Insert into Supabase
+  const { error } = await supabase.from("contacts").insert([
+    {
+      name: name,
+      email: email,
+      message: message,
+    },
+  ]);
+
+  if (error) {
+    console.error("Error submitting form:", error);
+    alert("Something went wrong ❌");
+  } else {
+    alert("Your query submitted successfully! ✅");
+    form.reset();
+  }
+};
 
   return (
     <footer className="footer">
