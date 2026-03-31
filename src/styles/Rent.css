@@ -1,338 +1,189 @@
-/* ========================= */
-/* GLOBAL                    */
-/* ========================= */
-
 body {
-  overflow: auto !important;
-  background: #0f1115;
-  font-family: "Segoe UI", sans-serif;
-  color: #060606;
+  background: #f4f6f9;
 }
-
-/* ========================= */
-/* RENT PAGE                 */
-/* ========================= */
 
 .rent-page {
-  padding: 70px 50px;
-  background: #0f1115;
-  min-height: 100vh;
+  max-width: 1300px;
+  margin: auto;
+  padding: 60px 20px;
 }
 
-/* ========================= */
-/* TITLE                     */
-/* ========================= */
-
-.page-title {
+.rent-title {
   text-align: center;
-  margin-bottom: 45px;
-  font-size: 34px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  color: #ffffff;
+  font-size: 40px;
+  margin-bottom: 35px;
 }
 
-/* ========================= */
-/* FILTERS                   */
-/* ========================= */
-
-.rent-filters {
+.filter-bar {
   display: flex;
   justify-content: center;
-  gap: 18px;
-  margin-bottom: 40px;
+  gap: 12px;
+  margin-bottom: 45px;
   flex-wrap: wrap;
 }
 
-.rent-filters select {
-  padding: 12px 16px;
+.filter-bar select,
+.reset-btn {
+  padding: 10px 14px;
   border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.15);
-  font-size: 14px;
-  /* background: rgba(238, 235, 235, 0.04); */
-  /* color: #060606; */
-  backdrop-filter: blur(6px);
-  transition: all 0.25s ease;
-  background: linear-gradient(135deg, #c08b5c, #a87445);
-  color: #fff;
+  border: 1px solid #ddd;
+  background: white;
 }
-
-.cities-filter {
-  background: linear-gradient(135deg, #c08b5c, #a87445);
-  color: #0b0a0a;
-}
-
-.rent-filters select:hover {
-  border-color: #c08b5c;
-}
-
-.rent-filters select:focus {
-  outline: none;
-  border-color: #c08b5c;
-  box-shadow: 0 0 0 2px rgba(192,139,92,0.2);
-}
-
-/* ========================= */
-/* CLEAR FILTER BUTTON       */
-/* ========================= */
-
-.clear-filters {
-  padding: 12px 20px;
-  border-radius: 10px;
-  border: none;
-  background: linear-gradient(135deg, #c08b5c, #a87445);
-  color: #fff;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.clear-filters:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(192,139,92,0.3);
-}
-
-/* ========================= */
-/* GRID                      */
-/* ========================= */
 
 .property-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 32px;
-  
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 30px;
 }
 
-/* ========================= */
-/* CARD                      */
-/* ========================= */
-
-.property-cards {
-  background: rgba(249, 248, 247, 0.789);
+.property-card {
+  background: white;
   border-radius: 18px;
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.06);
-  transition: all 0.35s ease;
+  border: 1px solid #e5e7eb;
   cursor: pointer;
+  transition: 0.25s;
+}
+
+.property-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+
+.card-image {
+  height: 240px;
   position: relative;
 }
 
-.property-cards:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-}
-
-/* subtle glow border effect */
-.property-cards::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 18px;
-  border: 1px solid transparent;
-  transition: 0.3s;
-}
-
-.property-cards:hover::after {
-  border-color: rgba(192,139,92,0.3);
-}
-
-/* ========================= */
-/* IMAGE                     */
-/* ========================= */
-
-.image-wrapper {
-  position: relative;
-  height: 220px;
-  overflow: hidden;
-}
-
-.image-wrapper img {
+.card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
-}
-
-.property-cards:hover img {
-  transform: scale(1.12);
-}
-
-/* overlay gradient */
-.image-wrapper::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(0,0,0,0.6),
-    transparent
-  );
-  pointer-events: none;
-}
-
-/* ========================= */
-/* BADGES                    */
-/* ========================= */
-
-.offer-badge {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  background: #c08b5c;
-  color: #fff;
-  padding: 6px 12px;
-  font-size: 12px;
-  font-weight: 600;
-  border-radius: 6px;
 }
 
 .price-tag {
   position: absolute;
-  bottom: 14px;
-  left: 14px;
-  background: rgba(0,0,0,0.75);
-  color: #fff;
-  padding: 8px 14px;
-  font-size: 15px;
+  bottom: 12px;
+  left: 12px;
+  background: #111827;
+  color: white;
+  padding: 7px 14px;
   border-radius: 8px;
   font-weight: 600;
 }
 
-/* ========================= */
-/* CONTENT                   */
-/* ========================= */
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+}
 
-.property-content {
+.slider-btn.left {
+  left: 10px;
+}
+
+.slider-btn.right {
+  right: 10px;
+}
+
+.card-content {
   padding: 20px;
-  position: relative;
-  z-index: 2;
 }
 
-.property-content h3 {
-  font-size: 19px;
-  font-weight: 600;
-  margin-bottom: 6px;
-  color: #ffffff;
-}
-
-.location {
-  color: #a1a1aa;
-  font-size: 14px;
+.card-address {
+  color: #6b7280;
   margin-bottom: 14px;
 }
 
-/* ========================= */
-/* INFO                      */
-/* ========================= */
-
-.property-info {
+.card-info {
   display: flex;
   justify-content: space-between;
   margin-bottom: 18px;
-  font-size: 15px;
-  color: #1c1c1c;
+  font-weight: 600;
 }
 
-.property-info span {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* ========================= */
-/* BUTTONS                   */
-/* ========================= */
-
-.card-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  position: relative;
-  z-index: 5;
-}
-
-.top-row {
+.card-actions {
   display: flex;
   gap: 10px;
-  
 }
 
-/* Schedule Button */
-
-.schedule-btn {
+.call-btn {
   flex: 1;
-  background: linear-gradient(135deg, #89582d, #a87445);
+  padding: 12px;
+  background: #111827;
+  color: white;
+  border-radius: 10px;
   border: none;
-  padding: 11px;
-  border-radius: 10px;
-  color: #fff;
-  font-weight: 600;
   cursor: pointer;
-  transition: 0.3s;
 }
 
-.schedule-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(192,139,92,0.3);
-}
-
-/* View Details */
-
-.details-btn {
-  width: 100%;
-  background: transparent;
-  border: 1px solid #c08b5c;
-  padding: 11px;
+.tour-btn {
+  flex: 1;
+  padding: 12px;
+  background: #c9a66b;
   border-radius: 10px;
-  color: #c08b5c;
-  font-weight: 600;
+  border: none;
   cursor: pointer;
-  transition: 0.3s;
 }
 
-.details-btn:hover {
-  background: #c08b5c;
-  color: #fff;
+.call-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
 }
 
-/* ========================= */
-/* EMPTY STATE               */
-/* ========================= */
-
-.property-grid p {
-  grid-column: 1 / -1;
+.call-popup {
+  background: white;
+  padding: 30px;
+  border-radius: 14px;
+  width: 360px;
   text-align: center;
-  color: #888;
-  font-size: 18px;
 }
 
-/* ========================= */
-/* MOBILE                    */
-/* ========================= */
+.popup-call-btn {
+  display: block;
+  margin-top: 15px;
+  padding: 12px;
+  background: #c9a66b;
+  border-radius: 10px;
+  text-decoration: none;
+  color: black;
+}
 
-@media (max-width: 768px) {
+.popup-close {
+  margin-top: 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
 
-  .rent-page {
-    padding: 40px 20px;
-  }
+.image-dots {
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  display: flex;
+  gap: 5px;
+}
 
-  .page-title {
-    font-size: 26px;
-  }
+.dot {
+  width: 7px;
+  height: 7px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 50%;
+}
 
-  .rent-filters {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .rent-filters select,
-  .clear-filters {
-    width: 100%;
-    max-width: 300px;
-  }
-
-  .property-grid {
-    grid-template-columns: 1fr;
-  }
-
+.active-dot {
+  background: white;
+  transform: scale(1.2);
 }

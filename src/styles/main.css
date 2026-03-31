@@ -72,7 +72,7 @@ order:1; /* LEFT on desktop */
 /* BIG LOGO IMAGE */
 
 .logo img{
-height:85px;
+height:115px;
 width:auto;
 object-fit:contain;
 transition:0.3s;
@@ -81,7 +81,7 @@ transition:0.3s;
 /* shrink when scrolled */
 
 .navbar.scrolled .logo img{
-height:65px;
+height:115px;
 }
 
 /* LOGO TEXT */

@@ -100,6 +100,8 @@ export default function AdminDashboard() {
           {/* <Link to="/admin/issues"><FaExclamationCircle /> Tenant Issues</Link> */}
           <Link to="/admin/post-properties"><FaBuilding /> Post Properties</Link>
           {/* <Link to="/admin/appointments"><FaCalendarAlt /> Appointments</Link> */}
+          <Link to="/admin/commission-leads"><FaChartLine /> Commission Queries</Link>
+          <Link to="/admin/agent-applications"><FaChartLine /> Agent Applications</Link>
         </nav>
       </aside>
 

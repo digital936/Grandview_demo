@@ -1,7 +1,7 @@
 
 
 import { useState, useEffect } from "react";
-import logo from "../assets/logo.png";
+import logo from "../assets/grandview.png";
 import { Link } from "react-router-dom";
 
 function Navbar() {
@@ -34,7 +34,7 @@ function Navbar() {
 
         <Link to="/" className="logo">
 
-          <img src={logo} alt="Grandview Realty"/>
+          <img src={logo} alt="Grandview Logo" />
 
         </Link>
 

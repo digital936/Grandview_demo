@@ -36,6 +36,8 @@ import Agents from "./pages/Agents";
 import AgentProfile from "./pages/AgentProfile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import FilteredProperties from "./pages/FilteredProperties";
+import AdminCommissionLeads from "./Admin/AdminCommissionLeads";
+import AdminAgentApplications from "./Admin/AdminAgentApplications";
 
 /* 👇 Wrapper to hide navbar on admin pages */
 function Layout() {
@@ -133,6 +135,18 @@ function Layout() {
         <Route path="/edit-owner/:id" element={
           <ProtectedRoute>
             <EditOwner />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/admin/commission-leads" element={
+          <ProtectedRoute>
+            <AdminCommissionLeads />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/admin/agent-applications" element={
+          <ProtectedRoute>
+            <AdminAgentApplications />
           </ProtectedRoute>
         } />
 

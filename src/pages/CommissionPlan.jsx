@@ -13,15 +13,49 @@ export default function CommissionPlan() {
     email: "",
     phone: "",
     city: "",
-    message: ""
+    message: "",
+
+    join: "",
+  help: [],
+  brokerage: "",
+  zip: ""
   });
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+//   const handleChange = (e) => {
+//   const { name, value, type, checked } = e.target;
+
+//   if (type === "checkbox") {
+//     setFormData((prev) => ({
+//       ...prev,
+//       help: checked
+//         ? [...prev.help, value]
+//         : prev.help.filter((item) => item !== value)
+//     }));
+//   } else {
+//     setFormData({
+//       ...formData,
+//       [name]: value
+//     });
+//   }
+// };
+
+const handleChange = (e) => {
+  const { name, value, type, checked } = e.target;
+
+  if (type === "checkbox") {
+    setFormData((prev) => ({
+      ...prev,
+      help: checked
+        ? [...prev.help, value]
+        : prev.help.filter((item) => item !== value)
+    }));
+  } else {
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  }
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,6 +87,45 @@ export default function CommissionPlan() {
       });
     }
   };
+
+  const handleAgentSubmit = async (e) => {
+  e.preventDefault();
+
+  const { error } = await supabase
+    .from("agent_applications")
+    .insert([
+      {
+        fullname: formData.fullname,
+        email: formData.email,
+        phone: formData.phone,
+        city: formData.city,
+        message: formData.message,
+        join: formData.join,
+        help: formData.help, // array ✅
+        brokerage: formData.brokerage,
+        zip: formData.zip
+      }
+    ]);
+
+  if (error) {
+    console.error(error);
+    alert("Error submitting application ❌");
+  } else {
+    alert("Application submitted successfully! ✅");
+
+    setFormData({
+      fullname: "",
+      email: "",
+      phone: "",
+      city: "",
+      message: "",
+      join: "",
+      help: [],
+      brokerage: "",
+      zip: ""
+    });
+  }
+};
 
   return (
     <div className="commission-page">
@@ -239,7 +312,7 @@ export default function CommissionPlan() {
       <p>Fill out the form and our team will get back to you shortly.</p>
     </div>
 
-    <form className="contact-form-pro" onSubmit={handleSubmit}>
+    <form className="contact-form-pro" onSubmit={handleAgentSubmit}>
 
       {/* NAME */}
       <div className="input-group">
@@ -283,7 +356,7 @@ export default function CommissionPlan() {
         <label>Ready to join Elevate?</label>
         <div className="radio-group-pro">
           <label>
-            <input type="radio" name="join" /> Yes, Apply Now
+            <input type="radio" name="join" value="Yes" onChange={handleChange} /> Yes, Apply Now
           </label>
         </div>
       </div>
@@ -292,31 +365,31 @@ export default function CommissionPlan() {
       <div className="input-group">
         <label>How can we help?</label>
         <div className="checkbox-group-pro">
-          <label><input type="checkbox" /> Ask a Question</label>
-          <label><input type="checkbox" /> Meet Broker</label>
-          <label><input type="checkbox" /> Join Team</label>
-          <label><input type="checkbox" /> Request eBook</label>
+          <label><input type="checkbox" name="help" /> Ask a Question</label>
+          <label><input type="checkbox" name="help" /> Meet Broker</label>
+          <label><input type="checkbox" name="help" /> Join Team</label>
+          <label><input type="checkbox" name="help" /> Request eBook</label>
         </div>
       </div>
 
       {/* DROPDOWN */}
       <div className="input-group">
         <label>Current Brokerage</label>
-        <select>
+        <select name="brokerage" onChange={handleChange}>
           <option>Select option</option>
           <option>None</option>
           <option>Other</option>
         </select>
       </div>
 
-      <div className="input-group">
+      {/* <div className="input-group">
         <label>State</label>
-        <select>
+        <select name="state" onChange={handleChange}>
           <option>Select State</option>
           <option>Maharashtra</option>
           <option>Gujarat</option>
         </select>
-      </div>
+      </div> */}
 
       {/* CITY + ZIP */}
       <div className="row">
@@ -332,7 +405,7 @@ export default function CommissionPlan() {
 
         <div className="input-group">
           <label>Zip Code</label>
-          <input type="text" />
+          <input type="text" name="zip" onChange={handleChange} />
         </div>
       </div>
 
