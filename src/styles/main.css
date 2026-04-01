@@ -6,11 +6,20 @@
   box-sizing: border-box;
   }
 
+html, body {
+  overflow-x: hidden;
+}
+
+:root {
+  font-size: 16px;
+  line-height: 1.45;
+}
+
 body {
-padding-top:80px;
-font-family: 'Segoe UI', sans-serif;
-background-color: #f4eeee;
-color: #070707;
+  padding-top:80px;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4eeee;
+  color: #070707;
 }
 
 /* NAVBAR */
@@ -366,11 +375,70 @@ grid-template-columns:1fr 1fr;
 /* MOBILE SMALL */
 
 @media (max-width:600px){
-.hero-text h1{
-font-size:40px;
+  :root { font-size: 14px; }
+
+  .hero-text h1{
+    font-size:40px;
+  }
+
+  .hero-services{
+    grid-template-columns:1fr;
+  }
 }
 
-.hero-services{
-grid-template-columns:1fr;
+/* RESPONSIVE UTILITIES */
+
+.grid-responsive {
+  display:grid;
+  grid-template-columns:1fr;
+  gap:1rem;
+  width:100%;
 }
+
+@media (max-width:900px) {
+  .grid-responsive {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
 }
+
+@media (min-width:901px) {
+  .grid-responsive {
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+}
+
+@media (min-width:1200px) {
+  .grid-responsive {
+    grid-template-columns:repeat(4,minmax(0,1fr));
+  }
+}
+
+/* Shared form controls */
+input, select, textarea, button {
+  min-width:0;
+  width:100%;
+  max-width:100%;
+  box-sizing:border-box;
+}
+
+input, select, textarea {
+  padding:0.75rem 1rem;
+  border:1px solid #d1d5db;
+  border-radius:8px;
+  font-size:1rem;
+}
+
+button {
+  padding:0.8rem 1.2rem;
+  border:none;
+  border-radius:8px;
+  font-size:1rem;
+  cursor:pointer;
+}
+
+/* Prevent overflow on small screens */
+img, picture, svg, video, iframe {
+  max-width:100%;
+  height:auto;
+}
+

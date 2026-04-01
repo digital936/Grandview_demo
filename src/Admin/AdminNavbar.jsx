@@ -19,9 +19,15 @@ export default function AdminNavbar() {
     if (user) setAdminEmail(user.email);
   };
 
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const handleLogout = async () => {
     await supabase.auth.signOut();
     navigate("/admin/login");
+  };
+
+  const handleLinkClick = () => {
+    if (menuOpen) setMenuOpen(false);
   };
 
   return (
@@ -32,16 +38,21 @@ export default function AdminNavbar() {
         <img src={logo} alt="Logo" className="nav-logo" />
       </div>
 
+      {/* MOBILE TOGGLE */}
+      <div className="mobile-menu-btn" onClick={() => setMenuOpen(!menuOpen)}>
+        ☰
+      </div>
+
       {/* RIGHT */}
-      <div className="nav-right">
+      <div className={`nav-right ${menuOpen ? "open" : ""}`}>
 
-        <Link to="/admin/dashboard"><FaHome /> Dashboard</Link>
+        <Link to="/admin/dashboard" onClick={handleLinkClick}><FaHome /> Dashboard</Link>
 
-        <Link to="/admin/properties">
+        <Link to="/admin/properties" onClick={handleLinkClick}>
           <FaBuilding /> Manage Properties
         </Link>
 
-        <Link to="/admin/inquiries">
+        <Link to="/admin/inquiries" onClick={handleLinkClick}>
           <FaClipboardList /> Inquiries
         </Link>
 

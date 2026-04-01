@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './OwnerLayout.css';
 
 const OwnerLayout = ({ children }) => {
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const menuItems = [
     { label: 'Dashboard', icon: '📊', path: '/owner/dashboard' },
@@ -14,7 +15,7 @@ const OwnerLayout = ({ children }) => {
 
   return (
     <div className="owner-layout">
-      <aside className="sidebar">
+      <aside className={`sidebar ${menuOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
           <h2>Owner Portal</h2>
         </div>
@@ -24,7 +25,7 @@ const OwnerLayout = ({ children }) => {
               <li 
                 key={index} 
                 className="nav-item"
-                onClick={() => navigate(item.path)}
+                onClick={() => { navigate(item.path); setMenuOpen(false); }}
               >
                 <span className="nav-icon">{item.icon}</span>
                 {item.label}
@@ -35,6 +36,9 @@ const OwnerLayout = ({ children }) => {
       </aside>
       <div className="main-content">
         <header className="top-navbar">
+          <div className="navbar-mobile-toggle" onClick={() => setMenuOpen(!menuOpen)}>
+            ☰
+          </div>
           <div className="navbar-left">
             <h3>Grandview Properties</h3>
           </div>
