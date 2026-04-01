@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import "../Admin/AdminContacts.css";
 
+import AdminNavbar from "./AdminNavbar";
+
 export default function AdminContacts() {
   const [contacts, setContacts] = useState([]);
 
@@ -41,6 +43,9 @@ export default function AdminContacts() {
   }
 
   return (
+    <>
+    <AdminNavbar />
+
     <section className="admin-contacts">
       <h2>Contact Messages</h2>
 
@@ -77,5 +82,6 @@ export default function AdminContacts() {
         </div>
       )}
     </section>
+    </>
   );
 }

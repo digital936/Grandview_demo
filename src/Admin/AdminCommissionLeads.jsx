@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import "../Admin/AdminContacts.css"; // reuse same styling
 
+import AdminNavbar from "./AdminNavbar";
+
 export default function AdminCommissionLeads() {
 
   const [leads, setLeads] = useState([]);
@@ -40,6 +42,8 @@ export default function AdminCommissionLeads() {
 };
 
   return (
+    <>
+    <AdminNavbar />
     <section className="admin-contacts">
       <h2>Commission Plan Queries</h2>
 
@@ -77,5 +81,6 @@ export default function AdminCommissionLeads() {
         </div>
       )}
     </section>
+    </>
   );
 }

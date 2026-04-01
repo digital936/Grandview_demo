@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import "../Admin/AdminContacts.css";
+import AdminNavbar from "./AdminNavbar";
 
 export default function AdminAgentApplications() {
 
@@ -35,6 +36,8 @@ export default function AdminAgentApplications() {
   };
 
   return (
+    <>
+    <AdminNavbar />
     <section className="admin-contacts">
       <h2>Agent Applications</h2>
 
@@ -69,5 +72,6 @@ export default function AdminAgentApplications() {
         </div>
       )}
     </section>
+    </>
   );
 }

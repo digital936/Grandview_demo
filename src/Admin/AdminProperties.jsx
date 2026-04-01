@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import "../Admin/admin-properties.css";
 
+import AdminNavbar from "./AdminNavbar";
+
 export default function AdminProperties() {
   const [properties, setProperties] = useState([]);
   const [editingId, setEditingId] = useState(null);
@@ -182,6 +184,8 @@ async function handleDelete(id) {
 }
 
   return (
+    <>
+    <AdminNavbar />
     <div className="admin-properties-page">
 
       <div className="admin-header">
@@ -344,5 +348,6 @@ async function handleDelete(id) {
       </div>
 
     </div>
+    </>
   );
 }

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import "../Admin/adminpostproperty.css";   // ✅ correct path
 
+import AdminNavbar from "./AdminNavbar";  
+
 
 export default function AdminPostProperties() {
 
@@ -29,6 +31,8 @@ export default function AdminPostProperties() {
   };
 
   return (
+    <>
+    <AdminNavbar />
     <div className="admin-properties">
 
       <h2>Posted Properties</h2>
@@ -87,5 +91,6 @@ export default function AdminPostProperties() {
       )}
 
     </div>
+    </>
   );
 }

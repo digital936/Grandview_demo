@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import "../Admin/AdminTourRequests.css";
 
+import AdminNavbar from "./AdminNavbar";
+
 export default function AdminTourRequests() {
 
   const [requests, setRequests] = useState([]);
@@ -63,6 +65,8 @@ export default function AdminTourRequests() {
   };
 
   return (
+    <>
+    <AdminNavbar />
 
     <div className="admin-wrapper">
 
@@ -154,6 +158,7 @@ export default function AdminTourRequests() {
       </table>
 
     </div>
+    </>
 
   );
 }

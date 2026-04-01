@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import "../Admin/AdminFeedback.css";
 
+import AdminNavbar from "./AdminNavbar";
+
 export default function AdminFeedback() {
   const [feedbacks, setFeedbacks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -60,6 +62,8 @@ export default function AdminFeedback() {
   }
 
   return (
+    <>
+    <AdminNavbar />
     <section className="admin-feedback-page">
       <div className="admin-feedback-container">
         <h2>Customer Feedback</h2>
@@ -100,5 +104,6 @@ export default function AdminFeedback() {
         )}
       </div>
     </section>
+    </>
   );
 }
