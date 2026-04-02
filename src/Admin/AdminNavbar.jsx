@@ -1,7 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../assets/logo.png";
+import "../Admin/adminNavbar.css";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
+import logo from "../assets/grandview.png";
 
 import { FaHome, FaBuilding, FaClipboardList } from "react-icons/fa";
 
@@ -35,7 +36,7 @@ export default function AdminNavbar() {
 
       {/* LEFT */}
       <div className="nav-left">
-        <img src={logo} alt="Logo" className="nav-logo" />
+        <img src={logo} alt="Grandview Logo" className="nav-logo" />
       </div>
 
       {/* MOBILE TOGGLE */}

@@ -1,116 +1,151 @@
-/* ===== PAGE LAYOUT ===== */
-.admin-contacts {
-  padding: 60px 40px;
-  background: #f6f8fc;
+/* PAGE */
+.contacts-page {
+  padding: 40px 16px;
+  background: #f4f6f9;
   min-height: 100vh;
-  font-family: "Inter", sans-serif;
-}
-
-/* ===== HEADER ===== */
-.admin-contacts h2 {
-  font-size: 30px;
-  font-weight: 700;
-  color: #111827;
-  margin-bottom: 35px;
-}
-
-/* ===== EMPTY STATE ===== */
-.no-messages {
-  background: #ffffff;
-  padding: 30px;
-  border-radius: 14px;
-  text-align: center;
-  color: #6b7280;
-  font-size: 15px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.05);
-}
-
-/* ===== GRID ===== */
-.messages-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 24px;
-}
-
-/* ===== CARD ===== */
-.message-card {
-  position: relative;
-  background: #ffffff;
-  padding: 24px;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-  transition: all 0.25s ease;
-  border: 1px solid #eef2f7;
-}
-
-/* Hover = subtle lift */
-.message-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.08);
-}
-
-/* ===== NAME ===== */
-.message-card h4 {
-  font-size: 18px;
-  font-weight: 600;
-  color: #111827;
-  margin-bottom: 6px;
-}
-
-/* ===== EMAIL ===== */
-.message-email {
-  font-size: 13px;
-  color: #2563eb;
-  margin-bottom: 12px;
-  word-break: break-all;
-}
-
-/* ===== MESSAGE ===== */
-.message-text {
-  font-size: 14px;
-  color: #374151;
-  line-height: 1.6;
-  margin-bottom: 14px;
-}
-
-/* ===== DATE ===== */
-.message-date {
-  font-size: 12px;
-  color: #9ca3af;
-}
-
-/* ===== DELETE BUTTON ===== */
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  border: none;
-  background: #f3f4f6;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  font-size: 14px;
-  cursor: pointer;
-  color: #6b7280;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
 }
 
-/* Hover effect */
-.close-btn:hover {
-  background: #fee2e2;
-  color: #dc2626;
+/* HEADER */
+.contacts-header {
+  width: 100%;
+  max-width: 1100px;
+  margin-bottom: 20px;
 }
 
-/* ===== RESPONSIVE ===== */
+.contacts-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1F2A44;
+}
+
+/* TABLE CONTAINER */
+.table-container {
+  width: 100%;
+  max-width: 1100px;
+  overflow-x: auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+}
+
+/* TABLE */
+.contacts-table {
+  width: 100%;
+  border-collapse: collapse;
+  /* min-width: 700px; */
+  min-width: unset;
+}
+
+/* HEADER */
+.contacts-table thead {
+  background: #1F2A44;
+  color: white;
+}
+
+.contacts-table th {
+  padding: 14px;
+  text-align: left;
+  font-size: 13px;
+}
+
+/* BODY */
+.contacts-table td {
+  padding: 14px;
+  font-size: 13px;
+  color: #444;
+  border-bottom: 1px solid #eee;
+}
+
+/* HOVER */
+.contacts-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+/* MESSAGE */
+.msg {
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* BUTTON */
+.delete-btn {
+  background: #e63946;
+  color: white;
+  border: none;
+  padding: 7px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.delete-btn:hover {
+  background: #c1121f;
+}
+
+/* EMPTY */
+.empty {
+  text-align: center;
+  padding: 20px;
+  color: #777;
+}
+
+/* 📱 MOBILE FIX */
 @media (max-width: 768px) {
-  .admin-contacts {
-    padding: 40px 20px;
+
+  .contacts-header h2 {
+    text-align: center;
   }
 
-  .messages-container {
-    grid-template-columns: 1fr;
+  /* TABLE → CARD STYLE */
+  .contacts-table thead {
+    display: none;
+  }
+
+  .contacts-table,
+  .contacts-table tbody,
+  .contacts-table tr,
+  .contacts-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .contacts-table tr {
+    background: white;
+    margin: 12px;
+    padding: 14px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  }
+
+  .contacts-table td {
+    border: none;
+    padding: 6px 0;
+  }
+
+  /* LABELS */
+  .contacts-table td::before {
+    font-weight: 600;
+    display: block;
+    color: #1F2A44;
+  }
+
+  .contacts-table td:nth-child(1)::before { content: "Name"; }
+  .contacts-table td:nth-child(2)::before { content: "Email"; }
+  .contacts-table td:nth-child(3)::before { content: "Message"; }
+  .contacts-table td:nth-child(4)::before { content: "Date"; }
+
+  .msg {
+    white-space: normal;
+  }
+
+  .delete-btn {
+    width: 100%;
+    margin-top: 10px;
   }
 }
+

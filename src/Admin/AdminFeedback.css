@@ -1,174 +1,162 @@
-.admin-feedback-page {
-  padding: 60px 20px;
+/* PAGE */
+.feedback-page {
+  padding: 40px 16px;
   background: #f4f6f9;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.admin-feedback-container {
-  max-width: 1000px;
-  margin: auto;
-  color: #333;
+/* HEADER */
+.feedback-header {
+  width: 100%;
+  max-width: 1100px;
+  margin-bottom: 20px;
 }
 
-.admin-feedback-container h1,
-.admin-feedback-container h2 {
-  color: #1F2A44;
-  margin-bottom: 25px;
-  font-size: 28px;
+.feedback-header h2 {
+  font-size: 24px;
   font-weight: 700;
-}
-
-.feedback-list {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: 1fr;
-}
-
-.feedback-card {
-  color: black;
-  background: white;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  transition: all 0.3s ease;
-}
-
-.feedback-card:hover {
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-  transform: translateY(-2px);
-}
-
-.feedback-card h3 {
-  margin-bottom: 10px;
-  font-size: 18px;
-  font-weight: 600;
   color: #1F2A44;
-  word-break: break-word;
+  text-align: left;
 }
 
-.message {
-  margin: 12px 0;
-  color: #555;
-  line-height: 1.6;
-  font-size: 14px;
-  word-wrap: break-word;
+/* TABLE CONTAINER */
+.table-container {
+  width: 100%;
+  max-width: 1100px;
+  overflow-x: auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.06);
 }
 
-.feedback-card p {
-  margin: 8px 0;
+/* TABLE */
+.feedback-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+/* HEADER */
+.feedback-table thead {
+  background: #1F2A44;
+  color: white;
+}
+
+.feedback-table th {
+  padding: 14px;
+  text-align: left;
   font-size: 13px;
-  color: #666;
 }
 
-/* Delete Button Style */
+/* BODY */
+.feedback-table td {
+  padding: 14px;
+  font-size: 13px;
+  color: #444;
+  border-bottom: 1px solid #eee;
+}
+
+/* HOVER */
+.feedback-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+/* MESSAGE */
+.msg {
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* BUTTON */
 .delete-btn {
-  margin-top: 15px;
-  padding: 10px 16px;
-  background-color: #e63946;
+  background: #e63946;
   color: white;
   border: none;
+  padding: 7px 12px;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.3s ease;
+  font-size: 12px;
 }
 
 .delete-btn:hover {
-  background-color: #c1121f;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(230, 57, 70, 0.4);
+  background: #c1121f;
 }
 
-/* RESPONSIVE */
-@media (max-width: 1024px) {
-  .admin-feedback-page {
-    padding: 50px 15px;
-  }
-
-  .admin-feedback-container h1,
-  .admin-feedback-container h2 {
-    font-size: 24px;
-  }
-
-  .feedback-card {
-    padding: 20px;
-  }
-
-  .feedback-card h3 {
-    font-size: 16px;
-  }
+/* EMPTY */
+.empty {
+  text-align: center;
+  padding: 20px;
+  color: #777;
 }
 
+/* LOADING */
+.loading {
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* 🔥 MOBILE FIX (THIS IS THE REAL FIX) */
 @media (max-width: 768px) {
-  .admin-feedback-page {
-    padding: 40px 12px;
+
+  .feedback-header h2 {
+    text-align: center;
   }
 
-  .admin-feedback-container h1,
-  .admin-feedback-container h2 {
-    font-size: 22px;
-    margin-bottom: 20px;
+  .feedback-table {
+    min-width: 100%;
   }
 
-  .feedback-list {
-    gap: 15px;
+  /* TURN TABLE INTO CARDS */
+  .feedback-table thead {
+    display: none;
   }
 
-  .feedback-card {
-    padding: 18px;
+  .feedback-table,
+  .feedback-table tbody,
+  .feedback-table tr,
+  .feedback-table td {
+    display: block;
+    width: 100%;
   }
 
-  .feedback-card h3 {
-    font-size: 15px;
-    margin-bottom: 8px;
+  .feedback-table tr {
+    background: white;
+    margin: 12px;
+    padding: 14px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
   }
 
-  .message {
-    margin: 10px 0;
+  .feedback-table td {
+    border: none;
+    padding: 6px 0;
     font-size: 13px;
   }
 
-  .delete-btn {
-    padding: 9px 14px;
-    font-size: 13px;
-    margin-top: 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .admin-feedback-page {
-    padding: 30px 10px;
+  /* LABELS FOR MOBILE */
+  .feedback-table td::before {
+    font-weight: 600;
+    display: block;
+    color: #1F2A44;
   }
 
-  .admin-feedback-container h1,
-  .admin-feedback-container h2 {
-    font-size: 20px;
-    margin-bottom: 18px;
-  }
+  .feedback-table td:nth-child(1)::before { content: "Name"; }
+  .feedback-table td:nth-child(2)::before { content: "Email"; }
+  .feedback-table td:nth-child(3)::before { content: "Rating"; }
+  .feedback-table td:nth-child(4)::before { content: "Message"; }
+  .feedback-table td:nth-child(5)::before { content: "Date"; }
 
-  .feedback-list {
-    gap: 12px;
-  }
-
-  .feedback-card {
-    padding: 16px;
-  }
-
-  .feedback-card h3 {
-    font-size: 14px;
-  }
-
-  .message {
-    font-size: 12px;
-  }
-
-  .feedback-card p {
-    font-size: 12px;
+  .msg {
+    white-space: normal;
   }
 
   .delete-btn {
-    padding: 8px 12px;
-    font-size: 12px;
+    width: 100%;
+    margin-top: 10px;
   }
 }
