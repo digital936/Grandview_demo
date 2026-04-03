@@ -1,6 +1,6 @@
 
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../assets/logo.png";
+import logo from "../assets/grandview.png";
 import "../Admin/adminDashboard.css";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
