@@ -139,6 +139,7 @@
   .nav-right.open {
     transform: translateY(0);
     opacity: 1;
+    height: unset;
   }
 
   .nav-right a {

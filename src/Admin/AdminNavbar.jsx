@@ -58,11 +58,11 @@ export default function AdminNavbar() {
         </Link>
 
         <div className="nav-profile">
-          <div className="avatar">
+          {/* <div className="avatar">
             {adminEmail ? adminEmail.charAt(0).toUpperCase() : "A"}
           </div>
 
-          <span>{adminEmail || "Admin"}</span>
+          <span>{adminEmail || "Admin"}</span> */}
 
           <button onClick={handleLogout} className="logout-btn">
             Logout

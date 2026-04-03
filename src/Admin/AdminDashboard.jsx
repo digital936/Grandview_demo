@@ -16,7 +16,6 @@ import {
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
-  
 
   const [stats, setStats] = useState({
     properties: 0,
@@ -27,7 +26,7 @@ export default function AdminDashboard() {
   });
 
   const [adminEmail, setAdminEmail] = useState("");
-  const [menuOpen, setMenuOpen] = useState(false); // Mobile menu toggle
+  const [menuOpen, setMenuOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
@@ -93,8 +92,6 @@ export default function AdminDashboard() {
           <img src={logo} alt="Logo" className="nav-logo" />
         </div>
 
-        
-
         {/* MOBILE MENU BUTTON */}
         <div
           className="mobile-menu-btn"
@@ -103,19 +100,14 @@ export default function AdminDashboard() {
           ☰
         </div>
 
-        {/* RIGHT: MENU */}
+        {/* RIGHT MENU */}
         <div className={`nav-right ${menuOpen ? "open" : ""}`}>
-
           <Link to="/admin/dashboard"><FaHome /> Dashboard</Link>
           <Link to="/admin/properties"><FaBuilding /> Manage Properties</Link>
           <Link to="/admin/inquiries"><FaClipboardList /> Inquiries</Link>
 
-          {/* PROFILE */}
+          {/* ONLY LOGOUT HERE */}
           <div className="nav-profile">
-            <div className="avatar">
-              {adminEmail ? adminEmail.charAt(0).toUpperCase() : "A"}
-            </div>
-            <span>{adminEmail || "Admin"}</span>
             <button onClick={handleLogout} className="logout-btn">
               Logout
             </button>
@@ -125,21 +117,23 @@ export default function AdminDashboard() {
 
       {/* ===== SIDEBAR ===== */}
       <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
-        {/* <div className="sidebar-logo">
-          <img src={logo} alt="Logo" />
-        </div> */}
-        <nav>
-          {/* Sidebar links (optional) */}
+        
+        <nav className="sidebar-links">
           <Link to="/admin/feedback"><FaCommentDots /> Feedback</Link>
           <Link to="/admin/contacts"><FaEnvelope /> Contact Messages</Link>
           <Link to="/admin/post-properties"><FaBuilding /> Post Properties</Link>
           <Link to="/admin/commission-leads"><FaChartLine /> Commission Queries</Link>
           <Link to="/admin/agent-applications"><FaChartLine /> Agent Applications</Link>
         </nav>
-      </aside>
 
-      {/* SIDEBAR OVERLAY (MOBILE) */}
-      {/* {sidebarOpen && <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)}></div>} */}
+        {/* 🔽 Avatar at Bottom */}
+        <div className="sidebar-profile">
+          <div className="avatar">
+            {adminEmail ? adminEmail.charAt(0).toUpperCase() : "A"}
+          </div>
+          <span>{adminEmail || "Admin"}</span>
+        </div>
+      </aside>
 
       {/* ===== MAIN CONTENT ===== */}
       <main className="main-content">
