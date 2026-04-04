@@ -121,7 +121,7 @@ export default function AdminDashboard() {
         <nav className="sidebar-links">
           <Link to="/admin/feedback"><FaCommentDots /> Feedback</Link>
           <Link to="/admin/contacts"><FaEnvelope /> Contact Messages</Link>
-          <Link to="/admin/post-properties"><FaBuilding /> Post Properties</Link>
+          <Link to="/admin/post-properties"><FaBuilding /> Management Inquiries</Link>
           <Link to="/admin/commission-leads"><FaChartLine /> Commission Queries</Link>
           <Link to="/admin/agent-applications"><FaChartLine /> Agent Applications</Link>
         </nav>

@@ -12,6 +12,11 @@ export default function AdminProperties() {
   const [editingId, setEditingId] = useState(null);
   const [showForm, setShowForm] = useState(false);
 
+  // --- NEW: Filter States ---
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterStatus, setFilterStatus] = useState("all");
+  const [filterCategory, setFilterCategory] = useState("all");
+
   const initialFormState = {
     title: "",
     price: "",
@@ -43,6 +48,24 @@ export default function AdminProperties() {
       .order("created_at", { ascending: false });
     setProperties(data || []);
   }
+
+  // --- NEW: Filtering Logic ---
+  const filteredProperties = properties.filter((p) => {
+    const matchesSearch =
+      (p.title || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (p.city || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (p.address || "").toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesStatus =
+      filterStatus === "all" ||
+      String(p.status).toLowerCase() === filterStatus.toLowerCase();
+
+    const matchesCategory =
+      filterCategory === "all" ||
+      String(p.category).toLowerCase() === filterCategory.toLowerCase();
+
+    return matchesSearch && matchesStatus && matchesCategory;
+  });
 
   function handleChange(e) {
     const { name, value, type, checked } = e.target;
@@ -103,13 +126,15 @@ export default function AdminProperties() {
   }
 
   function exportToExcel() {
-    const data = properties.map((p) => ({
+    // UPDATED: Now exports only the filtered list, not everything!
+    const data = filteredProperties.map((p) => ({
       Title: p.title,
       Price: p.price,
       Beds: p.beds,
       Baths: p.baths,
       City: p.city,
       Status: p.status,
+      Category: p.category,
     }));
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
@@ -128,11 +153,40 @@ export default function AdminProperties() {
         <div className="admin-header">
           <div>
             <h2>Properties</h2>
-            <p className="admin-subtitle">{properties.length} total listings</p>
+            <p className="admin-subtitle">
+              Showing {filteredProperties.length} of {properties.length} listings
+            </p>
           </div>
           <div className="header-actions">
             <button className="btn btn-export" onClick={exportToExcel}>Export</button>
             <button className="btn btn-add" onClick={openAddForm}>+ Add Property</button>
+          </div>
+        </div>
+
+        {/* --- NEW: FILTER BAR --- */}
+        <div className="filter-bar">
+          <div className="filter-search">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input
+              type="text"
+              placeholder="Search by title, city, or address..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <div className="filter-selects">
+            <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
+              <option value="all">All Statuses</option>
+              <option value="available">Available</option>
+              <option value="rented">Rented</option>
+              <option value="sold">Sold</option>
+              <option value="pending">Pending</option>
+            </select>
+            <select value={filterCategory} onChange={(e) => setFilterCategory(e.target.value)}>
+              <option value="all">All Categories</option>
+              <option value="rent">For Rent</option>
+              <option value="sale">For Sale</option>
+            </select>
           </div>
         </div>
 
@@ -153,12 +207,13 @@ export default function AdminProperties() {
               </tr>
             </thead>
             <tbody>
-              {properties.length === 0 && (
+              {filteredProperties.length === 0 && (
                 <tr>
-                  <td colSpan={9} className="table-empty">No properties found.</td>
+                  <td colSpan={9} className="table-empty">No properties found matching your filters.</td>
                 </tr>
               )}
-              {properties.map((p) => (
+              {/* UPDATED: Mapping over filteredProperties instead of properties */}
+              {filteredProperties.map((p) => (
                 <tr key={p.id}>
                   <td>
                     <img
@@ -175,16 +230,23 @@ export default function AdminProperties() {
                   <td className="center-cell">{p.beds} / {p.baths}</td>
                   <td className="center-cell">{p.sqft ? Number(p.sqft).toLocaleString() : "—"}</td>
                   <td>{p.city}</td>
+                  
+                  {/* STATUS */}
                   <td>
-                    <span className={`badge badge-${p.status}`}>
-                      {p.status === "available" ? "Available" : "Rented"}
+                    <span 
+                      className={`badge badge-${p.status ? String(p.status).toLowerCase().replace(/\s+/g, '-') : 'default'}`}
+                    >
+                      {p.status || "No Status"}
                     </span>
                   </td>
+                  
+                  {/* CATEGORY */}
                   <td>
                     <span className="badge badge-category">
-                      {p.category === "rent" ? "Rent" : "Sale"}
+                      {p.category || "No Category"}
                     </span>
                   </td>
+                  
                   <td>
                     <div className="actions-cell">
                       <button className="btn-action btn-edit" onClick={() => handleEdit(p)}>Edit</button>
@@ -239,12 +301,14 @@ export default function AdminProperties() {
                   <h4>Settings</h4>
                   <div className="grid-2">
                     <select name="status" value={form.status} onChange={handleChange}>
-                      <option value="available">Available</option>
-                      <option value="rented">Rented</option>
+                      <option value="Available">Available</option>
+                      <option value="Rented">Rented</option>
+                      <option value="Sold">Sold</option>
+                      <option value="Pending">Pending</option>
                     </select>
                     <select name="category" value={form.category} onChange={handleChange}>
-                      <option value="rent">For Rent</option>
-                      <option value="sale">For Sale</option>
+                      <option value="For Rent">For Rent</option>
+                      <option value="For Sale">For Sale</option>
                     </select>
                   </div>
                   <input
