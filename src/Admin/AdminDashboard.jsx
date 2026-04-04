@@ -104,7 +104,7 @@ export default function AdminDashboard() {
         <div className={`nav-right ${menuOpen ? "open" : ""}`}>
           <Link to="/admin/dashboard"><FaHome /> Dashboard</Link>
           <Link to="/admin/properties"><FaBuilding /> Manage Properties</Link>
-          <Link to="/admin/inquiries"><FaClipboardList /> Inquiries</Link>
+          <Link to="/admin/inquiries"><FaClipboardList /> Tour Requests</Link>
 
           {/* ONLY LOGOUT HERE */}
           <div className="nav-profile">

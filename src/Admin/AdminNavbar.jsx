@@ -54,7 +54,7 @@ export default function AdminNavbar() {
         </Link>
 
         <Link to="/admin/inquiries" onClick={handleLinkClick}>
-          <FaClipboardList /> Inquiries
+          <FaClipboardList /> Tour Requests
         </Link>
 
         <div className="nav-profile">
