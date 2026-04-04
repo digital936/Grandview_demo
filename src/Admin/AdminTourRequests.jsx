@@ -17,7 +17,10 @@ export default function AdminTourRequests() {
 
     const { data, error } = await supabase
       .from("tour_requests")
-      .select("*")
+      .select(`
+  *,
+  properties ( title )
+`)
       .order("created_at", { ascending: false });
 
     if (!error) {
@@ -77,9 +80,11 @@ export default function AdminTourRequests() {
         <thead>
           <tr>
             <th>Name</th>
+            <th>Property</th>
             <th>Email</th>
             <th>Phone</th>
             <th>Date</th>
+            
             <th>Time</th>
             <th>Status</th>
             <th>License</th>
@@ -97,9 +102,11 @@ export default function AdminTourRequests() {
               <tr key={req.id}>
 
                 <td>{req.name}</td>
+                <td>{req.properties?.title || "—"}</td>
                 <td>{req.email}</td>
                 <td>{req.phone}</td>
                 <td>{req.date}</td>
+                
                 <td>{req.time}</td>
 
                 <td>
