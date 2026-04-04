@@ -1,8 +1,11 @@
+
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import "../Admin/admin-properties.css";
-
 import AdminNavbar from "./AdminNavbar";
+
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
 
 export default function AdminProperties() {
   const [properties, setProperties] = useState([]);
@@ -34,21 +37,16 @@ export default function AdminProperties() {
   }, []);
 
   async function fetchProperties() {
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from("properties")
       .select("*")
       .order("created_at", { ascending: false });
-
-    if (!error) setProperties(data);
+    setProperties(data || []);
   }
 
   function handleChange(e) {
     const { name, value, type, checked } = e.target;
-
-    setForm({
-      ...form,
-      [name]: type === "checkbox" ? checked : value,
-    });
+    setForm({ ...form, [name]: type === "checkbox" ? checked : value });
   }
 
   function openAddForm() {
@@ -57,297 +55,265 @@ export default function AdminProperties() {
     setShowForm(true);
   }
 
-function handleEdit(property) {
-  let images = [];
-
-  if (Array.isArray(property.images)) {
-    images = property.images;
-  } else if (typeof property.images === "string") {
+  function handleEdit(property) {
+    let images = [];
     try {
-      images = JSON.parse(property.images);
-    } catch {
-      images = [];
-    }
+      images = JSON.parse(property.images || "[]");
+    } catch {}
+    setForm({ ...property, images });
+    setEditingId(property.id);
+    setShowForm(true);
   }
-
-  setForm({
-    title: property.title || "",
-    price: property.price || "",
-    beds: property.beds || "",
-    baths: property.baths || "",
-    sqft: property.sqft || "",
-    address: property.address || "",
-    zipcode: property.zipcode || "",
-    city: property.city || "",
-    imageUrl: property.imageUrl || "",
-    zillow_url: property.zillow_url || "",
-    description: property.description || "",
-    category: property.category || "rent",
-    status: property.status || "available",
-    featured: property.featured || false,
-    images: images, // ✅ FIXED
-  });
-
-  setEditingId(property.id);
-  setShowForm(true);
-}
 
   async function handleSubmit(e) {
-  e.preventDefault();
-
-  // ✅ CLEAN IMAGES
-  const cleanImages = (form.images || []).filter(
-    (img) => img && img !== "null"
-  );
-
-  // ✅ FIX BIGINT FIELDS
-  const payload = {
-    ...form,
-
-    price: form.price ? Number(form.price) : null,
-    beds: form.beds ? Number(form.beds) : null,
-    baths: form.baths ? Number(form.baths) : null,
-    sqft: form.sqft ? Number(form.sqft) : null,
-    zipcode: form.zipcode ? Number(form.zipcode) : null,
-
-    images: JSON.stringify(cleanImages),
-  };
-
-  const { error } = editingId
-    ? await supabase
-        .from("properties")
-        .update(payload)
-        .eq("id", editingId)
-    : await supabase
-        .from("properties")
-        .insert([payload]);
-
-  if (error) {
-    console.log("SUPABASE ERROR:", error);
-    alert("Error saving property");
-    return;
+    e.preventDefault();
+    const payload = {
+      ...form,
+      price: Number(form.price),
+      beds: Number(form.beds),
+      baths: Number(form.baths),
+      sqft: Number(form.sqft),
+      zipcode: Number(form.zipcode),
+      images: JSON.stringify(form.images || []),
+    };
+    if (editingId) {
+      await supabase.from("properties").update(payload).eq("id", editingId);
+    } else {
+      await supabase.from("properties").insert([payload]);
+    }
+    setShowForm(false);
+    fetchProperties();
   }
 
-  setShowForm(false);
-  setEditingId(null);
-  setForm(initialFormState);
-  fetchProperties();
-}
-  
+  async function handleDelete(id) {
+    if (!window.confirm("Delete this property?")) return;
+    await supabase.from("properties").delete().eq("id", id);
+    fetchProperties();
+  }
 
   async function handleImageUpload(files) {
-  const selectedFiles = Array.from(files); // ✅ NO LIMIT
-  const uploadedUrls = [];
-
-  for (let file of selectedFiles) {
-    const fileName = `${Date.now()}-${file.name}`;
-
-    const { error } = await supabase.storage
-      .from("property-gallery")
-      .upload(fileName, file);
-
-    if (error) {
-      console.log("Upload error:", error);
-      continue;
+    const urls = [];
+    for (let file of files) {
+      const fileName = `${Date.now()}-${file.name}`;
+      await supabase.storage.from("property-gallery").upload(fileName, file);
+      const { data } = supabase.storage.from("property-gallery").getPublicUrl(fileName);
+      urls.push(data.publicUrl);
     }
-
-    const { data } = supabase.storage
-      .from("property-gallery")
-      .getPublicUrl(fileName);
-
-    uploadedUrls.push(data.publicUrl);
+    setForm((prev) => ({ ...prev, images: [...prev.images, ...urls] }));
   }
 
-  // ✅ IMPORTANT: KEEP OLD + ADD NEW
-  setForm((prev) => ({
-    ...prev,
-    images: [...(prev.images || []), ...uploadedUrls],
-  }));
-}
-
-async function handleDelete(id) {
-  const confirmDelete = window.confirm("Are you sure?");
-  if (!confirmDelete) return;
-
-  const { error } = await supabase
-    .from("properties")
-    .delete()
-    .eq("id", id);
-
-  if (error) {
-    console.log(error);
-    alert("Delete failed");
-    return;
+  function exportToExcel() {
+    const data = properties.map((p) => ({
+      Title: p.title,
+      Price: p.price,
+      Beds: p.beds,
+      Baths: p.baths,
+      City: p.city,
+      Status: p.status,
+    }));
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Properties");
+    const buffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    saveAs(new Blob([buffer]), "properties.xlsx");
   }
-
-  setProperties((prev) => prev.filter((p) => p.id !== id));
-}
 
   return (
     <>
-    <AdminNavbar />
-    <div className="admin-properties-page">
+      <AdminNavbar />
 
-      <div className="admin-header">
-        <h2>Manage Properties</h2>
-        <button className="add-btn" onClick={openAddForm}>
-          + Add Property
-        </button>
-      </div>
+      <div className="admin-page">
 
-      {/* FORM */}
-      {showForm && (
-        <div className="form-modal">
-          <div className="form-container">
-
-            <h3>{editingId ? "Update Property" : "Add New Property"}</h3>
-
-            <form className="admin-form" onSubmit={handleSubmit}>
-
-              <input name="title" placeholder="Title" value={form.title} onChange={handleChange} required />
-              <input name="price" placeholder="Price" value={form.price} onChange={handleChange} required />
-              <input name="beds" placeholder="Beds" value={form.beds} onChange={handleChange} />
-              <input name="baths" placeholder="Baths" value={form.baths} onChange={handleChange} />
-              <input name="sqft" placeholder="Sqft" value={form.sqft} onChange={handleChange} />
-              <input name="address" placeholder="Address" value={form.address} onChange={handleChange} />
-              <input name="zipcode" placeholder="Zip Code" value={form.zipcode} onChange={handleChange} />
-              <input name="city" placeholder="City" value={form.city} onChange={handleChange} />
-
-              {/* MAIN IMAGE */}
-              <input
-                name="imageUrl"
-                placeholder="Main Image URL"
-                value={form.imageUrl}
-                onChange={handleChange}
-              />
-
-              <input
-                name="zillow_url"
-                placeholder="Zillow Link"
-                value={form.zillow_url}
-                onChange={handleChange}
-              />
-
-              <select name="category" value={form.category} onChange={handleChange}>
-                <option value="rent">Rent</option>
-                <option value="sale">Sale</option>
-              </select>
-
-              <select name="status" value={form.status} onChange={handleChange}>
-                <option value="available">Available</option>
-                <option value="rented">Rented</option>
-              </select>
-
-              <textarea
-                name="description"
-                placeholder="Description"
-                value={form.description}
-                onChange={handleChange}
-                className="description-box"
-              />
-
-              {/* IMAGE UPLOAD */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-                <input
-                  type="file"
-                  multiple
-                  accept="image/*"
-                  onChange={(e) => handleImageUpload(e.target.files)}
-                />
-                <p style={{ fontSize: "12px", color: "gray", margin: 0 }}>
-                  Upload multiple images
-                </p>
-              </div>
-
-              {/* ✅ PREVIEW IMAGES */}
-              {/* <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                {form.images?.map((img, i) => (
-                  <img
-                    key={i}
-                    src={img}
-                    alt="preview"
-                    style={{
-                      width: "80px",
-                      height: "60px",
-                      objectFit: "cover",
-                      borderRadius: "6px",
-                    }}
-                  />
-                ))}
-              </div> */}
-
-              <div className="image-preview">
-  {form.images?.map((img, i) => (
-    <div className="image-box" key={i}>
-      <img src={img} alt="preview" />
-
-      {/* ❌ REMOVE BUTTON */}
-      <button
-  type="button"   // ✅ PREVENT FORM SUBMIT
-  className="remove-img"
-  onClick={() => {
-    const updated = form.images.filter((_, index) => index !== i);
-    setForm({ ...form, images: updated });
-  }}
->
-  ✕
-</button>
-    </div>
-  ))}
-</div>
-
-              <label className="checkbox">
-                <input
-                  type="checkbox"
-                  name="featured"
-                  checked={form.featured}
-                  onChange={handleChange}
-                />
-                Featured Property
-              </label>
-
-              <div className="form-actions">
-                <button type="submit" className="save-btn">
-                  {editingId ? "Update" : "Save"}
-                </button>
-
-                <button
-                  type="button"
-                  className="cancel-btn"
-                  onClick={() => setShowForm(false)}
-                >
-                  Cancel
-                </button>
-              </div>
-
-            </form>
-
+        {/* HEADER */}
+        <div className="admin-header">
+          <div>
+            <h2>Properties</h2>
+            <p className="admin-subtitle">{properties.length} total listings</p>
+          </div>
+          <div className="header-actions">
+            <button className="btn btn-export" onClick={exportToExcel}>Export</button>
+            <button className="btn btn-add" onClick={openAddForm}>+ Add Property</button>
           </div>
         </div>
-      )}
 
-      {/* PROPERTY GRID */}
-      <div className="admin-property-grid">
-        {properties.map((property) => (
-          <div className="admin-property-card" key={property.id}>
-            <img src={property.imageUrl} alt={property.title} />
+        {/* TABLE */}
+        <div className="table-wrap">
+          <table className="property-table">
+            <thead>
+              <tr>
+                <th style={{ width: 72 }}>Image</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Beds / Baths</th>
+                <th>Sqft</th>
+                <th>City</th>
+                <th>Status</th>
+                <th>Category</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {properties.length === 0 && (
+                <tr>
+                  <td colSpan={9} className="table-empty">No properties found.</td>
+                </tr>
+              )}
+              {properties.map((p) => (
+                <tr key={p.id}>
+                  <td>
+                    <img
+                      src={p.imageUrl || "https://placehold.co/60x45/f1f5f9/94a3b8?text=—"}
+                      alt={p.title}
+                      className="table-img"
+                    />
+                  </td>
+                  <td>
+                    <div className="prop-title">{p.title}</div>
+                    <div className="prop-address">{p.address}</div>
+                  </td>
+                  <td className="price-cell">${Number(p.price).toLocaleString()}</td>
+                  <td className="center-cell">{p.beds} / {p.baths}</td>
+                  <td className="center-cell">{p.sqft ? Number(p.sqft).toLocaleString() : "—"}</td>
+                  <td>{p.city}</td>
+                  <td>
+                    <span className={`badge badge-${p.status}`}>
+                      {p.status === "available" ? "Available" : "Rented"}
+                    </span>
+                  </td>
+                  <td>
+                    <span className="badge badge-category">
+                      {p.category === "rent" ? "Rent" : "Sale"}
+                    </span>
+                  </td>
+                  <td>
+                    <div className="actions-cell">
+                      <button className="btn-action btn-edit" onClick={() => handleEdit(p)}>Edit</button>
+                      <button className="btn-action btn-delete" onClick={() => handleDelete(p.id)}>Delete</button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-            <div className="property-details">
-              <h3>{property.title}</h3>
-              <p className="price">${property.price}</p>
-              <p>{property.city}</p>
-              <p>Status: <b>{property.status}</b></p>
-            </div>
+        {/* FORM MODAL */}
+        {showForm && (
+          <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && setShowForm(false)}>
+            <div className="modal">
+              <div className="modal-header">
+                <h3>{editingId ? "Edit Property" : "Add Property"}</h3>
+                <button className="close-btn" onClick={() => setShowForm(false)}>✕</button>
+              </div>
 
-            <div className="actions">
-              <button onClick={() => handleEdit(property)}>Edit</button>
-              <button onClick={() => handleDelete(property.id)}>Delete</button>
+              <form className="form-modern" onSubmit={handleSubmit}>
+
+                {/* BASIC INFO */}
+                <div className="form-section">
+                  <h4>Basic Info</h4>
+                  <div className="grid-1">
+                    <input name="title" value={form.title} onChange={handleChange} placeholder="Property title" required />
+                  </div>
+                  <div className="grid-4" style={{ marginTop: 10 }}>
+                    <input name="price" value={form.price} onChange={handleChange} placeholder="Price ($)" type="number" min="0" />
+                    <input name="sqft" value={form.sqft} onChange={handleChange} placeholder="Sq. feet" type="number" min="0" />
+                    <input name="beds" value={form.beds} onChange={handleChange} placeholder="Bedrooms" type="number" min="0" />
+                    <input name="baths" value={form.baths} onChange={handleChange} placeholder="Bathrooms" type="number" min="0" />
+                  </div>
+                </div>
+
+                {/* LOCATION */}
+                <div className="form-section">
+                  <h4>Location</h4>
+                  <div className="grid-1">
+                    <input name="address" value={form.address} onChange={handleChange} placeholder="Street address" />
+                  </div>
+                  <div className="grid-2" style={{ marginTop: 10 }}>
+                    <input name="city" value={form.city} onChange={handleChange} placeholder="City" />
+                    <input name="zipcode" value={form.zipcode} onChange={handleChange} placeholder="Zip code" />
+                  </div>
+                </div>
+
+                {/* SETTINGS */}
+                <div className="form-section">
+                  <h4>Settings</h4>
+                  <div className="grid-2">
+                    <select name="status" value={form.status} onChange={handleChange}>
+                      <option value="available">Available</option>
+                      <option value="rented">Rented</option>
+                    </select>
+                    <select name="category" value={form.category} onChange={handleChange}>
+                      <option value="rent">For Rent</option>
+                      <option value="sale">For Sale</option>
+                    </select>
+                  </div>
+                  <input
+                    name="zillow_url"
+                    value={form.zillow_url}
+                    onChange={handleChange}
+                    placeholder="Zillow URL"
+                    style={{ marginTop: 10 }}
+                  />
+                  <textarea
+                    name="description"
+                    value={form.description}
+                    onChange={handleChange}
+                    placeholder="Property description…"
+                    style={{ marginTop: 10 }}
+                  />
+                  <label className="checkbox-label">
+                    <input type="checkbox" name="featured" checked={form.featured} onChange={handleChange} />
+                    Mark as featured property
+                  </label>
+                </div>
+
+                {/* MEDIA */}
+                <div className="form-section">
+                  <h4>Media</h4>
+                  <input name="imageUrl" value={form.imageUrl} onChange={handleChange} placeholder="Main image URL (https://…)" />
+                  <div className="file-upload-area" style={{ marginTop: 10 }}>
+                    <input type="file" multiple accept="image/*" onChange={(e) => handleImageUpload(e.target.files)} />
+                    <span>Upload additional images — click or drag &amp; drop</span>
+                  </div>
+                  {form.images?.length > 0 && (
+                    <div className="image-preview">
+                      {form.images.map((img, i) => (
+                        <div key={i} className="img-box">
+                          <img src={img} alt={`upload-${i}`} />
+                          <button
+                            type="button"
+                            className="img-remove"
+                            onClick={() =>
+                              setForm((prev) => ({
+                                ...prev,
+                                images: prev.images.filter((_, idx) => idx !== i),
+                              }))
+                            }
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* ACTIONS */}
+                <div className="form-actions">
+                  <button type="button" className="btn btn-secondary" onClick={() => setShowForm(false)}>
+                    Cancel
+                  </button>
+                  <button type="submit" className="btn btn-add">
+                    {editingId ? "Update Property" : "Save Property"}
+                  </button>
+                </div>
+
+              </form>
             </div>
           </div>
-        ))}
-      </div>
+        )}
 
-    </div>
+      </div>
     </>
   );
 }

@@ -134,7 +134,7 @@ export default function ScheduleTourModal({ propertyId, closeModal }) {
     <div className="tour-overlay" onClick={closeModal}>
       <div className="tour-box" onClick={(e) => e.stopPropagation()}>
 
-        <button className="close-btn" onClick={closeModal}>✕</button>
+        {/* <button className="close-btn" onClick={closeModal}>✕</button> */}
 
         <h2>Schedule Property Tour</h2>
 
