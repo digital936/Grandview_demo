@@ -179,7 +179,7 @@ const handleChange = (e) => {
 
         {/* SHARE */}
         <div className="plan-card highlight">
-          <span className="badge">MOST POPULAR</span>
+          <span className="commission-badge">MOST POPULAR</span>
           <h2>SHARE Plan</h2>
           <h3>12% Split</h3>
 
