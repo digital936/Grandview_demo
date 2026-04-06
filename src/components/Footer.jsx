@@ -5,14 +5,6 @@ import { supabase } from "../lib/supabase";
 
 function Footer() {
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault(); // 🚫 stop page reload
-
-  //   alert("Your query submitted successfully!"); // ✅ popup
-
-  //   e.target.reset(); // 🔄 clear form
-  // };
-
   
 
 const handleSubmit = async (e) => {
@@ -77,6 +69,18 @@ const handleSubmit = async (e) => {
             </div>
           </div>
         </div>
+
+        {/* 🔥 NEW MIDDLE SECTION */}
+  <div className="footer-middle">
+    <h3>Quick Links</h3>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/rent">Lease</a></li>
+      <li><a href="/about">About Us</a></li>
+      <li><a href="/contact">Contact Us</a></li>
+      <li><a href="/agents">Agents</a></li>
+    </ul>
+    </div>
 
         {/* RIGHT SIDE */}
         <div className="footer-right">

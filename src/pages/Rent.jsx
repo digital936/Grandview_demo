@@ -261,6 +261,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import ScheduleTourModal from "../buttons/ScheduleTourModal";
+import Footer from "../components/Footer";
 import "../styles/Rent.css";
 
 export default function Rent() {
@@ -351,6 +352,7 @@ export default function Rent() {
   };
 
   return (
+    <>
     <div className="rent-page">
       <h1 className="rent-title">Homes for Rent</h1>
 
@@ -469,5 +471,7 @@ export default function Rent() {
         />
       )}
     </div>
+    <Footer />
+    </>
   );
 }

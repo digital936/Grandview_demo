@@ -61,6 +61,7 @@ function Navbar() {
   <Link to="/" onClick={closeMenu}>Home</Link>
   <Link to="/rent" onClick={closeMenu}>Lease</Link>
   <Link to="/about" onClick={closeMenu}>About Us</Link>
+  <Link to="/contact" onClick={closeMenu}>Contact Us</Link>
   <Link to="/agents" onClick={closeMenu}>Agents</Link>
 
 </nav>
