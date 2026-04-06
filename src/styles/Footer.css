@@ -277,3 +277,13 @@
 .footer-middle ul li a:hover {
   color: #ff4d4d;
 }
+
+.footer-feedback {
+  padding: 0;
+  background: transparent;
+}
+
+.footer-feedback h2,
+.footer-feedback p {
+  display: none; /* hides big heading inside footer */
+}

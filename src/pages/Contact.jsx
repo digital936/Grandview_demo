@@ -106,7 +106,7 @@ return (
       </div>
     </div>
 
-    {/* <div className="contact-form-wrapper">
+    <div className="contact-form-wrapper">
       <div className="footer-right">
         <h3>Contact Us</h3>
 
@@ -145,13 +145,14 @@ return (
 
         </form>
       </div>
-    </div> */}
+    </div>
 
-    <Feedback />
+    {/* <Feedback /> */}
 
   </div>
 
   
+  <Feedback />
 
 </section>
 <Footer />

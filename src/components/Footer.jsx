@@ -1,37 +1,85 @@
 
 import "../styles/Footer.css";
 import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import { useState } from "react";
 import { supabase } from "../lib/supabase";
 
 function Footer() {
 
-  
+// const handleSubmit = async (e) => {
+//   e.preventDefault();
+
+//   const form = e.target;
+
+//   const name = form[0].value;
+//   const email = form[1].value;
+//   const message = form[2].value;
+
+//   // 🔥 Insert into Supabase
+//   const { error } = await supabase.from("contacts").insert([
+//     {
+//       name: name,
+//       email: email,
+//       message: message,
+//     },
+//   ]);
+
+//   if (error) {
+//     console.error("Error submitting form:", error);
+//     alert("Something went wrong ❌");
+//   } else {
+//     alert("Your query submitted successfully! ✅");
+//     form.reset();
+//   }
+// };
+
+
+const [formData, setFormData] = useState({
+  name: "",
+  email: "",
+  // rating: 5,
+  message: ""
+});
+
+const [loading, setLoading] = useState(false);
+
+const handleChange = (e) => {
+  setFormData({
+    ...formData,
+    [e.target.name]: e.target.value
+  });
+};
 
 const handleSubmit = async (e) => {
   e.preventDefault();
+  setLoading(true);
 
-  const form = e.target;
-
-  const name = form[0].value;
-  const email = form[1].value;
-  const message = form[2].value;
-
-  // 🔥 Insert into Supabase
-  const { error } = await supabase.from("contacts").insert([
-    {
-      name: name,
-      email: email,
-      message: message,
-    },
-  ]);
+  const { error } = await supabase
+    .from("feedback")   // ✅ IMPORTANT (not contacts)
+    .insert([
+      {
+        name: formData.name,
+        email: formData.email,
+        // rating: String(formData.rating),
+        message: formData.message
+      }
+    ]);
 
   if (error) {
-    console.error("Error submitting form:", error);
-    alert("Something went wrong ❌");
+    alert("Error submitting feedback ❌");
+    console.log(error);
   } else {
-    alert("Your query submitted successfully! ✅");
-    form.reset();
+    alert("Thank you for your feedback! ✅");
+
+    setFormData({
+      name: "",
+      email: "",
+      // rating: 5,
+      message: ""
+    });
   }
+
+  setLoading(false);
 };
 
   return (
@@ -83,10 +131,10 @@ const handleSubmit = async (e) => {
     </div>
 
         {/* RIGHT SIDE */}
-        <div className="footer-right">
+        {/* <div className="footer-right">
           <h3>Contact Us</h3>
 
-          {/* ✅ FORM */}
+          
           <form onSubmit={handleSubmit}>
             <input type="text" placeholder="Your Name" required />
             <input type="email" placeholder="Your Email" required />
@@ -94,7 +142,58 @@ const handleSubmit = async (e) => {
             <button type="submit">Send Message</button>
           </form>
 
-        </div>
+        </div> */}
+
+        <div className="footer-right">
+  <h3>Feedback</h3>
+
+  <form onSubmit={handleSubmit}>
+
+    <input
+      type="text"
+      name="name"
+      placeholder="Your Name"
+      value={formData.name}
+      onChange={handleChange}
+      required
+    />
+
+    <input
+      type="email"
+      name="email"
+      placeholder="Your Email"
+      value={formData.email}
+      onChange={handleChange}
+      required
+    />
+
+    {/* <select
+      name="rating"
+      value={formData.rating}
+      onChange={handleChange}
+    >
+      <option value="5">⭐⭐⭐⭐⭐</option>
+      <option value="4">⭐⭐⭐⭐</option>
+      <option value="3">⭐⭐⭐</option>
+      <option value="2">⭐⭐</option>
+      <option value="1">⭐</option>
+    </select> */}
+
+    <textarea
+      name="message"
+      placeholder="Your Feedback"
+      rows="3"
+      value={formData.message}
+      onChange={handleChange}
+      required
+    ></textarea>
+
+    <button type="submit" disabled={loading}>
+      {loading ? "Submitting..." : "Submit"}
+    </button>
+
+  </form>
+</div>
 
       </div>
 

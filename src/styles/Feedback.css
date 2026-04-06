@@ -1,8 +1,8 @@
-.feedback-page {
+.Feedback-page {
   padding: 80px 20px;
   background: #f8f9fa;
   display: flex;
-  justify-content: center;
+  
   align-items: flex-start;
   min-height: 100vh;
 }

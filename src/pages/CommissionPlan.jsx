@@ -142,7 +142,7 @@ const handleChange = (e) => {
         {/* MAX */}
         <div className="plan-card">
           <h2>MAX Plan</h2>
-          <h3>$465 / Sale</h3>
+          <h3>$450 / Sale</h3>
 
           <div className="plan-details">
             <p>Pre-Cap: $465</p>
@@ -219,7 +219,7 @@ const handleChange = (e) => {
         {/* ELEVATE */}
         <div className="plan-card">
           <h2>ELEVATE Plan</h2>
-          <h3>$515 + 20%</h3>
+          <h3>$500 + 20%</h3>
 
           <div className="plan-details">
             <p>Fee: $515</p>

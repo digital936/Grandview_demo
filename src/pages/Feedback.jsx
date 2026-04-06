@@ -55,7 +55,7 @@ const Feedback = () => {
   };
 
   return (
-    // <section className="feedback-page">
+     <section className="Feedback-page">
       <div className="feedback-container">
         <h2>We Value Your Feedback</h2>
         <p>Your experience helps us improve Grandview Realty.</p>
@@ -107,7 +107,7 @@ const Feedback = () => {
           </button>
         </form>
       </div>
-    // </section>
+     </section>
   );
 };
 
