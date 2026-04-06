@@ -40,7 +40,7 @@ export default function Buy() {
       ) : (
         <div className="property-grid">
           {properties.map((property) => (
-            <div className="property-card" key={property.id}>
+            <div className="buy-property-card" key={property.id}>
               <div className="image-wrapper">
                 <img src={property.imageUrl} alt={property.title} />
                 {property.featured && (

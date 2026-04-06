@@ -148,7 +148,7 @@ border-radius:10px;
 
 /* PROPERTY CARD */
 
-.property-card{
+.owner-property-card{
 display:flex;
 align-items:center;
 gap:12px;
@@ -160,7 +160,7 @@ background:#fafafa;
 transition:0.2s;
 }
 
-.property-card:hover{
+.owner-property-card:hover{
 background:#f1f5f9;
 }
 
@@ -168,7 +168,7 @@ background:#f1f5f9;
 
 /* PROPERTY IMAGE */
 
-.property-card img{
+.owner-property-card img{
 width:70px;
 height:50px;
 object-fit:cover;

@@ -11,6 +11,8 @@ export default function AdminProperties() {
   const [properties, setProperties] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [tourCounts, setTourCounts] = useState({});
+  const [viewMode, setViewMode] = useState("table"); // "table" or "grid"
 
   // --- NEW: Filter States ---
   const [searchTerm, setSearchTerm] = useState("");
@@ -39,6 +41,7 @@ export default function AdminProperties() {
 
   useEffect(() => {
     fetchProperties();
+    fetchTourCounts();
   }, []);
 
   async function fetchProperties() {
@@ -143,6 +146,25 @@ export default function AdminProperties() {
     saveAs(new Blob([buffer]), "properties.xlsx");
   }
 
+  async function fetchTourCounts() {
+  const { data, error } = await supabase
+    .from("tour_requests")
+    .select("property_id");
+
+  if (error) {
+    console.error("Error fetching tour requests:", error);
+    return;
+  }
+
+  // Count requests per property
+  const counts = {};
+  data.forEach((req) => {
+    counts[req.property_id] = (counts[req.property_id] || 0) + 1;
+  });
+
+  setTourCounts(counts);
+}
+
   return (
     <>
       <AdminNavbar />
@@ -160,6 +182,7 @@ export default function AdminProperties() {
           <div className="header-actions">
             <button className="btn btn-export" onClick={exportToExcel}>Export</button>
             <button className="btn btn-add" onClick={openAddForm}>+ Add Property</button>
+            <button className="btn btn-secondary" onClick={() => setViewMode(viewMode === "table" ? "grid" : "table")}> {viewMode === "table" ? "Grid View" : "Table View"}</button>
           </div>
         </div>
 
@@ -190,8 +213,8 @@ export default function AdminProperties() {
           </div>
         </div>
 
-        {/* TABLE */}
-        <div className="table-wrap">
+        
+        {/* <div className="table-wrap">
           <table className="property-table">
             <thead>
               <tr>
@@ -212,7 +235,7 @@ export default function AdminProperties() {
                   <td colSpan={9} className="table-empty">No properties found matching your filters.</td>
                 </tr>
               )}
-              {/* UPDATED: Mapping over filteredProperties instead of properties */}
+              
               {filteredProperties.map((p) => (
                 <tr key={p.id}>
                   <td>
@@ -223,7 +246,18 @@ export default function AdminProperties() {
                     />
                   </td>
                   <td>
-                    <div className="prop-title">{p.title}</div>
+                    
+                    <div className="prop-title-wrapper">
+    
+                        <div className="prop-title">{p.title}</div>
+                                {tourCounts[p.id] > 0 && (
+                                  <div className="tour-badge">
+                                    🔔 {tourCounts[p.id]}
+                                  </div>
+                                )}
+
+                              </div>
+                    
                     <div className="prop-address">{p.address}</div>
                   </td>
                   <td className="price-cell">${Number(p.price).toLocaleString()}</td>
@@ -231,7 +265,7 @@ export default function AdminProperties() {
                   <td className="center-cell">{p.sqft ? Number(p.sqft).toLocaleString() : "—"}</td>
                   <td>{p.city}</td>
                   
-                  {/* STATUS */}
+                  
                   <td>
                     <span 
                       className={`badge badge-${p.status ? String(p.status).toLowerCase().replace(/\s+/g, '-') : 'default'}`}
@@ -240,7 +274,7 @@ export default function AdminProperties() {
                     </span>
                   </td>
                   
-                  {/* CATEGORY */}
+                  
                   <td>
                     <span className="badge badge-category">
                       {p.category || "No Category"}
@@ -257,7 +291,119 @@ export default function AdminProperties() {
               ))}
             </tbody>
           </table>
+        </div> */}
+
+        {viewMode === "table" ? (
+
+  /* ================= TABLE VIEW ================= */
+  <div className="table-wrap">
+    <table className="property-table">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Title</th>
+          <th>Price</th>
+          <th>Beds / Baths</th>
+          <th>Sqft</th>
+          <th>City</th>
+          <th>Status</th>
+          <th>Category</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {filteredProperties.map((p) => (
+          <tr key={p.id}>
+            <td>
+              <img src={p.imageUrl} alt={p.title} className="table-img" />
+            </td>
+
+            <td>
+              <div className="prop-title-wrapper">
+                <div className="prop-title">{p.title}</div>
+                {tourCounts[p.id] > 0 && (
+                  <div className="tour-badge">🔔 {tourCounts[p.id]}</div>
+                )}
+              </div>
+              <div className="prop-address">{p.address}</div>
+            </td>
+
+            <td>${p.price}</td>
+            <td>{p.beds} / {p.baths}</td>
+            <td>{p.sqft}</td>
+            <td>{p.city}</td>
+
+            <td>
+              <span className={`badge badge-${p.status}`}>
+                {p.status}
+              </span>
+            </td>
+
+            <td>
+              <span className="badge badge-category">
+                {p.category}
+              </span>
+            </td>
+
+            {/* <td>
+              <button onClick={() => handleEdit(p)}>Edit</button>
+              <button onClick={() => handleDelete(p.id)}>Delete</button>
+            </td> */}
+
+            <td>
+                    <div className="actions-cell">
+                      <button className="btn-action btn-edit" onClick={() => handleEdit(p)}>Edit</button>
+                      <button className="btn-action btn-delete" onClick={() => handleDelete(p.id)}>Delete</button>
+                    </div>
+                  </td>
+
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+) : (
+
+  /* ================= GRID VIEW ================= */
+  <div className="grid-view">
+    {filteredProperties.map((p) => (
+      <div className="property-card" key={p.id}>
+
+        <div className="card-image">
+          <img src={p.imageUrl} alt={p.title} />
+
+          {tourCounts[p.id] > 0 && (
+            <div className="tour-badge">🔔 {tourCounts[p.id]}</div>
+          )}
         </div>
+
+        <div className="card-body">
+          <h3>{p.title}</h3>
+          <p className="card-address">{p.address}</p>
+
+          <div className="card-info">
+            <span>💰 ${p.price}</span>
+            <span>🛏 {p.beds}</span>
+            <span>🛁 {p.baths}</span>
+          </div>
+
+          <div className="card-footer">
+            <span className={`badge badge-${p.status}`}>{p.status}</span>
+            <span className="badge badge-category">{p.category}</span>
+          </div>
+
+          <div className="card-actions">
+            <button className="btn-edit" onClick={() => handleEdit(p)}>Edit</button>
+            <button className="btn-delete" onClick={() => handleDelete(p.id)}>Delete</button>
+          </div>
+        </div>
+
+      </div>
+    ))}
+  </div>
+
+)}
 
         {/* FORM MODAL */}
         {showForm && (

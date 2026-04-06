@@ -41,7 +41,7 @@
 }
 
 /* CARD */
-.property-card {
+.buy-property-card {
   background: white;
   border-radius: 12px;
   overflow: hidden;
@@ -51,7 +51,7 @@
   flex-direction: column;
 }
 
-.property-card:hover {
+.buy-property-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
 }
@@ -71,7 +71,7 @@
   transition: transform 0.3s ease;
 }
 
-.property-card:hover .image-wrapper img {
+.buy-property-card:hover .image-wrapper img {
   transform: scale(1.05);
 }
 

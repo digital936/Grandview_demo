@@ -88,7 +88,7 @@ export default function TenantDashboard() {
 
         {properties.map((p) => (
 
-          <div className="property-card" key={p.id}>
+          <div className="tenant-property-card" key={p.id}>
 
             <img
               src={p.imageUrl}

@@ -364,7 +364,7 @@ export default function Rent() {
           return (
             <div
               key={property.id}
-              className="property-card"
+              className="rent-property-card"
               onClick={() => navigate(`/property/${property.id}`)}
             >
               <div className="card-image">
@@ -417,7 +417,7 @@ export default function Rent() {
                   {property.address}, {property.city}, {property.zipcode}
                 </p>
 
-                <div className="card-actions">
+                <div className="rent-card-actions">
                   <button
                     className="call-btn"
                     onClick={(e) => {

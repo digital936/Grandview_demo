@@ -656,7 +656,7 @@ export default function AdminOwners(){
 
               {assignedProperties.map(p=>(
 
-                <div key={p.id} className="property-card">
+                <div key={p.id} className="owner-property-card">
 
                   <img
                     src={p.properties.imageUrl || "/property-placeholder.jpg"}
