@@ -126,7 +126,7 @@ export default function AdminDashboard() {
       .eq("is_read", false);
 
     const { count: commissionCount } = await supabase
-      .from("commission_queries")
+      .from("commission_leads")
       .select("*", { count: "exact", head: true })
       .eq("is_read", false);
 
@@ -179,6 +179,7 @@ export default function AdminDashboard() {
           <Link to="/admin/properties"><FaBuilding /> Manage Properties</Link>
           <Link to="/admin/inquiries"><FaClipboardList /> Tour Requests {notifications.tours > 0 && (
     <span className="badge">{notifications.tours}</span>
+
   )}</Link>
 
           {/* ONLY LOGOUT HERE */}
