@@ -11,6 +11,7 @@ export default function AdminFeedback() {
 
   useEffect(() => {
     fetchFeedbacks();
+    markAsRead();
   }, []);
 
   async function fetchFeedbacks() {
@@ -49,6 +50,13 @@ export default function AdminFeedback() {
   if (loading) {
     return <h2 className="loading">Loading feedback...</h2>;
   }
+
+  async function markAsRead() {
+  await supabase
+    .from("feedback")
+    .update({ is_read: true })
+    .eq("is_read", false);
+}
 
   return (
     <>

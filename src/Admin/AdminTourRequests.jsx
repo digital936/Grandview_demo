@@ -11,6 +11,7 @@ export default function AdminTourRequests() {
 
   useEffect(() => {
     fetchRequests();
+    markAsRead();
   }, []);
 
   async function fetchRequests() {
@@ -66,6 +67,13 @@ export default function AdminTourRequests() {
 
     return data.publicUrl;
   };
+
+  async function markAsRead() {
+  await supabase
+    .from("tour_requests")
+    .update({ is_read: true })
+    .eq("is_read", false);
+}
 
   return (
     <>

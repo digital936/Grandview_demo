@@ -12,6 +12,7 @@ export default function AdminPostProperties() {
 
   useEffect(() => {
     fetchProperties();
+    markAsRead();
   }, []);
 
   const fetchProperties = async () => {
@@ -29,6 +30,13 @@ export default function AdminPostProperties() {
 
     setLoading(false);
   };
+
+  async function markAsRead() {
+  await supabase
+    .from("post_properties")
+    .update({ is_read: true })
+    .eq("is_read", false);
+}
 
   return (
     <>

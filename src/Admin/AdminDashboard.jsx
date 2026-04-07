@@ -25,6 +25,15 @@ export default function AdminDashboard() {
     rented: 0
   });
 
+  const [notifications, setNotifications] = useState({
+  feedback: 0,
+  contacts: 0,
+  inquiries: 0,
+  commission: 0,
+  applications: 0,
+  tours: 0
+});
+
   const [adminEmail, setAdminEmail] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -32,7 +41,25 @@ export default function AdminDashboard() {
   useEffect(() => {
     fetchDashboardData();
     getAdminUser();
+    fetchNotifications();
   }, []);
+
+  useEffect(() => {
+  const channel = supabase
+    .channel("notifications")
+    .on(
+      "postgres_changes",
+      { event: "*", schema: "public" },
+      () => {
+        fetchNotifications(); // auto refresh
+      }
+    )
+    .subscribe();
+
+  return () => {
+    supabase.removeChannel(channel);
+  };
+}, []);
 
   const getAdminUser = async () => {
     const { data: { user } } = await supabase.auth.getUser();
@@ -81,6 +108,52 @@ export default function AdminDashboard() {
     navigate("/admin/login");
   };
 
+  const fetchNotifications = async () => {
+  try {
+    const { count: feedbackCount } = await supabase
+      .from("feedback")
+      .select("*", { count: "exact", head: true })
+      .eq("is_read", false);
+
+    const { count: contactCount } = await supabase
+      .from("contacts")
+      .select("*", { count: "exact", head: true })
+      .eq("is_read", false);
+
+    const { count: inquiryCount } = await supabase
+      .from("management_inquiries")
+      .select("*", { count: "exact", head: true })
+      .eq("is_read", false);
+
+    const { count: commissionCount } = await supabase
+      .from("commission_queries")
+      .select("*", { count: "exact", head: true })
+      .eq("is_read", false);
+
+    const { count: applicationCount } = await supabase
+      .from("agent_applications")
+      .select("*", { count: "exact", head: true })
+      .eq("is_read", false);
+
+    const { count: tourCount } = await supabase
+      .from("tour_requests")
+      .select("*", { count: "exact", head: true })
+      .eq("is_read", false);
+
+    setNotifications({
+      feedback: feedbackCount || 0,
+      contacts: contactCount || 0,
+      inquiries: inquiryCount || 0,
+      commission: commissionCount || 0,
+      applications: applicationCount || 0,
+      tours: tourCount || 0
+    });
+
+  } catch (error) {
+    console.error(error);
+  }
+};
+
   return (
     <div className="admin-container">
 
@@ -104,7 +177,9 @@ export default function AdminDashboard() {
         <div className={`nav-right ${menuOpen ? "open" : ""}`}>
           <Link to="/admin/dashboard"><FaHome /> Dashboard</Link>
           <Link to="/admin/properties"><FaBuilding /> Manage Properties</Link>
-          <Link to="/admin/inquiries"><FaClipboardList /> Tour Requests</Link>
+          <Link to="/admin/inquiries"><FaClipboardList /> Tour Requests {notifications.tours > 0 && (
+    <span className="badge">{notifications.tours}</span>
+  )}</Link>
 
           {/* ONLY LOGOUT HERE */}
           <div className="nav-profile">
@@ -119,11 +194,21 @@ export default function AdminDashboard() {
       <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
         
         <nav className="sidebar-links">
-          <Link to="/admin/feedback"><FaCommentDots /> Feedback</Link>
-          <Link to="/admin/contacts"><FaEnvelope /> Contact Messages</Link>
-          <Link to="/admin/post-properties"><FaBuilding /> Management Inquiries</Link>
-          <Link to="/admin/commission-leads"><FaChartLine /> Commission Queries</Link>
-          <Link to="/admin/agent-applications"><FaChartLine /> Agent Applications</Link>
+          <Link to="/admin/feedback"><FaCommentDots /> Feedback {notifications.feedback > 0 && (
+    <span className="badge">{notifications.feedback}</span>
+  )}</Link>
+          <Link to="/admin/contacts"><FaEnvelope /> Contact Messages {notifications.contacts > 0 && (
+    <span className="badge">{notifications.contacts}</span>
+  )}</Link>
+          <Link to="/admin/post-properties"><FaBuilding /> Management Inquiries {notifications.inquiries > 0 && (
+    <span className="badge">{notifications.inquiries}</span>
+  )}</Link>
+          <Link to="/admin/commission-leads"><FaChartLine /> Commission Queries {notifications.commission > 0 && (
+    <span className="badge">{notifications.commission}</span>
+  )}</Link>
+          <Link to="/admin/agent-applications"><FaChartLine /> Agent Applications {notifications.applications > 0 && (
+    <span className="badge">{notifications.applications}</span>
+  )}</Link>
         </nav>
 
         {/* 🔽 Avatar at Bottom */}
