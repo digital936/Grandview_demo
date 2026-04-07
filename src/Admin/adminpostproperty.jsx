@@ -38,6 +38,28 @@ export default function AdminPostProperties() {
     .eq("is_read", false);
 }
 
+const handleDelete = async (id) => {
+  const confirmDelete = window.confirm("Are you sure you want to delete this property?");
+  if (!confirmDelete) return;
+
+  try {
+    const { error } = await supabase
+      .from("post_properties")
+      .delete()
+      .eq("id", id);
+
+    if (error) {
+      console.error("Delete error:", error);
+    } else {
+      // ✅ remove from UI instantly
+      setProperties((prev) => prev.filter((p) => p.id !== id));
+    }
+
+  } catch (err) {
+    console.error(err);
+  }
+};
+
   return (
     <>
     <AdminNavbar />
@@ -63,6 +85,7 @@ export default function AdminPostProperties() {
               <th>Baths</th>
               <th>Sqft</th>
               <th>Time</th>
+              <th>Action</th>
             </tr>
           </thead>
 
@@ -90,6 +113,14 @@ export default function AdminPostProperties() {
     timeZone: "America/Chicago",
   })}
 </td>
+<td>
+  <button
+    className="delete-btn"
+    onClick={() => handleDelete(property.id)}
+  >
+    Delete
+  </button>
+</td>
                 </tr>
               ))
             )}
@@ -99,6 +130,7 @@ export default function AdminPostProperties() {
       )}
 
     </div>
+    
     </>
   );
 }

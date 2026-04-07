@@ -25,6 +25,11 @@
   border-radius: 14px;
   overflow: hidden;
   box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  max-width: 1200px;
+  margin: 0 auto;
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
 /* Header */
@@ -100,6 +105,20 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
+.delete-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+}
 /* Responsive */
 
 @media (max-width: 900px) {
@@ -112,6 +131,7 @@
     display: block;
     overflow-x: auto;
     white-space: nowrap;
+     min-width: 900px;
   }
 
   .property-table th,
