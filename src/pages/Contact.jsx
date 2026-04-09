@@ -6,7 +6,6 @@ import Feedback from "./Feedback";
 import Footer from "../components/Footer";
 
 const Contact = () => {
-
 const [formData, setFormData] = useState({
 name: "",
 email: "",
@@ -69,7 +68,7 @@ return (
 
   <div className="contact-hero">
     <div className="hero-content">
-      <h1>Let’s Find Your Perfect Property</h1>
+      <h1>Let's Find Your Perfect Property</h1>
       <p>
         Connect with Grandview Realty and take the first step toward your dream home.
       </p>
