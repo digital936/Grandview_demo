@@ -38,6 +38,10 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import FilteredProperties from "./pages/FilteredProperties";
 import AdminCommissionLeads from "./Admin/AdminCommissionLeads";
 import AdminAgentApplications from "./Admin/AdminAgentApplications";
+import RentLeadFlow from "./components/Rentleadflow";
+import SellerLeadFlow from "./components/sellerleadflow";
+import SellerLeads from "./Admin/adminSellerLeads";
+import RentLeads from "./Admin/adminRentLeads";
 
 /* 👇 Wrapper to hide navbar on admin pages */
 function Layout() {
@@ -68,6 +72,9 @@ function Layout() {
         <Route path="/agents" element={<Agents />} />
         <Route path="/agents/:id" element={<AgentProfile />} />
         <Route path="admin/properties/:type" element={<FilteredProperties />} />
+        <Route path="/rent-lead" element={<RentLeadFlow />} />
+        <Route path="/seller-lead" element={<SellerLeadFlow />} />
+        
 
         {/* ===== ADMIN ROUTES ===== */}
 
@@ -149,6 +156,19 @@ function Layout() {
             <AdminAgentApplications />
           </ProtectedRoute>
         } />
+
+        <Route path="/admin/rent-leads" element={
+          <ProtectedRoute>
+            <RentLeads />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/admin/seller-leads" element={
+          <ProtectedRoute>
+            <SellerLeads />
+          </ProtectedRoute>
+        } />
+
 
         {/* ===== OWNER ROUTES ===== */}
         <Route path="/owner-dashboard" element={<OwnerDashboard />} />

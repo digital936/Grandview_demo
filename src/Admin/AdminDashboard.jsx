@@ -29,6 +29,9 @@ export default function AdminDashboard() {
   feedback: 0,
   contacts: 0,
   inquiries: 0,
+  rentLeads: 0,
+  sellerLeads: 0,
+
   commission: 0,
   applications: 0,
   tours: 0
@@ -125,6 +128,17 @@ export default function AdminDashboard() {
       .select("*", { count: "exact", head: true })
       .eq("is_read", false);
 
+    const { count: rentLeadCount } = await supabase
+      .from("rent_leads")
+      .select("*", { count: "exact", head: true })
+      .eq("is_read", false);
+
+    const { count: sellerLeadCount } = await supabase
+      .from("seller_leads")
+      .select("*", { count: "exact", head: true })
+      .eq("is_read", false);
+
+
     const { count: commissionCount } = await supabase
       .from("commission_leads")
       .select("*", { count: "exact", head: true })
@@ -144,6 +158,8 @@ export default function AdminDashboard() {
       feedback: feedbackCount || 0,
       contacts: contactCount || 0,
       inquiries: inquiryCount || 0,
+      rentLeads: rentLeadCount || 0,
+      sellerLeads: sellerLeadCount || 0,
       commission: commissionCount || 0,
       applications: applicationCount || 0,
       tours: tourCount || 0
@@ -204,6 +220,15 @@ export default function AdminDashboard() {
           <Link to="/admin/post-properties"><FaBuilding /> Management Inquiries {notifications.inquiries > 0 && (
     <span className="badge">{notifications.inquiries}</span>
   )}</Link>
+
+          <Link to="/admin/rent-leads"><FaBuilding /> Rent Leads {notifications.rentLeads > 0 && (
+    <span className="badge">{notifications.rentLeads}</span>
+  )}</Link>
+
+          <Link to="/admin/seller-leads"><FaBuilding /> Seller Leads {notifications.sellerLeads > 0 && (
+    <span className="badge">{notifications.sellerLeads}</span>
+  )}</Link>
+
           <Link to="/admin/commission-leads"><FaChartLine /> Commission Queries {notifications.commission > 0 && (
     <span className="badge">{notifications.commission}</span>
   )}</Link>

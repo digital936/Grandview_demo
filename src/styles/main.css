@@ -737,3 +737,46 @@ img, picture, svg, video, iframe {
     box-sizing: border-box;
   }
 }
+
+.navbar-item.dropdown {
+  position: relative;
+  cursor: pointer;
+  color: black;
+}
+
+.navbar-item.dropdown span {
+  font-size: 16px;
+  font-weight: 500;
+  transition: .3s;
+}
+
+/* Hide dropdown by default */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  min-width: 200px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  display: none;
+  z-index: 1000;
+}
+
+/* Show on hover */
+.navbar-item.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* Links styling */
+.dropdown-menu a {
+  display: block;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: #333;
+  transition: 0.3s;
+}
+
+.dropdown-menu a:hover {
+  background: #f5f5f5;
+}

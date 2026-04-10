@@ -1,5 +1,4 @@
 
-
 import { useState, useEffect } from "react";
 import logo from "../assets/grandview.png";
 import { Link } from "react-router-dom";
@@ -47,22 +46,23 @@ function Navbar() {
           <span></span>
         </div>
 
-        {/* <nav className={`nav-menu ${menuOpen ? "active" : ""}`}>
-
-  <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
-  <Link to="/rent" onClick={() => setMenuOpen(false)}>Lease</Link>
-  <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
-  <Link to="/agents" onClick={() => setMenuOpen(false)}>Agents</Link>
-
-</nav> */}
-
 <nav className={`nav-menu ${menuOpen ? "active" : ""}`}>
 
   <Link to="/" onClick={closeMenu}>Home</Link>
   <Link to="/rent" onClick={closeMenu}>Lease</Link>
+  <div className="navbar-item dropdown">
+  <span>Services ▾</span>
+
+  <div className="dropdown-menu">
+    <a href="/rent-lead">Rent Your Property</a>
+    <a href="/seller-lead">Sell Your Property</a>
+  </div>
+</div>
+
   <Link to="/about" onClick={closeMenu}>About Us</Link>
   <Link to="/contact" onClick={closeMenu}>Contact Us</Link>
   <Link to="/agents" onClick={closeMenu}>Agents</Link>
+
 
 </nav>
 
