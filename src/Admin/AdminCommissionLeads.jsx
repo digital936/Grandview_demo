@@ -53,7 +53,7 @@ export default function AdminCommissionLeads() {
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
-                <th>City</th>
+                {/* <th>City</th> */}
                 <th>Plan</th>
                 <th>Message</th>
                 <th>Date</th>
@@ -67,7 +67,7 @@ export default function AdminCommissionLeads() {
                   <td>{item.fullname}</td>
                   <td>{item.email}</td>
                   <td>{item.phone}</td>
-                  <td>{item.city}</td>
+                  {/* <td>{item.city}</td> */}
                   <td>{item.plan}</td>
                   <td className="msg">{item.message}</td>
                   <td>

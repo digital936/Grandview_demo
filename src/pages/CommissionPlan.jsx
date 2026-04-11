@@ -107,7 +107,7 @@ export default function CommissionPlan() {
               <li>✔ Advanced Mentorship</li>
               <li>✔ Concierge Level Access</li>
             </ul>
-            <button className="btn-outline" onClick={() => setSelectedPlan("The Launchpad")}>Select Launchpad</button>
+            <button className="commissionbtn-outline" onClick={() => setSelectedPlan("The Launchpad")}>Select Launchpad</button>
           </div>
 
           <div className="plan-card popular-plan">
@@ -132,7 +132,7 @@ export default function CommissionPlan() {
               <li>✔ Keep Your Entire Check</li>
               <li>✔ No Hidden Fees</li>
             </ul>
-            <button className="btn-outline" onClick={() => setSelectedPlan("The Apex")}>Select Apex</button>
+            <button className="commissionbtn-outline" onClick={() => setSelectedPlan("The Apex")}>Select Apex</button>
           </div>
 
         </div>
@@ -166,14 +166,14 @@ export default function CommissionPlan() {
 
             <textarea name="message" rows="3" placeholder="Anything else you want us to know?" value={formData.message} onChange={handleChange}></textarea>
             
-            <button type="submit" className="btn-submit">Submit Confidential Inquiry</button>
+            <button type="submit" className="commissionbtn-submit">Submit Confidential Inquiry</button>
           </form>
         </div>
       </section>
 
       {/* 5. PLAN MODAL */}
       {selectedPlan && (
-        <div className="modal-overlay">
+        <div className="commissionmodal-overlay">
           <div className="modal-content">
             <h2>Apply for {selectedPlan}</h2>
             <p>All inquiries are kept strictly confidential.</p>
@@ -181,9 +181,16 @@ export default function CommissionPlan() {
               <input type="text" name="fullname" placeholder="Full Name *" value={formData.fullname} onChange={handleChange} required />
               <input type="email" name="email" placeholder="Email *" value={formData.email} onChange={handleChange} required />
               <input type="tel" name="phone" placeholder="Phone *" value={formData.phone} onChange={handleChange} required />
-              <div className="modal-actions">
-                <button type="submit" className="btn-submit">Submit Inquiry</button>
-                <button type="button" className="btn-cancel" onClick={() => setSelectedPlan(null)}>Cancel</button>
+               <textarea
+    name="message"
+    placeholder="Your message (optional)"
+    rows="3"
+    value={formData.message}
+    onChange={handleChange}
+  />
+              <div className="commissionmodal-actions">
+                <button type="submit" className="commissionbtn-submit">Submit Inquiry</button>
+                <button type="button" className="commissionbtn-cancel" onClick={() => setSelectedPlan(null)}>Cancel</button>
               </div>
             </form>
           </div>

@@ -63,7 +63,7 @@
 }
 
 /* --- BUTTONS --- */
-.btn-primary, .btn-secondary, .btn-outline, .btn-submit {
+.btn-primary, .btn-secondary, .commissionbtn-outline, .commissionbtn-submit {
   padding: 14px 28px;
   border-radius: 8px;
   font-weight: 600;
@@ -73,13 +73,13 @@
   font-size: 1rem;
 }
 
-.btn-primary, .btn-submit {
+.btn-primary, .commissionbtn-submit {
   background-color: var(--primary-color);
   color: white;
   border: none;
 }
 
-.btn-primary:hover, .btn-submit:hover {
+.btn-primary:hover, .commissionbtn-submit:hover {
   background-color: var(--primary-hover);
   box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
 }
@@ -95,14 +95,15 @@
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-.btn-outline {
+.commissionbtn-outline {
   background: transparent;
   color: var(--primary-color);
   border: 2px solid var(--primary-color);
   width: 100%;
+  color: blue
 }
 
-.btn-outline:hover {
+.commissionbtn-outline:hover {
   background: var(--primary-color);
   color: white;
 }
@@ -301,20 +302,25 @@
   gap: 20px;
 }
 
-.btn-submit {
+.commissionbtn-submit {
   width: 100%;
   margin-top: 10px;
 }
 
 /* --- MODAL --- */
-.modal-overlay {
+.commissionmodal-overlay {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;   /* 🔥 important */
   background: rgba(15, 23, 42, 0.8);
+
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+
+  z-index: 9999;  
 }
 
 .modal-content {
@@ -324,6 +330,7 @@
   width: 90%;
   max-width: 500px;
   text-align: center;
+  margin: 0 auto;
 }
 
 .modal-content input {
@@ -334,15 +341,15 @@
   border-radius: 8px;
 }
 
-.modal-actions {
+.commissionmodal-actions {
   display: flex;
   gap: 10px;
   margin-top: 10px;
 }
 
-.btn-cancel {
+.commissionbtn-cancel {
   background: white;
-  border: 1px solid #cbd5e1;
+  /* border: 1px solid #cbd5e1; */
   padding: 14px 28px;
   border-radius: 8px;
   cursor: pointer;

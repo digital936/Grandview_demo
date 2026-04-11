@@ -54,7 +54,8 @@ export default function AdminAgentApplications() {
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
-                <th>City</th>
+                {/* <th>City</th> */}
+                <th>Career</th>
                 <th>Message</th>
                 <th>Date</th>
                 <th>Action</th>
@@ -67,7 +68,9 @@ export default function AdminAgentApplications() {
                   <td>{item.fullname}</td>
                   <td>{item.email}</td>
                   <td>{item.phone}</td>
-                  <td>{item.city}</td>
+                  {/* <td>{item.city}</td> */}
+                  <td>{item.join}</td>
+
                   <td className="msg">{item.message}</td>
                   <td>
                     {item.created_at
