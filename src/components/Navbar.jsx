@@ -58,10 +58,11 @@ function Navbar() {
     <a href="/seller-lead">Sell Your Property</a>
   </div>
 </div>
-
+  <Link to="/commission-plan" onClick={closeMenu}>Join</Link>
+  <Link to="/agents" onClick={closeMenu}>Agents</Link>
   <Link to="/about" onClick={closeMenu}>About Us</Link>
   <Link to="/contact" onClick={closeMenu}>Contact Us</Link>
-  <Link to="/agents" onClick={closeMenu}>Agents</Link>
+  
 
 
 </nav>
