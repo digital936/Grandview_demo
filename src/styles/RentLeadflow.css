@@ -4,13 +4,20 @@
   background: #ffffff;
   font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
   color: #1f2a44;
+  width: 100%;
+  overflow: visible;
+  overflow-x: hidden;
+  position: relative;
 }
 
 /* ===== WIZARD CONTAINER ===== */
 .wizard-container {
   max-width: 900px;
+  width: 100%;
   margin: 0 auto;
   padding: 60px 20px 100px;
+  box-sizing: border-box;
+  overflow: visible;
 }
 
 /* ===== HEADER ===== */
@@ -109,9 +116,18 @@
   border: 1px solid #e5e7eb;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   overflow: visible;
+  overflow-x: auto;
   transition: all 0.4s ease;
+  width: 100%;
+  max-width: 100%;
 }
 
+  /* opacity: 1;
+  visibility: visible;
+  display: block;
+  width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box; */
 .wizard-step {
   padding: 40px;
   animation: fadeIn 0.4s ease;
@@ -189,7 +205,7 @@
 
 .address-input {
   flex: 1;
-  min-width: 300px;
+  min-width: 250px;
   padding: 18px 24px;
   border-radius: 16px;
   border: 2px solid #e2e8f0;
@@ -199,6 +215,9 @@
   font-weight: 500;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .address-input:focus {
@@ -303,6 +322,8 @@
   color: #1f2a44;
   font-size: 14px;
   transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .detail-input-group input:focus {
@@ -895,14 +916,40 @@
 @media (max-width: 768px) {
   .wizard-container {
     padding: 40px 15px 80px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .seller-lead-flow-page {
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .wizard-content {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    border-radius: 16px;
+  }
+
+  .wizard-header {
+    margin-bottom: 30px;
   }
 
   .wizard-header h1 {
     font-size: 32px;
   }
 
+  .wizard-header p {
+    font-size: 14px;
+  }
+
   .progress-indicator {
     gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .progress-circle {
@@ -913,68 +960,486 @@
 
   .progress-line {
     width: 20px;
+    display: none;
+  }
+
+  .progress-label {
+    font-size: 10px;
   }
 
   .wizard-step {
-    padding: 25px 20px;
-    display: none;
+    padding: 20px 15px;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+    width: 100% !important;
+  }
 
-    /* opacity: 1 !important; */
+  .step-header {
+    margin-bottom: 20px;
   }
 
   .step-header h2 {
-    font-size: 24px;
+    font-size: 20px;
+  }
+
+  .step-header p {
+    font-size: 13px;
+  }
+
+  .step-number {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  .address-hero {
+    padding: 20px;
+    margin-bottom: 20px;
   }
 
   .address-input-wrapper {
     flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
   }
 
-  .next-btn {
+  .address-input {
+    min-width: 100%;
     width: 100%;
+    max-width: 100%;
+    padding: 14px 16px;
+    font-size: 15px;
+  }
+
+  .next-btn,
+  .back-btn {
+    width: 100%;
+    padding: 14px 16px;
+    min-width: unset;
+    font-size: 15px;
+  }
+
+  .address-features {
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+  }
+
+  .feature-item {
+    font-size: 13px;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .detail-input-group {
+    gap: 6px;
+  }
+
+  .detail-input-group input,
+  .detail-input-group select {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 15px;
+  }
+
+  .condition-toggles {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .condition-card {
+    padding: 14px;
+  }
+
+  .error-message {
+    font-size: 12px;
+    margin-top: 4px;
   }
 
   .comparison-container {
     grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .comparison-card {
+    padding: 20px;
+  }
+
+  .calculator-inputs {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .calc-input-group input {
+    padding: 12px 14px;
+    font-size: 15px;
   }
 
   .wizard-actions {
     flex-direction: column;
+    gap: 12px;
   }
 
   .back-btn,
   .next-btn {
     width: 100%;
   }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .form-group input {
+    padding: 12px 14px;
+    font-size: 15px;
+  }
+
+  .lead-form {
+    gap: 15px;
+  }
+
+  .submit-final {
+    width: 100%;
+  }
 }
 
 @media (max-width: 480px) {
+  .seller-lead-flow-page {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .wizard-container {
+    padding: 30px 12px 70px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .wizard-header {
+    margin-bottom: 20px;
+  }
+
   .wizard-header h1 {
-    font-size: 28px;
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .wizard-header p {
+    font-size: 12px;
+  }
+
+  .progress-indicator {
+    margin-bottom: 30px;
+    gap: 4px;
   }
 
   .progress-circle {
-    width: 28px;
-    height: 28px;
-    font-size: 11px;
+    width: 26px;
+    height: 26px;
+    font-size: 10px;
   }
 
-  .wizard-step {
-    padding: 20px 15px;
+  .progress-line {
+    width: 12px;
     display: none;
   }
 
+  .progress-label {
+    display: none;
+  }
+
+  .wizard-content {
+    border-radius: 12px;
+    overflow-x: auto;
+    overflow-y: visible;
+  }
+
+  .wizard-step {
+    padding: 15px 12px;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .step-header {
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
   .step-header h2 {
-    font-size: 22px;
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+
+  .step-header p {
+    font-size: 12px;
+  }
+
+  .step-number {
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+    margin-bottom: 10px;
+  }
+
+  .address-hero {
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 14px;
+  }
+
+  .address-input-wrapper {
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .address-input {
+    width: 100%;
+    min-width: 100%;
+    padding: 12px 14px;
+    font-size: 14px;
+    border-radius: 10px;
+  }
+
+  .next-btn,
+  .back-btn {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 14px;
+    border-radius: 8px;
+    min-width: unset;
+  }
+
+  .address-features {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .feature-item {
+    font-size: 12px;
+    gap: 8px;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 15px;
+  }
+
+  .detail-input-group {
+    gap: 5px;
+  }
+
+  .detail-input-group label {
+    font-size: 11px;
+  }
+
+  .detail-input-group input,
+  .detail-input-group select {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    border-radius: 8px;
+  }
+
+  .error-message {
+    font-size: 11px;
+    margin-top: 3px;
+  }
+
+  .input-hint {
+    font-size: 12px;
+    margin-top: 8px;
+  }
+
+  .condition-toggles {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .condition-card {
+    padding: 12px;
+  }
+
+  .condition-label {
+    font-size: 13px;
+  }
+
+  .condition-desc {
+    font-size: 11px;
+  }
+
+  .price-range-display {
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+  }
+
+  .price-label {
+    font-size: 12px;
   }
 
   .price-values {
     flex-direction: column;
-    gap: 5px;
+    gap: 8px;
+    margin-bottom: 8px;
   }
 
   .price-low,
   .price-high {
-    font-size: 22px;
+    font-size: 20px;
+  }
+
+  .price-separator {
+    font-size: 12px;
+  }
+
+  .comparison-container {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 15px;
+  }
+
+  .comparison-card {
+    padding: 16px;
+  }
+
+  .comparison-card h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  .grandview-badge {
+    padding: 5px 10px;
+    font-size: 10px;
+    top: -8px;
+    right: 12px;
+  }
+
+  .breakdown-row {
+    padding: 8px 0;
+    font-size: 13px;
+  }
+
+  .breakdown-total {
+    padding: 10px 0 0;
+    margin-top: 8px;
+    font-size: 14px;
+  }
+
+  .breakdown-total span:last-child {
+    font-size: 18px;
+  }
+
+  .calculator-inputs {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 15px;
+  }
+
+  .calc-input-group {
+    gap: 6px;
+  }
+
+  .calc-input-group label {
+    font-size: 11px;
+  }
+
+  .calc-input-group input {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .prefix {
+    left: 10px;
+    font-size: 13px;
+  }
+
+  .wizard-actions {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+  }
+
+  .back-btn,
+  .next-btn {
+    width: 100%;
+    padding: 11px 12px;
+    font-size: 13px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .form-group {
+    gap: 6px;
+  }
+
+  .form-group label {
+    font-size: 11px;
+  }
+
+  .form-group input {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .lead-form {
+    gap: 12px;
+  }
+
+  .submit-final {
+    width: 100%;
+    padding: 11px 14px;
+    font-size: 13px;
+  }
+
+  .success-state {
+    padding: 20px 12px;
+  }
+
+  .success-state h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .success-state p {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .success-details {
+    padding: 15px;
+  }
+
+  .success-details p {
+    font-size: 12px;
+  }
+
+  .loading-container {
+    padding: 30px 15px;
+  }
+
+  .loading-spinner {
+    width: 35px;
+    height: 35px;
+  }
+
+  .loading-text {
+    font-size: 16px;
+  }
+
+  .loading-subtext {
+    font-size: 12px;
   }
 }
