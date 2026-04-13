@@ -1,11 +1,17 @@
 
-
-
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
 import "./ScheduleTour.css";
 
+
 export default function ScheduleTourModal({ propertyId, closeModal }) {
+
+
+const formatToUSDate = (dateStr) => {
+  if (!dateStr) return "";
+  const date = new Date(dateStr);
+  return new Intl.DateTimeFormat("en-US").format(date); // MM/DD/YYYY
+};
 
   const [formData, setFormData] = useState({
     name: "",
@@ -143,7 +149,27 @@ export default function ScheduleTourModal({ propertyId, closeModal }) {
           <input type="text" name="name" required placeholder="Full Name" onChange={handleChange} />
           <input type="email" name="email" required placeholder="Email" onChange={handleChange} />
           <input type="tel" name="phone" required placeholder="Phone" onChange={handleChange} />
-          <input type="date" name="date" required placeholder="Select Date" onChange={handleChange} />
+          {/* <input type="date" name="date" required placeholder="Select Date" onChange={handleChange} /> */}
+
+          {/* Visible US Format Input */}
+<input
+  type="text"
+  placeholder="MM-DD-YYYY"
+  value={formatToUSDate(formData.date)}
+  readOnly
+  onClick={() => document.getElementById("hiddenDate").showPicker()}
+/>
+
+{/* Hidden Real Date Input (controls actual value) */}
+<input
+  id="hiddenDate"
+  type="date"
+  name="date"
+  required
+  value={formData.date}
+  onChange={handleChange}
+  style={{ position: "absolute", opacity: 0, pointerEvents: "none" }}
+/>
 
           <select name="time" required onChange={handleChange}>
             <option value="">Select Time</option>

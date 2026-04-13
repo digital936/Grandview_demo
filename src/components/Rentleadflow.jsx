@@ -178,14 +178,6 @@ const PropertyDetailsStep = ({ formData, errors, updateFormData, nextStep, prevS
 
       <div className="detail-input-group">
         <label>Available Date</label>
-        {/* <input
-          type="date"
-          className={`detail-input ${errors.availableDate ? 'error' : ''}`}
-          value={formData.availableDate}
-          onChange={(e) => updateFormData('availableDate', e.target.value)}
-          min={new Date().toISOString().split('T')[0]}
-        /> */}
-
         <input
   type="text"
   placeholder="MM-DD-YYYY"
