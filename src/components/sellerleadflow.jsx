@@ -609,6 +609,8 @@ const handleSubmit = async (e) => {
       console.error(error);
       alert("Error submitting");
     } else {
+      localStorage.removeItem('sellerLeadFormData');
+      localStorage.removeItem('sellerLeadCurrentStep');
       setSubmitted(true);
     }
   }
@@ -741,8 +743,18 @@ const ProgressIndicator = ({ currentStep, steps }) => {
 
 // Main SellerLeadFlow Component
 export default function SellerLeadFlow() {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState({
+  const loadFromStorage = (key, defaultValue) => {
+    try {
+      const item = localStorage.getItem(key);
+      return item ? JSON.parse(item) : defaultValue;
+    } catch (error) {
+      console.warn(`Error loading ${key} from localStorage:`, error);
+      return defaultValue;
+    }
+  };
+
+  const [currentStep, setCurrentStep] = useState(() => loadFromStorage('sellerLeadCurrentStep', 1));
+  const [formData, setFormData] = useState(() => loadFromStorage('sellerLeadFormData', {
     address: "",
     beds: "",
     baths: "",
@@ -754,7 +766,20 @@ export default function SellerLeadFlow() {
     lastName: "",
     email: "",
     phone: "",
-  });
+  }));
+  const [showSavedIndicator, setShowSavedIndicator] = useState(false);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('sellerLeadFormData', JSON.stringify(formData));
+      localStorage.setItem('sellerLeadCurrentStep', JSON.stringify(currentStep));
+      setShowSavedIndicator(true);
+      const timer = window.setTimeout(() => setShowSavedIndicator(false), 1800);
+      return () => window.clearTimeout(timer);
+    } catch (error) {
+      console.warn('Error saving seller lead draft:', error);
+    }
+  }, [formData, currentStep]);
 
   const steps = [
     { id: 1, label: "Address" },
@@ -828,6 +853,15 @@ export default function SellerLeadFlow() {
         <div className="wizard-header">
           <h1>Sell Your Home with Confidence</h1>
           <p>Get a free market analysis and see how much you could save with our 1% listing fee.</p>
+          {showSavedIndicator && (
+            <div className="saved-indicator" style={{
+              marginTop: '10px',
+              color: '#28a745',
+              fontSize: '14px',
+            }}>
+              Draft saved
+            </div>
+          )}
         </div>
 
         <ProgressIndicator currentStep={currentStep} steps={steps} />

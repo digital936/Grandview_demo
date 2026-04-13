@@ -1,7 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/RentLeadflow.css";
 import { supabase } from "../lib/supabase";
+
+// ✅ GLOBAL HELPERS (accessible everywhere)
+const formatToUSDate = (dateString) => {
+  if (!dateString) return "";
+  const [year, month, day] = dateString.split("-");
+  return `${month}-${day}-${year}`;
+};
+
+const parseToISODate = (value) => {
+  const [month, day, year] = value.split("-");
+  if (!month || !day || !year) return "";
+  return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+};
+
+const formatDateInput = (value) => {
+  const digits = value.replace(/\D/g, "").slice(0, 8);
+
+  if (digits.length <= 2) return digits;
+  if (digits.length <= 4) return `${digits.slice(0, 2)}-${digits.slice(2)}`;
+  return `${digits.slice(0, 2)}-${digits.slice(2, 4)}-${digits.slice(4)}`;
+};
 
 const AddressStep = ({ formData, errors, updateFormData, nextStep }) => (
   <div className="wizard-step fade-in address-step">
@@ -157,13 +178,26 @@ const PropertyDetailsStep = ({ formData, errors, updateFormData, nextStep, prevS
 
       <div className="detail-input-group">
         <label>Available Date</label>
-        <input
+        {/* <input
           type="date"
           className={`detail-input ${errors.availableDate ? 'error' : ''}`}
           value={formData.availableDate}
           onChange={(e) => updateFormData('availableDate', e.target.value)}
           min={new Date().toISOString().split('T')[0]}
-        />
+        /> */}
+
+        <input
+  type="text"
+  placeholder="MM-DD-YYYY"
+  className={`detail-input ${errors.availableDate ? 'error' : ''}`}
+  value={formatToUSDate(formData.availableDate)}
+  onChange={(e) => {
+    const formatted = formatDateInput(e.target.value);
+    const isoValue = parseToISODate(formatted);
+
+    updateFormData('availableDate', isoValue);
+  }}
+/>
         {errors.availableDate && <div className="error-message">{errors.availableDate}</div>}
       </div>
     </div>
@@ -367,7 +401,10 @@ const ReviewStep = ({ formData, handleSubmit, prevStep, isSubmitting, formatCurr
           </div>
           <div className="review-item">
             <span className="review-label">Available Date</span>
-            <span className="review-value">{formData.availableDate}</span>
+            {/* <span className="review-value">{formData.availableDate}</span> */}
+            <span className="review-value">
+  {formatToUSDate(formData.availableDate)}
+</span>
           </div>
         </div>
       </div>
@@ -426,7 +463,8 @@ const SuccessStep = ({ formData, navigate, formatCurrency }) => (
     <div className="success-details">
       <p><strong>Property:</strong> {formData.address}</p>
       <p><strong>Expected Rent:</strong> {formatCurrency(formData.expectedRent)}/month</p>
-      <p><strong>Available:</strong> {formData.availableDate}</p>
+      {/* <p><strong>Available:</strong> {formData.availableDate}</p> */}
+      <p><strong>Available:</strong> {formatToUSDate(formData.availableDate)}</p>
     </div>
 
     <div className="next-steps">
@@ -447,8 +485,19 @@ const SuccessStep = ({ formData, navigate, formatCurrency }) => (
 );
 
 function RentLeadFlow() {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState({
+  // Add this helper function:
+  const loadFromStorage = (key, defaultValue) => {
+    try {
+      const item = localStorage.getItem(key);
+      return item ? JSON.parse(item) : defaultValue;
+    } catch (error) {
+      console.warn(`Error loading ${key} from localStorage:`, error);
+      return defaultValue;
+    }
+  };
+
+  const [currentStep, setCurrentStep] = useState(() => loadFromStorage('rentLeadCurrentStep', 1));
+  const [formData, setFormData] = useState(() => loadFromStorage('rentLeadFormData', {
     // Step 1: Property Address
     address: "",
     
@@ -474,12 +523,28 @@ function RentLeadFlow() {
     // Step 5: Additional Details
     specialFeatures: "",
     utilitiesIncluded: [],
-  });
+  }));
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   const navigate = useNavigate();
+
+  // Add this new state:
+  const [showSavedIndicator, setShowSavedIndicator] = useState(false);
+
+  // Add this useEffect:
+  useEffect(() => {
+    try {
+      localStorage.setItem('rentLeadFormData', JSON.stringify(formData));
+      localStorage.setItem('rentLeadCurrentStep', JSON.stringify(currentStep));
+      setShowSavedIndicator(true);
+      const timer = setTimeout(() => setShowSavedIndicator(false), 2000);
+      return () => clearTimeout(timer);
+    } catch (error) {
+      console.warn('Error saving to localStorage:', error);
+    }
+  }, [formData, currentStep]);
 
   const totalSteps = 5;
 
@@ -604,10 +669,36 @@ const handleSubmit = async () => {
       alert("Something went wrong");
       setIsSubmitting(false);
     } else {
+      // Clear draft data on successful submission
+      localStorage.removeItem('rentLeadFormData');
+      localStorage.removeItem('rentLeadCurrentStep');
       setIsComplete(true);
       setIsSubmitting(false);
     }
   }
+};
+
+// Convert YYYY-MM-DD → MM-DD-YYYY (for display)
+const formatToUSDate = (dateString) => {
+  if (!dateString) return "";
+  const [year, month, day] = dateString.split("-");
+  return `${month}-${day}-${year}`;
+};
+
+// Convert MM-DD-YYYY → YYYY-MM-DD (for storage)
+const parseToISODate = (value) => {
+  const [month, day, year] = value.split("-");
+  if (!month || !day || !year) return "";
+  return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+};
+
+// Auto format while typing (MM-DD-YYYY)
+const formatDateInput = (value) => {
+  const digits = value.replace(/\D/g, "").slice(0, 8);
+
+  if (digits.length <= 2) return digits;
+  if (digits.length <= 4) return `${digits.slice(0, 2)}-${digits.slice(2)}`;
+  return `${digits.slice(0, 2)}-${digits.slice(2, 4)}-${digits.slice(4)}`;
 };
 
   const formatCurrency = (value) => {
@@ -635,6 +726,17 @@ const handleSubmit = async () => {
         <div className="wizard-header">
           <h1>Rent Your Property</h1>
           <p>Get started with Grandview Property Management. Complete this quick form to receive a free rental analysis.</p>
+          {showSavedIndicator && (
+            <div className="saved-indicator" style={{
+              color: '#28a745',
+              fontSize: '14px',
+              marginTop: '10px',
+              opacity: showSavedIndicator ? 1 : 0,
+              transition: 'opacity 0.3s ease'
+            }}>
+              ✓ Draft saved
+            </div>
+          )}
         </div>
 
         <div className="progress-indicator">
