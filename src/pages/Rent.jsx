@@ -439,7 +439,7 @@ export default function Rent() {
                       setTourProperty(property);
                     }}
                   >
-                    Schedule Tour
+                    Request Tour
                   </button>
                 </div>
               </div>
