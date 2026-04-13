@@ -150,7 +150,7 @@ function getGalleryImages(property) {
 
           <div className="contact-card">
             <button className="schedule-btn" onClick={openTourModal}>
-              Request Tour
+              Request a Tour
             </button>
           </div>
 

@@ -1000,12 +1000,14 @@
 
   .address-input-wrapper {
     flex-direction: column;
-    gap: 10px;
+    /* gap: 10px;
     margin-bottom: 15px;
+    width: 100%; */
+
   }
 
   .address-input {
-    min-width: 100%;
+    min-width: 0;
     width: 100%;
     max-width: 100%;
     padding: 14px 16px;
@@ -1195,9 +1197,12 @@
   }
 
   .address-input-wrapper {
-    flex-direction: column;
-    gap: 8px;
+    /* flex-direction: column; */
+    gap: 15px;
     margin-bottom: 12px;
+    display: flex;
+  justify-content: center;
+  /* width: 100%; */
   }
 
   .address-input {
@@ -1206,6 +1211,8 @@
     padding: 12px 14px;
     font-size: 14px;
     border-radius: 10px;
+    flex: 1;
+  min-width: 0;
   }
 
   .next-btn,
