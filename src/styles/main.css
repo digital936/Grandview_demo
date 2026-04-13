@@ -437,6 +437,20 @@ img, video, iframe {
     grid-template-columns: 1fr;
     gap: 16px;
   }
+
+  /* Hide / Show animation */
+.navbar {
+  transform: translateY(0);
+  transition: transform 0.35s ease;
+}
+
+.navbar.hide {
+  transform: translateY(-100%);
+}
+
+.navbar.show {
+  transform: translateY(0);
+}
 }
 
 /* RESPONSIVE UTILITIES */
