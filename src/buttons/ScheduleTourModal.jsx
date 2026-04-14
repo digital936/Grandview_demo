@@ -125,7 +125,10 @@ const formatToUSDate = (dateStr) => {
 
       if (error) throw error;
 
-      alert("Your tour request has been successfully submitted.\nYou will receive a confirmation via email or text message shortly.");
+      // alert("Your tour request has been successfully submitted.\nYou will receive a confirmation via email or text message shortly.");
+      // closeModal();
+
+      alert("Thank you for submitting your self-tour request. Our team will review your details and get back to you shortly with the next steps.\n For immediate assistance, please contact Whitney [Insert Number] or Isha [Insert Number].");
       closeModal();
 
     } catch (err) {
@@ -179,17 +182,6 @@ const formatToUSDate = (dateStr) => {
               </option>
             ))}
           </select>
-
-          
-          {/* <div className="file-upload">
-  <label htmlFor="licenseUpload">Upload Driving Licence</label>
-  <input 
-    type="file" 
-    id="licenseUpload"
-    name="licenseFile" 
-    onChange={handleChange} 
-  />
-</div> */}
 
 <div className="file-upload">
   <label htmlFor="licenseUpload">Upload Driving Licence</label>

@@ -115,7 +115,7 @@ body {
   gap: 10px;
 }
 
-.call-btn {
+.rentcall-btn {
   flex: 1;
   padding: 12px;
   background: #111827;
@@ -134,7 +134,7 @@ body {
   cursor: pointer;
 }
 
-.call-popup-overlay {
+.rentcall-popup-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.55);
@@ -144,7 +144,7 @@ body {
   z-index: 9999;
 }
 
-.call-popup {
+.rentcall-popup {
   background: white;
   padding: 30px;
   border-radius: 14px;

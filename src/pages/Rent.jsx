@@ -161,7 +161,7 @@ export default function Rent() {
 
                 <div className="rent-card-actions">
                   <button
-                    className="call-btn"
+                    className="rentcall-btn"
                     onClick={(e) => {
                       e.stopPropagation();
                       if (isMobile()) {
@@ -181,7 +181,7 @@ export default function Rent() {
                       setTourProperty(property);
                     }}
                   >
-                    Request a Tour
+                    Request Tour
                   </button>
                 </div>
               </div>
@@ -193,10 +193,10 @@ export default function Rent() {
       {/* Call Popup */}
       {showCallPopup && (
         <div
-          className="call-popup-overlay"
+          className="rentcall-popup-overlay"
           onClick={() => setShowCallPopup(null)}
         >
-          <div className="call-popup" onClick={(e) => e.stopPropagation()}>
+          <div className="rentcall-popup" onClick={(e) => e.stopPropagation()}>
             <h3>Contact Agent</h3>
             <p>{showCallPopup.address}</p>
             <a href="tel:+1 (479) 995-9165" className="popup-call-btn">

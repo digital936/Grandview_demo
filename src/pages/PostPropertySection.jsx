@@ -1,11 +1,13 @@
 
-import React from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/PostPropertySection.css";
+
 
 const PostPropertySection = () => {
 
   const navigate = useNavigate();
+  const [showPopup, setShowPopup] = useState(false);
 
   return (
 
@@ -42,7 +44,8 @@ const PostPropertySection = () => {
 
               <button
                 className="post-btn"
-                onClick={() => navigate("/post-property")}
+                // onClick={() => navigate("/post-property")}
+                onClick={() => setShowPopup(true)}
               >
                 Post Your Property
               </button>
@@ -52,6 +55,38 @@ const PostPropertySection = () => {
           </div>
 
         </div>
+
+        {showPopup && (
+  <div className="popup-overlay">
+    <div className="popup-box">
+      <h3>What would you like to do?</h3>
+      <p>Select an option to continue</p>
+
+      <div className="popup-buttons">
+        <button
+          className="popup-btn"
+          onClick={() => navigate("/rent-lead")}
+        >
+          Rent Your Property
+        </button>
+
+        <button
+          className="popup-btn"
+          onClick={() => navigate("/seller-lead")}
+        >
+          Sell Your Property
+        </button>
+      </div>
+
+      <button
+        className="popup-close"
+        onClick={() => setShowPopup(false)}
+      >
+        ✕
+      </button>
+    </div>
+  </div>
+)}
 
       </div>
 
