@@ -356,6 +356,47 @@
   flex: 1;
 }
 
+/* --- CALL SECTION --- */
+.call-section {
+  margin-top: 30px;
+  text-align: center;
+}
+
+/* NEW: flex container for buttons */
+.call-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.divider {
+  margin-bottom: 10px;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.call-btn {
+  flex: 1; /* makes both buttons equal width */
+  padding: 14px;
+  background-color: #25D366;
+  color: white;
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: 600;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.call-btn:hover {
+  background-color: #128C7E;
+}
+
+.availability {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-top: 10px;
+}
+
 /* --- RESPONSIVE DESIGN --- */
 @media (max-width: 768px) {
   .hero-content h1 { font-size: 2.5rem; }
