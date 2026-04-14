@@ -169,18 +169,11 @@ export default function CommissionPlan() {
             <button type="submit" className="commissionbtn-submit">Submit Confidential Inquiry</button>
           </form>
 
-          {/* <div className="call-section">
-            <div className="divider">— OR — Prefer to talk directly?</div>
-            <a href="tel:+917721885035" className="call-btn">📞 Call Sam (Owner)</a>
-            <a href="tel:+1987654321" className="call-btn">📞 Call John (Agent)</a>
-            <p className="availability">Available 9 AM – 7 PM</p>
-          </div> */}
-
           <div className="call-section">
   <div className="divider">— OR — Prefer to talk directly?</div>
 
   <div className="call-buttons">
-    <a href="tel:+917721885035" className="call-btn">
+    <a href="tel:+1123456789" className="call-btn">
       📞 Call Sam
     </a>
 
