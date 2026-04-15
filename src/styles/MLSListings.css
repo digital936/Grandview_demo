@@ -1,0 +1,81 @@
+.mls-page {
+  width: 100%;
+  background: #f8f9fb;
+}
+
+/* HEADER */
+.mls-header {
+  text-align: center;
+  padding: 30px 20px;
+  background: #0f172a;
+  color: white;
+}
+
+.mls-header h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.mls-header p {
+  font-size: 16px;
+  opacity: 0.8;
+}
+
+/* CONTACT BUTTONS (STICKY) */
+.contact-buttons {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 999;
+}
+
+.btn {
+  padding: 12px 16px;
+  border-radius: 30px;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* BUTTON COLORS */
+.call {
+  background: #2563eb;
+}
+
+.whatsapp {
+  background: #25d366;
+}
+
+.email {
+  background: #ef4444;
+}
+
+/* MLS CONTAINER */
+.mls-container {
+  width: 100%;
+  height: calc(100vh - 120px);
+}
+
+.mls-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .mls-header h1 {
+    font-size: 24px;
+  }
+
+  .btn {
+    font-size: 12px;
+    padding: 10px 14px;
+  }
+}

@@ -91,7 +91,7 @@ function Navbar() {
   </div>
 </div>
   <Link to="/agents" onClick={closeMenu}>Agents</Link>
-  <Link to="/commission-plan" onClick={closeMenu}>Join Us</Link>
+  <Link to="/commission-plan" onClick={closeMenu}>Join Our Team</Link>
   
   <Link to="/about" onClick={closeMenu}>About Us</Link>
   <Link to="/contact" onClick={closeMenu}>Contact Us</Link>

@@ -79,7 +79,7 @@ const PostPropertySection = () => {
       </div>
 
       <button
-        className="popup-close"
+        className="postproperty-popup-close"
         onClick={() => setShowPopup(false)}
       >
         ✕

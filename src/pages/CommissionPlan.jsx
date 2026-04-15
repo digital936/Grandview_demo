@@ -3,8 +3,16 @@ import { useState } from "react";
 import { supabase } from "../lib/supabase";
 import "../styles/CommissionPlan.css";
 
+
 export default function CommissionPlan() {
+  const [displayDate, setDisplayDate] = useState("");
   const [selectedPlan, setSelectedPlan] = useState(null);
+  const [showSchedule, setShowSchedule] = useState(false);
+const [selectedPerson, setSelectedPerson] = useState("");
+const [scheduleData, setScheduleData] = useState({
+  date: "",
+  time: ""
+});
   const [formData, setFormData] = useState({
     fullname: "",
     email: "",
@@ -16,6 +24,29 @@ export default function CommissionPlan() {
     brokerage: "",
     zip: ""
   });
+
+  // Convert YYYY-MM-DD → MM-DD-YYYY (for display)
+const formatToUSDate = (dateString) => {
+  if (!dateString) return "";
+  const [year, month, day] = dateString.split("-");
+  return `${month}-${day}-${year}`;
+};
+
+// Convert MM-DD-YYYY → YYYY-MM-DD (for DB)
+const parseToISODate = (value) => {
+  const [month, day, year] = value.split("-");
+  if (!month || !day || !year) return "";
+  return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+};
+
+// Auto format while typing
+const formatDateInput = (value) => {
+  const digits = value.replace(/\D/g, "").slice(0, 8);
+
+  if (digits.length <= 2) return digits;
+  if (digits.length <= 4) return `${digits.slice(0, 2)}-${digits.slice(2)}`;
+  return `${digits.slice(0, 2)}-${digits.slice(2, 4)}-${digits.slice(4)}`;
+};
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -172,7 +203,7 @@ export default function CommissionPlan() {
           <div className="call-section">
   <div className="divider">— OR — Prefer to talk directly?</div>
 
-  <div className="call-buttons">
+  {/* <div className="call-buttons">
     <a href="tel:+1123456789" className="call-btn">
       📞 Call Sam
     </a>
@@ -180,12 +211,112 @@ export default function CommissionPlan() {
     <a href="tel:+1987654321" className="call-btn">
       📞 Call John
     </a>
-  </div>
+  </div> */}
+
+  <div className="call-buttons">
+  <button
+    className="call-btn"
+    onClick={() => {
+      setSelectedPerson("Sam");
+      setShowSchedule(true);
+    }}
+  >
+    📅 Schedule with Sam
+  </button>
+
+  <button
+    className="call-btn"
+    onClick={() => {
+      setSelectedPerson("John");
+      setShowSchedule(true);
+    }}
+  >
+    📅 Schedule with John
+  </button>
+</div>
 
   <p className="availability">Available 9 AM – 7 PM</p>
 </div>
         </div>
       </section>
+
+      {showSchedule && (
+  <div className="schedule-overlay">
+    <div className="schedule-box">
+      <h3 className="schedule-title">
+        Schedule a Call with {selectedPerson}
+      </h3>
+
+    
+
+<input
+  className="schedule-input"
+  type="text"
+  placeholder="MM-DD-YYYY"
+  value={displayDate}
+  onChange={(e) => {
+    const formatted = formatDateInput(e.target.value);
+    setDisplayDate(formatted);
+
+    const isoValue = parseToISODate(formatted);
+
+    if (isoValue) {
+      setScheduleData({
+        ...scheduleData,
+        date: isoValue
+      });
+    }
+  }}
+/>
+
+      <input
+        className="schedule-input"
+        type="time"
+        value={scheduleData.time}
+        onChange={(e) =>
+          setScheduleData({ ...scheduleData, time: e.target.value })
+        }
+      />
+
+      <div className="schedule-actions">
+        <button
+          className="schedule-confirm"
+          onClick={async () => {
+            const { error } = await supabase
+              .from("scheduled_calls")
+              .insert([
+                {
+                  name: formData.fullname,
+                  email: formData.email,
+                  phone: formData.phone,
+                  person: selectedPerson,
+                  date: scheduleData.date,
+                  time: scheduleData.time
+                }
+              ]);
+
+            if (error) {
+              alert("Error scheduling call ❌");
+            } else {
+              alert("Call scheduled successfully ✅");
+              setShowSchedule(false);
+              setScheduleData({ date: "", time: "" });
+            }
+          }}
+        >
+          Confirm Booking
+        </button>
+
+        <button
+          className="schedule-cancel"
+          onClick={() => setShowSchedule(false)}
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
 
       {/* 5. PLAN MODAL */}
       {selectedPlan && (

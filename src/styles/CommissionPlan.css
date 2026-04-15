@@ -407,3 +407,114 @@
   .radio-group .options { flex-direction: column; gap: 10px; }
   .contact-wrapper { padding: 30px 20px; }
 }
+
+/* ===== OVERLAY ===== */
+.schedule-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+/* ===== BOX ===== */
+.schedule-box {
+  background: #ffffff;
+  padding: 30px 25px;
+  border-radius: 18px;
+  width: 90%;
+  max-width: 420px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  animation: scheduleFade 0.3s ease;
+}
+
+/* ===== TITLE ===== */
+.schedule-title {
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #1e293b;
+  font-weight: 600;
+}
+
+/* ===== INPUTS ===== */
+.schedule-input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.schedule-input:focus {
+  border-color: #8b5e3c;
+  box-shadow: 0 0 0 2px rgba(139, 94, 60, 0.15);
+}
+
+/* ===== BUTTON GROUP ===== */
+.schedule-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* ===== CONFIRM BUTTON ===== */
+.schedule-confirm {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: #8b5e3c;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.schedule-confirm:hover {
+  background: #6f472c;
+}
+
+/* ===== CANCEL BUTTON ===== */
+.schedule-cancel {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: white;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.schedule-cancel:hover {
+  background: #f1f5f9;
+}
+
+/* ===== ANIMATION ===== */
+@keyframes scheduleFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 480px) {
+  .schedule-actions {
+    flex-direction: column;
+  }
+}

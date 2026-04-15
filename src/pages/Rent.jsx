@@ -3,185 +3,89 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import ScheduleTourModal from "../buttons/ScheduleTourModal";
-import Footer from "../components/Footer";
 import "../styles/Rent.css";
 
 export default function Rent() {
   const [properties, setProperties] = useState([]);
-  const [activeImage, setActiveImage] = useState({});
   const [tourProperty, setTourProperty] = useState(null);
-  const [showCallPopup, setShowCallPopup] = useState(null);
+  const [callPopup, setCallPopup] = useState(null);
 
   const navigate = useNavigate();
-  const isMobile = () => window.innerWidth <= 768;
 
   useEffect(() => {
     fetchProperties();
   }, []);
 
-  // Mobile Auto Slider
-  useEffect(() => {
-    if (!isMobile()) return;
-
-    const interval = setInterval(() => {
-      setActiveImage((prev) => {
-        const updated = { ...prev };
-
-        properties.forEach((property) => {
-          const images = getGalleryImages(property);
-          if (images.length <= 1) return;
-
-          const current = updated[property.id] || 0;
-          updated[property.id] = (current + 1) % images.length;
-        });
-
-        return updated;
-      });
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [properties]);
-
   async function fetchProperties() {
     const { data } = await supabase
       .from("properties")
       .select("*")
-      .eq("status", "available") // ⭐ This hides rented properties
+      .eq("status", "available")
       .order("created_at", { ascending: false });
 
-    setProperties(data);
+    setProperties(data || []);
   }
 
-  // Same logic as PropertyDetails
-  function getGalleryImages(property) {
-    if (!property) return [];
-
+  function getImages(property) {
+    if (!property?.images) return [];
     if (Array.isArray(property.images)) return property.images;
-
-    if (typeof property.images === "string") {
-      try {
-        const parsed = JSON.parse(property.images);
-        return Array.isArray(parsed) ? parsed : [];
-      } catch {
-        return [];
-      }
+    try {
+      return JSON.parse(property.images);
+    } catch {
+      return [];
     }
-
-    return [];
   }
-
-  const nextImage = (e, property) => {
-    e.stopPropagation();
-    const images = getGalleryImages(property);
-
-    setActiveImage((prev) => {
-      const current = prev[property.id] || 0;
-      return { ...prev, [property.id]: (current + 1) % images.length };
-    });
-  };
-
-  const prevImage = (e, property) => {
-    e.stopPropagation();
-    const images = getGalleryImages(property);
-
-    setActiveImage((prev) => {
-      const current = prev[property.id] || 0;
-      return {
-        ...prev,
-        [property.id]: (current - 1 + images.length) % images.length,
-      };
-    });
-  };
 
   return (
-    <>
-    <div className="rent-page">
-      <h1 className="rent-title">Homes for Rent</h1>
+    <div className="rm-page">
+      <h1 className="rm-title">Homes for Rent</h1>
 
-      <div className="property-grid">
-        {properties.map((property) => {
-          const images = getGalleryImages(property);
-          const current = activeImage[property.id] || 0;
+      <div className="rm-grid">
+        {properties.map((p) => {
+          const images = getImages(p);
 
           return (
             <div
-              key={property.id}
-              className="rent-property-card"
-              onClick={() => navigate(`/property/${property.id}`)}
+              key={p.id}
+              className="rm-card"
+              onClick={() => navigate(`/property/${p.id}`)}
             >
-              <div className="rent-card-image">
-                {images.length > 0 ? (
-                  <img src={images[current]} alt="property" />
-                ) : (
-                  <div className="no-image">No Image</div>
-                )}
+              <div className="rm-img-wrap">
+                <img src={images[0]} alt="" />
 
-                <div className="price-tag">
-                  ${Number(property.price).toLocaleString()}
+                <div className="rm-price">
+                  ${Number(p.price).toLocaleString()}/mo
                 </div>
-
-                {!isMobile() && images.length > 1 && (
-                  <>
-                    <button
-                      className="slider-btn left"
-                      onClick={(e) => prevImage(e, property)}
-                    >
-                      ‹
-                    </button>
-
-                    <button
-                      className="slider-btn right"
-                      onClick={(e) => nextImage(e, property)}
-                    >
-                      ›
-                    </button>
-                  </>
-                )}
-
-                {images.length > 1 && (
-                  <div className="image-dots">
-                    {images.map((_, i) => (
-                      <span
-                        key={i}
-                        className={
-                          i === current ? "dot active-dot" : "dot"
-                        }
-                      />
-                    ))}
-                  </div>
-                )}
               </div>
 
-              <div className="card-content">
-                <h3>{property.title}</h3>
+              <div className="rm-body">
+                <h3 className="rm-specs">
+                  {p.beds} bd | {p.baths} ba | {p.sqft} sqft
+                </h3>
 
-                <p className="card-address">
-                  {property.address}, {property.city}, {property.zipcode}
+                <p className="rm-address">
+                  {p.address}, {p.city}
                 </p>
 
-                <div className="rent-card-actions">
+                <div className="rm-actions">
                   <button
-                    className="rentcall-btn"
+                    className="rm-btn-outline"
                     onClick={(e) => {
                       e.stopPropagation();
-                      if (isMobile()) {
-                        window.location.href = "tel:+1 (479) 995-9165";
-                      } else {
-                        setShowCallPopup(property);
-                      }
+                      setTourProperty(p);
                     }}
                   >
-                    Call
+                    Request a Tour
                   </button>
 
                   <button
-                    className="tour-btn"
+                    className="rm-btn-primary"
                     onClick={(e) => {
                       e.stopPropagation();
-                      setTourProperty(property);
+                      setCallPopup(p);
                     }}
                   >
-                    Request Tour
+                    Call
                   </button>
                 </div>
               </div>
@@ -190,16 +94,13 @@ export default function Rent() {
         })}
       </div>
 
-      {/* Call Popup */}
-      {showCallPopup && (
-        <div
-          className="rentcall-popup-overlay"
-          onClick={() => setShowCallPopup(null)}
-        >
-          <div className="rentcall-popup" onClick={(e) => e.stopPropagation()}>
+      {/* CALL POPUP */}
+      {callPopup && (
+        <div className="rm-popup-overlay" onClick={() => setCallPopup(null)}>
+          <div className="rm-popup" onClick={(e) => e.stopPropagation()}>
             <h3>Contact Agent</h3>
-            <p>{showCallPopup.address}</p>
-            <a href="tel:+1 (479) 995-9165" className="popup-call-btn">
+            <p>{callPopup.address}</p>
+            <a href="tel:+14799959165" className="rm-call-btn">
               Call Now
             </a>
           </div>
@@ -213,7 +114,5 @@ export default function Rent() {
         />
       )}
     </div>
-    <Footer />
-    </>
   );
 }
