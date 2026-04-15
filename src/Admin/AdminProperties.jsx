@@ -13,6 +13,7 @@ export default function AdminProperties() {
   const [showForm, setShowForm] = useState(false);
   const [tourCounts, setTourCounts] = useState({});
   const [viewMode, setViewMode] = useState("table"); // "table" or "grid"
+  const [showArchived, setShowArchived] = useState(false);
 
   // --- NEW: Filter States ---
   const [searchTerm, setSearchTerm] = useState("");
@@ -42,15 +43,38 @@ export default function AdminProperties() {
   useEffect(() => {
     fetchProperties();
     fetchTourCounts();
-  }, []);
+  }, [showArchived]);
 
   async function fetchProperties() {
     const { data } = await supabase
       .from("properties")
       .select("*")
+      .eq("archived", showArchived)
       .order("created_at", { ascending: false });
     setProperties(data || []);
   }
+
+  async function handleArchive(id) {
+  if (!window.confirm("Archive this property?")) return;
+
+  await supabase
+    .from("properties")
+    .update({ archived: true })
+    .eq("id", id);
+
+  fetchProperties();
+}
+
+async function handleActivate(id) {
+  if (!window.confirm("Activate this property?")) return;
+
+  await supabase
+    .from("properties")
+    .update({ archived: false })
+    .eq("id", id);
+
+  fetchProperties();
+}
 
   // --- NEW: Filtering Logic ---
   const filteredProperties = properties.filter((p) => {
@@ -182,7 +206,7 @@ export default function AdminProperties() {
           <div className="header-actions">
             <button className="btn btn-export" onClick={exportToExcel}>Export</button>
             <button className="btn btn-add" onClick={openAddForm}>+ Add Property</button>
-            <button className="btn btn-secondary" onClick={() => setViewMode(viewMode === "table" ? "grid" : "table")}> {viewMode === "table" ? "Grid View" : "Table View"}</button>
+            <button className="btn btn-view" onClick={() => setViewMode(viewMode === "table" ? "grid" : "table")}> {viewMode === "table" ? "Grid View" : "Table View"}</button>
           </div>
         </div>
 
@@ -210,88 +234,22 @@ export default function AdminProperties() {
               <option value="rent">For Rent</option>
               <option value="sale">For Sale</option>
             </select>
+
+            {/* <button
+  className="btn-archive-view"
+  onClick={() => setShowArchived(!showArchived)}
+>
+  {showArchived ? "Active Properties" : "Archived Properties"}
+</button> */}
+
+<button
+  className={`btn-archive-view ${showArchived ? "active" : ""}`}
+  onClick={() => setShowArchived(!showArchived)}
+>
+  {showArchived ? "Active Properties" : "Archived Properties"}
+</button>
           </div>
         </div>
-
-        
-        {/* <div className="table-wrap">
-          <table className="property-table">
-            <thead>
-              <tr>
-                <th style={{ width: 72 }}>Image</th>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Beds / Baths</th>
-                <th>Sqft</th>
-                <th>City</th>
-                <th>Status</th>
-                <th>Category</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredProperties.length === 0 && (
-                <tr>
-                  <td colSpan={9} className="table-empty">No properties found matching your filters.</td>
-                </tr>
-              )}
-              
-              {filteredProperties.map((p) => (
-                <tr key={p.id}>
-                  <td>
-                    <img
-                      src={p.imageUrl || "https://placehold.co/60x45/f1f5f9/94a3b8?text=—"}
-                      alt={p.title}
-                      className="table-img"
-                    />
-                  </td>
-                  <td>
-                    
-                    <div className="prop-title-wrapper">
-    
-                        <div className="prop-title">{p.title}</div>
-                                {tourCounts[p.id] > 0 && (
-                                  <div className="tour-badge">
-                                    🔔 {tourCounts[p.id]}
-                                  </div>
-                                )}
-
-                              </div>
-                    
-                    <div className="prop-address">{p.address}</div>
-                  </td>
-                  <td className="price-cell">${Number(p.price).toLocaleString()}</td>
-                  <td className="center-cell">{p.beds} / {p.baths}</td>
-                  <td className="center-cell">{p.sqft ? Number(p.sqft).toLocaleString() : "—"}</td>
-                  <td>{p.city}</td>
-                  
-                  
-                  <td>
-                    <span 
-                      className={`badge badge-${p.status ? String(p.status).toLowerCase().replace(/\s+/g, '-') : 'default'}`}
-                    >
-                      {p.status || "No Status"}
-                    </span>
-                  </td>
-                  
-                  
-                  <td>
-                    <span className="badge badge-category">
-                      {p.category || "No Category"}
-                    </span>
-                  </td>
-                  
-                  <td>
-                    <div className="actions-cell">
-                      <button className="btn-action btn-edit" onClick={() => handleEdit(p)}>Edit</button>
-                      <button className="btn-action btn-delete" onClick={() => handleDelete(p.id)}>Delete</button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div> */}
 
         {viewMode === "table" ? (
 
@@ -345,15 +303,26 @@ export default function AdminProperties() {
               </span>
             </td>
 
-            {/* <td>
-              <button onClick={() => handleEdit(p)}>Edit</button>
-              <button onClick={() => handleDelete(p.id)}>Delete</button>
-            </td> */}
-
             <td>
                     <div className="actions-cell">
                       <button className="btn-action btn-edit" onClick={() => handleEdit(p)}>Edit</button>
                       <button className="btn-action btn-delete" onClick={() => handleDelete(p.id)}>Delete</button>
+                      {/* <button className="btn-action btn-archive" onClick={() => handleArchive(p.id)}>Archive</button> */}
+                      {showArchived ? (
+  <button
+    className="btn-action btn-activate"
+    onClick={() => handleActivate(p.id)}
+  >
+    Activate
+  </button>
+) : (
+  <button
+    className="btn-action btn-archive"
+    onClick={() => handleArchive(p.id)}
+  >
+    Archive
+  </button>
+)}
                     </div>
                   </td>
 
@@ -396,6 +365,23 @@ export default function AdminProperties() {
           <div className="card-actions">
             <button className="btn-edit" onClick={() => handleEdit(p)}>Edit</button>
             <button className="btn-delete" onClick={() => handleDelete(p.id)}>Delete</button>
+            {/* <button className="btn-archive" onClick={() => handleArchive(p.id)}>Archive</button> */}
+
+            {showArchived ? (
+  <button
+    className="btn-action btn-activate"
+    onClick={() => handleActivate(p.id)}
+  >
+    Activate
+  </button>
+) : (
+  <button
+    className="btn-action btn-archive"
+    onClick={() => handleArchive(p.id)}
+  >
+    Archive
+  </button>
+)}
           </div>
         </div>
 
@@ -510,7 +496,7 @@ export default function AdminProperties() {
 
                 {/* ACTIONS */}
                 <div className="form-actions">
-                  <button type="button" className="btn btn-secondary" onClick={() => setShowForm(false)}>
+                  <button type="button" className="btn btn-view" onClick={() => setShowForm(false)}>
                     Cancel
                   </button>
                   <button type="submit" className="btn btn-add">

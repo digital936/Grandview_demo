@@ -42,6 +42,7 @@ import RentLeadFlow from "./components/Rentleadflow";
 import SellerLeadFlow from "./components/sellerleadflow";
 import SellerLeads from "./Admin/adminSellerLeads";
 import RentLeads from "./Admin/adminRentLeads";
+import AdminScheduledCalls from "./Admin/admincalls";
 
 /* 👇 Wrapper to hide navbar on admin pages */
 function Layout() {
@@ -166,6 +167,12 @@ function Layout() {
         <Route path="/admin/seller-leads" element={
           <ProtectedRoute>
             <SellerLeads />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/admin/scheduled-calls" element={
+          <ProtectedRoute>
+            <AdminScheduledCalls />
           </ProtectedRoute>
         } />
 

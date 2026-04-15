@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
+import AdminNavbar from "./AdminNavbar";
 
 const RentLeads = () => {
   const [rentLeads, setRentLeads] = useState([]);
@@ -9,20 +10,27 @@ const RentLeads = () => {
     fetchLeads();
   }, []);
 
+
   const fetchLeads = async () => {
-    const { data, error } = await supabase
+  const { data, error } = await supabase
+    .from("rent_leads")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error(error);
+  } else {
+    setRentLeads(data);
+
+    // ✅ MARK ALL AS READ
+    await supabase
       .from("rent_leads")
-      .select("*")
-      .order("created_at", { ascending: false });
+      .update({ is_read: true })
+      .eq("is_read", false);
+  }
 
-    if (error) {
-      console.error(error);
-    } else {
-      setRentLeads(data);
-    }
-
-    setLoading(false);
-  };
+  setLoading(false);
+};
 
   // 🗑️ DELETE FUNCTION
   const handleDelete = async (id) => {
@@ -46,6 +54,8 @@ const RentLeads = () => {
   if (loading) return <p>Loading Rent Leads...</p>;
 
   return (
+    <>
+      <AdminNavbar />
     <div className="admin-page">
       <h2>Rent Leads</h2>
 
@@ -108,6 +118,7 @@ const RentLeads = () => {
         </tbody>
       </table>
     </div>
+    </>
   );
 };
 

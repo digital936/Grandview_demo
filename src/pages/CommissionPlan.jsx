@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { supabase } from "../lib/supabase";
 import "../styles/CommissionPlan.css";
+import Footer from "../components/Footer";
 
 
 export default function CommissionPlan() {
@@ -10,6 +11,9 @@ export default function CommissionPlan() {
   const [showSchedule, setShowSchedule] = useState(false);
 const [selectedPerson, setSelectedPerson] = useState("");
 const [scheduleData, setScheduleData] = useState({
+  fullname: "",
+  email: "",
+  phone: "",
   date: "",
   time: ""
 });
@@ -25,11 +29,10 @@ const [scheduleData, setScheduleData] = useState({
     zip: ""
   });
 
-  // Convert YYYY-MM-DD → MM-DD-YYYY (for display)
-const formatToUSDate = (dateString) => {
-  if (!dateString) return "";
-  const [year, month, day] = dateString.split("-");
-  return `${month}-${day}-${year}`;
+const formatToUSDate = (dateStr) => {
+  if (!dateStr) return "";
+  const date = new Date(dateStr);
+  return new Intl.DateTimeFormat("en-US").format(date); // MM/DD/YYYY
 };
 
 // Convert MM-DD-YYYY → YYYY-MM-DD (for DB)
@@ -90,6 +93,7 @@ const formatDateInput = (value) => {
   };
 
   return (
+    <>
     <div className="join-page-container">
       
       {/* 1. HERO SECTION */}
@@ -203,15 +207,6 @@ const formatDateInput = (value) => {
           <div className="call-section">
   <div className="divider">— OR — Prefer to talk directly?</div>
 
-  {/* <div className="call-buttons">
-    <a href="tel:+1123456789" className="call-btn">
-      📞 Call Sam
-    </a>
-
-    <a href="tel:+1987654321" className="call-btn">
-      📞 Call John
-    </a>
-  </div> */}
 
   <div className="call-buttons">
   <button
@@ -247,25 +242,61 @@ const formatDateInput = (value) => {
         Schedule a Call with {selectedPerson}
       </h3>
 
-    
+      <input
+  className="schedule-input"
+  type="text"
+  placeholder="Full Name"
+  value={formData.fullname}
+  onChange={(e) =>
+    setFormData({ ...formData, fullname: e.target.value })
+  }
+/>
 
+<input
+  className="schedule-input"
+  type="email"
+  placeholder="Email Address"
+  value={formData.email}
+  onChange={(e) =>
+    setFormData({ ...formData, email: e.target.value })
+  }
+/>
+
+<input
+  className="schedule-input"
+  type="tel"
+  placeholder="Phone Number"
+  value={formData.phone}
+  onChange={(e) =>
+    setFormData({ ...formData, phone: e.target.value })
+  }
+/>
+
+{/* Visible US format input */}
 <input
   className="schedule-input"
   type="text"
   placeholder="MM-DD-YYYY"
-  value={displayDate}
-  onChange={(e) => {
-    const formatted = formatDateInput(e.target.value);
-    setDisplayDate(formatted);
+  value={formatToUSDate(scheduleData.date)}
+  readOnly
+  onClick={() => document.getElementById("scheduleHiddenDate").showPicker()}
+/>
 
-    const isoValue = parseToISODate(formatted);
-
-    if (isoValue) {
-      setScheduleData({
-        ...scheduleData,
-        date: isoValue
-      });
-    }
+{/* Hidden real date picker */}
+<input
+  id="scheduleHiddenDate"
+  type="date"
+  value={scheduleData.date}
+  onChange={(e) =>
+    setScheduleData({
+      ...scheduleData,
+      date: e.target.value
+    })
+  }
+  style={{
+    position: "absolute",
+    opacity: 0,
+    pointerEvents: "none"
   }}
 />
 
@@ -281,28 +312,64 @@ const formatDateInput = (value) => {
       <div className="schedule-actions">
         <button
           className="schedule-confirm"
-          onClick={async () => {
-            const { error } = await supabase
-              .from("scheduled_calls")
-              .insert([
-                {
-                  name: formData.fullname,
-                  email: formData.email,
-                  phone: formData.phone,
-                  person: selectedPerson,
-                  date: scheduleData.date,
-                  time: scheduleData.time
-                }
-              ]);
+          // onClick={async () => {
+          //   const { error } = await supabase
+          //     .from("scheduled_calls")
+          //     .insert([
+          //       {
+          //         name: formData.fullname,
+          //         email: formData.email,
+          //         phone: formData.phone,
+          //         person: selectedPerson,
+          //         date: scheduleData.date,
+          //         time: scheduleData.time
+          //       }
+          //     ]);
 
-            if (error) {
-              alert("Error scheduling call ❌");
-            } else {
-              alert("Call scheduled successfully ✅");
-              setShowSchedule(false);
-              setScheduleData({ date: "", time: "" });
-            }
-          }}
+          //   if (error) {
+          //     alert("Error scheduling call ❌");
+          //   } else {
+          //     alert("Call scheduled successfully ✅");
+          //     setShowSchedule(false);
+          //     setScheduleData({ date: "", time: "" });
+          //   }
+          // }}
+
+          onClick={async () => {
+  if (
+    !formData.fullname ||
+    !formData.email ||
+    !formData.phone ||
+    !scheduleData.date ||
+    !scheduleData.time
+  ) {
+    alert("Please fill all fields ⚠️");
+    return;
+  }
+
+  const { data, error } = await supabase
+    .from("scheduled_calls")
+    .insert([
+      {
+        name: formData.fullname,
+        email: formData.email,
+        phone: formData.phone,
+        person: selectedPerson,
+        date: scheduleData.date,
+        time: scheduleData.time,
+      },
+    ])
+    .select(); // 👈 IMPORTANT for debugging
+
+  if (error) {
+    console.error("FULL ERROR:", error);
+    alert(error.message); // 👈 shows exact problem
+  } else {
+    alert("Call scheduled successfully ✅");
+    setShowSchedule(false);
+    setScheduleData({ date: "", time: "" });
+  }
+}}
         >
           Confirm Booking
         </button>
@@ -345,5 +412,7 @@ const formatDateInput = (value) => {
       )}
 
     </div>
+    <Footer />
+    </>
   );
 }

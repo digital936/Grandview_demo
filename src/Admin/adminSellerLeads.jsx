@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import "../Admin/adminSellerLeads.css";
+import AdminNavbar from "./AdminNavbar";
 
 const SellerLeads = () => {
   const [sellerLeads, setSellerLeads] = useState([]);
@@ -10,20 +11,27 @@ const SellerLeads = () => {
     fetchLeads();
   }, []);
 
+
   const fetchLeads = async () => {
-    const { data, error } = await supabase
+  const { data, error } = await supabase
+    .from("seller_leads")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error(error);
+  } else {
+    setSellerLeads(data);
+
+    // ✅ MARK AS READ
+    await supabase
       .from("seller_leads")
-      .select("*")
-      .order("created_at", { ascending: false });
+      .update({ is_read: true })
+      .eq("is_read", false);
+  }
 
-    if (error) {
-      console.error(error);
-    } else {
-      setSellerLeads(data);
-    }
-
-    setLoading(false);
-  };
+  setLoading(false);
+};
 
   // 🗑️ DELETE FUNCTION
   const handleDelete = async (id) => {
@@ -47,8 +55,10 @@ const SellerLeads = () => {
   if (loading) return <p>Loading Seller Leads...</p>;
 
   return (
-    <div className="admin-page">
-      <h2>Seller Leads</h2>
+    <>
+      <AdminNavbar />
+      <div className="admin-page">
+        <h2>Seller Leads</h2>
 
       <table className="admin-table">
         <thead>
@@ -118,6 +128,7 @@ const SellerLeads = () => {
         </tbody>
       </table>
     </div>
+    </>
   );
 };
 

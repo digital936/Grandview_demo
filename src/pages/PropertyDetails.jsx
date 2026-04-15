@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import ScheduleTourModal from "../buttons/ScheduleTourModal";
 import "../styles/PropertyDetails.css";
+import Footer from "../components/Footer";
 
 export default function PropertyDetails() {
   const { id } = useParams();
@@ -50,6 +51,7 @@ export default function PropertyDetails() {
   const displayImages = images.slice(0, 5);
 
   return (
+    <>
     <div className="pm-page">
 
       {/* 🔥 ZILLOW-STYLE IMAGE GRID */}
@@ -211,5 +213,7 @@ export default function PropertyDetails() {
       )}
 
     </div>
+    <Footer />
+    </>
   );
 }

@@ -1,0 +1,31 @@
+.admin-page {
+  padding: 20px;
+}
+
+.calls-table {
+  margin-top: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+}
+
+.calls-header,
+.calls-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  padding: 12px;
+  font-size: 14px;
+}
+
+.calls-header {
+  background: #f5f5f5;
+  font-weight: 600;
+}
+
+.calls-row {
+  border-top: 1px solid #eee;
+}
+
+.calls-row:hover {
+  background: #fafafa;
+}

@@ -117,3 +117,126 @@
   text-align: center;
   border-radius: 6px;
 }
+
+/* =========================================
+   RENT PAGE FILTER BAR
+========================================= */
+.rm-filter-bar {
+  background: #ffffff;
+  border-bottom: 1px solid #e8e9ea;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 15px 0;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.rm-filter-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.rm-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rm-filter-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.rm-filter-group select {
+  padding: 10px 35px 10px 15px;
+  font-size: 1rem;
+  border: 1px solid #d1d1d5;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #2a2a33;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%232a2a33%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px top 50%;
+  background-size: 12px auto;
+  transition: border-color 0.2s;
+}
+
+.rm-filter-group select:hover,
+.rm-filter-group select:focus {
+  outline: none;
+  border-color: #006aff;
+}
+
+.rm-reset-btn {
+  margin-top: 18px;
+  background: none;
+  border: none;
+  color: #006aff;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 0.95rem;
+}
+
+.rm-reset-btn:hover {
+  text-decoration: underline;
+}
+
+/* Header Tweaks */
+.rm-header-wrapper {
+  display: flex;
+  align-items: baseline;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.rm-results-count {
+  color: #555;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Empty State */
+.rm-no-results {
+  text-align: center;
+  padding: 60px 20px;
+  background: #f9f9fb;
+  border-radius: 8px;
+  border: 1px dashed #d1d1d5;
+  margin-bottom: 40px;
+}
+
+.rm-no-results h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.3rem;
+}
+
+.rm-no-results p {
+  color: #555;
+  margin: 0;
+}
+
+/* Responsive Filters */
+@media (max-width: 768px) {
+  .rm-filter-container { gap: 12px; }
+  .rm-filter-group { flex: 1 1 calc(50% - 6px); }
+  .rm-filter-group select { width: 100%; }
+  .rm-reset-btn { width: 100%; text-align: right; margin-top: 0; }
+ .rm-header-wrapper { 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 5px; 
+  }
+}

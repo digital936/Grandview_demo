@@ -217,9 +217,9 @@ export default function AdminDashboard() {
           <Link to="/admin/contacts"><FaEnvelope /> Contact Messages {notifications.contacts > 0 && (
     <span className="badge">{notifications.contacts}</span>
   )}</Link>
-          <Link to="/admin/post-properties"><FaBuilding /> Management Inquiries {notifications.inquiries > 0 && (
+          {/* <Link to="/admin/post-properties"><FaBuilding /> Management Inquiries {notifications.inquiries > 0 && (
     <span className="badge">{notifications.inquiries}</span>
-  )}</Link>
+  )}</Link> */}
 
           <Link to="/admin/rent-leads"><FaBuilding /> Rent Leads {notifications.rentLeads > 0 && (
     <span className="badge">{notifications.rentLeads}</span>
@@ -234,6 +234,10 @@ export default function AdminDashboard() {
   )}</Link>
           <Link to="/admin/agent-applications"><FaChartLine /> Agent Applications {notifications.applications > 0 && (
     <span className="badge">{notifications.applications}</span>
+  )}</Link>
+
+  <Link to="/admin/scheduled-calls"><FaChartLine /> Scheduled Calls {notifications.tours > 0 && (
+    <span className="badge">{notifications.tours}</span>
   )}</Link>
         </nav>
 

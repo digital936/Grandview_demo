@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/RentLeadflow.css";
 import { supabase } from "../lib/supabase";
+import Footer from "../components/Footer";  
+
 
 // ✅ GLOBAL HELPERS (accessible everywhere)
 const formatToUSDate = (dateString) => {
@@ -178,18 +180,30 @@ const PropertyDetailsStep = ({ formData, errors, updateFormData, nextStep, prevS
 
       <div className="detail-input-group">
         <label>Available Date</label>
-        <input
+
+{/* Visible Input (US Format) */}
+<input
   type="text"
   placeholder="MM-DD-YYYY"
   className={`detail-input ${errors.availableDate ? 'error' : ''}`}
   value={formatToUSDate(formData.availableDate)}
-  onChange={(e) => {
-    const formatted = formatDateInput(e.target.value);
-    const isoValue = parseToISODate(formatted);
+  readOnly
+  onClick={() => document.getElementById("availableDatePicker").showPicker()}
+/>
 
-    updateFormData('availableDate', isoValue);
+{/* Hidden Real Date Picker */}
+<input
+  id="availableDatePicker"
+  type="date"
+  value={formData.availableDate}
+  onChange={(e) => updateFormData("availableDate", e.target.value)}
+  style={{
+    position: "absolute",
+    opacity: 0,
+    pointerEvents: "none"
   }}
 />
+
         {errors.availableDate && <div className="error-message">{errors.availableDate}</div>}
       </div>
     </div>
@@ -616,22 +630,6 @@ function RentLeadFlow() {
     window.scrollTo(0, 0);
   };
 
-//   const handleSubmit = async () => {
-//     if (validateStep(currentStep)) {
-//       setIsSubmitting(true);
-      
-//       // Simulate API submission
-//       await new Promise(resolve => setTimeout(resolve, 1500));
-      
-//       console.log("Rent Lead Submitted:", formData);
-//       setIsSubmitting(false);
-//       setIsComplete(true);
-//       window.scrollTo(0, 0);
-//     }
-//   };
-
-
-
 const handleSubmit = async () => {
   if (validateStep(currentStep) && !isSubmitting && !isComplete) {
     setIsSubmitting(true);
@@ -708,6 +706,7 @@ const formatDateInput = (value) => {
         <div className="wizard-container">
           <SuccessStep formData={formData} navigate={navigate} formatCurrency={formatCurrency} />
         </div>
+        <Footer />
       </div>
     );
   }
@@ -767,7 +766,9 @@ const formatDateInput = (value) => {
           <p>Questions? <a href="/contact">Contact our leasing team</a></p>
         </div>
       </div>
+      <Footer />
     </div>
+    
   );
 }
 

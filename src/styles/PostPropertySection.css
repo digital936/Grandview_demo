@@ -200,3 +200,30 @@ font-size:30px;
 .postproperty-popup-close:hover {
   color: #000;
 }
+
+/* 📱 MOBILE FIX */
+@media (max-width: 480px) {
+
+  .popup-box {
+    width: 90%;
+    max-width: 320px;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .popup-buttons {
+    flex-direction: column; /* stack buttons */
+  }
+
+  .popup-btn {
+    width: 100%;
+  }
+
+  /* ✅ FIX CLOSE BUTTON POSITION */
+  .postproperty-popup-close {
+    /* top: 10px !important; */
+    right: -130px !important;
+    font-size: 20px;
+  }
+
+}

@@ -124,9 +124,13 @@ const handleSubmit = async (e) => {
     <ul>
       <li><a href="/">Home</a></li>
       <li><a href="/rent">Lease</a></li>
+      <li><a href="/rent-lead">Rent Your Property</a></li>
+      <li><a href="/seller-lead">Sell Your Property</a></li>
+      <li><a href="/agents">Agents</a></li>
+      <li><a href="/commission-plan">Join Our Team</a></li>
       <li><a href="/about">About Us</a></li>
       <li><a href="/contact">Contact Us</a></li>
-      <li><a href="/agents">Agents</a></li>
+      
     </ul>
     </div>
 

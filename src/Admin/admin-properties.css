@@ -63,7 +63,7 @@
 
 .btn-add      { background: #2563eb; color: #fff; border-color: #2563eb; }
 .btn-export   { background: #fff; color: #374151; border-color: #d1d5db; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
-.btn-secondary { background: #fff; color: #374151; border-color: #d1d5db; }
+.btn-view { background: #fff; color: #374151; border-color: #d1d5db; }
 
 
 /* ── BULLETPROOF FILTER BAR ── */
@@ -136,7 +136,7 @@
 }
 
 .filter-selects select {
-  width: auto !important;
+  /* width: auto !important; */
   height: 40px !important;
   padding: 0 36px 0 12px !important;
   font-size: 13px !important;
@@ -782,3 +782,51 @@
 .card-actions .btn-delete:hover {
   background: #fee2e2;
 }
+
+/* ARCHIVE TOGGLE BUTTON */
+.btn-archive-view {
+  padding: 10px 16px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;   
+  min-width: 180px; 
+}
+
+/* HOVER */
+.btn-archive-view:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+  transform: translateY(-1px);
+}
+
+/* CLICK */
+.btn-archive-view:active {
+  transform: scale(0.96);
+}
+
+/* ACTIVE STATE (when showing archived) */
+.btn-archive-view.active {
+  background: linear-gradient(135deg, #1f2937, #374151);
+  color: #ffffff;
+  border-color: #1f2937;
+}
+
+/* ICON BEFORE TEXT */
+/* .btn-archive-view::before {
+  content: "📦";
+  font-size: 14px;
+} */
+
+/* CHANGE ICON WHEN ACTIVE */
+/* .btn-archive-view.active::before {
+  content: "📂";
+} */
