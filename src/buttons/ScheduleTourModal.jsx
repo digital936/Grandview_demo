@@ -128,7 +128,7 @@ const formatToUSDate = (dateStr) => {
       // alert("Your tour request has been successfully submitted.\nYou will receive a confirmation via email or text message shortly.");
       // closeModal();
 
-      alert("Thank you for submitting your self-tour request. Our team will review your details and get back to you shortly with the next steps.\n For immediate assistance, please contact Whitney [Insert Number] or Isha [Insert Number].");
+      alert("Thank you for submitting your self-tour request. Our team will review your details and get back to you shortly with the next steps.\n For immediate assistance, please contact Whitney +1 (479) 995-9165 or Isha +1 (479) 487-6983.");
       closeModal();
 
     } catch (err) {

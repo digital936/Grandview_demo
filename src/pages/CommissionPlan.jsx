@@ -312,28 +312,6 @@ const formatDateInput = (value) => {
       <div className="schedule-actions">
         <button
           className="schedule-confirm"
-          // onClick={async () => {
-          //   const { error } = await supabase
-          //     .from("scheduled_calls")
-          //     .insert([
-          //       {
-          //         name: formData.fullname,
-          //         email: formData.email,
-          //         phone: formData.phone,
-          //         person: selectedPerson,
-          //         date: scheduleData.date,
-          //         time: scheduleData.time
-          //       }
-          //     ]);
-
-          //   if (error) {
-          //     alert("Error scheduling call ❌");
-          //   } else {
-          //     alert("Call scheduled successfully ✅");
-          //     setShowSchedule(false);
-          //     setScheduleData({ date: "", time: "" });
-          //   }
-          // }}
 
           onClick={async () => {
   if (
@@ -365,7 +343,7 @@ const formatDateInput = (value) => {
     console.error("FULL ERROR:", error);
     alert(error.message); // 👈 shows exact problem
   } else {
-    alert("Call scheduled successfully ✅");
+    alert("Your Call scheduled successfully ✅.\nYou will receive a confirmation via email or text message shortly.");
     setShowSchedule(false);
     setScheduleData({ date: "", time: "" });
   }
