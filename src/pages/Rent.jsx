@@ -222,6 +222,8 @@ export default function Rent() {
       {tourProperty && (
         <ScheduleTourModal
           propertyId={tourProperty.id}
+          propertyName={tourProperty.address}
+          
           closeModal={() => setTourProperty(null)}
         />
       )}

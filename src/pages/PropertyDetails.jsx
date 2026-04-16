@@ -208,6 +208,7 @@ export default function PropertyDetails() {
       {showTour && (
         <ScheduleTourModal
           propertyId={property.id}
+          propertyName={property.address}
           closeModal={() => setShowTour(false)}
         />
       )}

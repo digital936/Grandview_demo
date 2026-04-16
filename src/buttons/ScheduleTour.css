@@ -232,3 +232,11 @@
   color: #0a0a0a;
   cursor: pointer;
 }
+
+.property-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 4px;
+  text-align: center;
+}

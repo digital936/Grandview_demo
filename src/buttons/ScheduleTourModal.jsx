@@ -4,7 +4,7 @@ import { supabase } from "../lib/supabase";
 import "./ScheduleTour.css";
 
 
-export default function ScheduleTourModal({ propertyId, closeModal }) {
+export default function ScheduleTourModal({ propertyId, propertyName, closeModal }) {
 
 
 const formatToUSDate = (dateStr) => {
@@ -144,7 +144,7 @@ const formatToUSDate = (dateStr) => {
       <div className="tour-box" onClick={(e) => e.stopPropagation()}>
 
         {/* <button className="close-btn" onClick={closeModal}>✕</button> */}
-
+        <h3 className="property-name">{propertyName}</h3>
         <h2>Schedule Property Tour</h2>
 
         <form onSubmit={handleSubmit}>

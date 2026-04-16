@@ -43,6 +43,7 @@ import SellerLeadFlow from "./components/sellerleadflow";
 import SellerLeads from "./Admin/adminSellerLeads";
 import RentLeads from "./Admin/adminRentLeads";
 import AdminScheduledCalls from "./Admin/admincalls";
+import MLSListings from "./components/MLSListings";
 
 /* 👇 Wrapper to hide navbar on admin pages */
 function Layout() {
@@ -75,6 +76,7 @@ function Layout() {
         <Route path="admin/properties/:type" element={<FilteredProperties />} />
         <Route path="/rent-lead" element={<RentLeadFlow />} />
         <Route path="/seller-lead" element={<SellerLeadFlow />} />
+        <Route path="/mls-listings" element={<MLSListings />} />
         
 
         {/* ===== ADMIN ROUTES ===== */}
