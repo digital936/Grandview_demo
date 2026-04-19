@@ -189,6 +189,22 @@ async function handleActivate(id) {
   setTourCounts(counts);
 }
 
+function getMainImage(property) {
+  // If main image URL exists → use it
+  if (property.imageUrl && property.imageUrl.trim() !== "") {
+    return property.imageUrl;
+  }
+
+  // Else try first image from images array
+  try {
+    const imgs = JSON.parse(property.images || "[]");
+    if (imgs.length > 0) return imgs[0];
+  } catch {}
+
+  // Fallback (optional placeholder)
+  return "https://via.placeholder.com/300x200?text=No+Image";
+}
+
   return (
     <>
       <AdminNavbar />
@@ -273,7 +289,8 @@ async function handleActivate(id) {
         {filteredProperties.map((p) => (
           <tr key={p.id}>
             <td>
-              <img src={p.imageUrl} alt={p.title} className="table-img" />
+              {/* <img src={p.imageUrl} alt={p.title} className="table-img" /> */}
+              <img src={getMainImage(p)} alt={p.title} className="table-img" />
             </td>
 
             <td>
@@ -340,7 +357,8 @@ async function handleActivate(id) {
       <div className="property-card" key={p.id}>
 
         <div className="card-image">
-          <img src={p.imageUrl} alt={p.title} />
+          {/* <img src={p.imageUrl} alt={p.title} /> */}
+          <img src={getMainImage(p)} alt={p.title} />
 
           {tourCounts[p.id] > 0 && (
             <div className="tour-badge">🔔 {tourCounts[p.id]}</div>
