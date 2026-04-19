@@ -204,9 +204,9 @@ async function handleActivate(id) {
             </p>
           </div>
           <div className="header-actions">
-            <button className="btn btn-export" onClick={exportToExcel}>Export</button>
+            <button className="admin btn-export" onClick={exportToExcel}>Export</button>
             <button className="btn btn-add" onClick={openAddForm}>+ Add Property</button>
-            <button className="btn btn-view" onClick={() => setViewMode(viewMode === "table" ? "grid" : "table")}> {viewMode === "table" ? "Grid View" : "Table View"}</button>
+            <button className="admin btn-view" onClick={() => setViewMode(viewMode === "table" ? "grid" : "table")}> {viewMode === "table" ? "Grid View" : "Table View"}</button>
           </div>
         </div>
 
@@ -496,7 +496,7 @@ async function handleActivate(id) {
 
                 {/* ACTIONS */}
                 <div className="form-actions">
-                  <button type="button" className="btn btn-view" onClick={() => setShowForm(false)}>
+                  <button type="button" className="admin btn-cancel" onClick={() => setShowForm(false)}>
                     Cancel
                   </button>
                   <button type="submit" className="btn btn-add">
