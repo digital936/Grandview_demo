@@ -119,6 +119,8 @@ async function handleActivate(id) {
     e.preventDefault();
     const payload = {
       ...form,
+      status: form.status.toLowerCase(),
+  category: form.category.toLowerCase(),
       price: Number(form.price),
       beds: Number(form.beds),
       baths: Number(form.baths),
@@ -450,16 +452,26 @@ function getMainImage(property) {
                 <div className="form-section">
                   <h4>Settings</h4>
                   <div className="grid-2">
-                    <select name="status" value={form.status} onChange={handleChange}>
+                    {/* <select name="status" value={form.status} onChange={handleChange}>
                       <option value="Available">Available</option>
                       <option value="Rented">Rented</option>
                       <option value="Sold">Sold</option>
                       <option value="Pending">Pending</option>
-                    </select>
-                    <select name="category" value={form.category} onChange={handleChange}>
+                    </select> */}
+                    <select name="status" value={form.status} onChange={handleChange}>
+  <option value="available">Available</option>
+  <option value="rented">Rented</option>
+  <option value="sold">Sold</option>
+  <option value="pending">Pending</option>
+</select>
+                    {/* <select name="category" value={form.category} onChange={handleChange}>
                       <option value="For Rent">For Rent</option>
                       <option value="For Sale">For Sale</option>
-                    </select>
+                    </select> */}
+                    <select name="category" value={form.category} onChange={handleChange}>
+  <option value="rent">For Rent</option>
+  <option value="sale">For Sale</option>
+</select>
                   </div>
                   <input
                     name="zillow_url"
