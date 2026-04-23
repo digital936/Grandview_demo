@@ -156,6 +156,15 @@ export default function PropertyDetails() {
             <a href="tel:+14799959165" className="pm-call-btn">
               Contact Agent
             </a>
+
+            {property.zillow_url && (
+  <button
+    className="pm-zillow-btn"
+    onClick={() => window.open(property.zillow_url, "_blank")}
+  >
+    View on Zillow
+  </button>
+)}
           </div>
         </div>
 
