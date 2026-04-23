@@ -36,6 +36,7 @@ export default function Rent() {
       .from("properties")
       .select("*")
       .eq("status", "available")
+      .eq("archived", false)
       .order("created_at", { ascending: false });
 
     const fetchedData = data || [];
