@@ -432,7 +432,7 @@ function getMainImage(property) {
                     <input name="price" value={form.price} onChange={handleChange} placeholder="Price ($)" type="number" min="0" />
                     <input name="sqft" value={form.sqft} onChange={handleChange} placeholder="Sq. feet" type="number" min="0" />
                     <input name="beds" value={form.beds} onChange={handleChange} placeholder="Bedrooms" type="number" min="0" />
-                    <input name="baths" value={form.baths} onChange={handleChange} placeholder="Bathrooms" type="number" min="0" />
+                    <input name="baths" value={form.baths} onChange={handleChange} placeholder="Bathrooms" type="number" min="0" step="0.1" />
                   </div>
                 </div>
 
